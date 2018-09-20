@@ -1,0 +1,4 @@
+﻿  main.cpp
+d:\документы\onedrive\документы\is\barley-break\main.cpp(51): warning C4715: barley_break::find_zero: значение возвращается не при всех путях выполнения
+  barley-break.vcxproj -> D:\Документы\OneDrive\Документы\IS\barley-break\Debug\barley-break.exe
+  barley-break.vcxproj -> D:\Документы\OneDrive\Документы\IS\barley-break\Debug\barley-break.pdb (Partial PDB)
