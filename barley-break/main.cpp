@@ -190,6 +190,7 @@ barley_break * A_star(barley_break * start, vector<int> goal)
 		for (auto v : current->neighbours())     
 			   if (u.find(v->positions) == u.end() || current->f() > v->f())
 				   q.push(v);
+			   else delete v;
 	}
 		
 	return nullptr;
@@ -333,7 +334,7 @@ int main()
 		}
 
 		s = clock();
-		end = solved_ida();
+		end  = solved_ida();
 		if (end != nullptr)
 		{
 			cout << "------------------------------" << endl << "IDA*: " << endl;
