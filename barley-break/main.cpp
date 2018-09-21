@@ -162,12 +162,12 @@ struct cmp
 };
 
 
-set<vector<int>> u;
+
 
 barley_break * A_star(barley_break * start, vector<int> goal)
 {
 	priority_queue<barley_break *, deque<barley_break*>, cmp> q;
-	
+	set<vector<int>> u;
 	
 	q.push(start); 
 	
@@ -205,11 +205,6 @@ barley_break * solved_A()
 	goal[15] = 0;
 
 	barley_break * b = A_star(start, goal);
-	
-	/*auto it = u.begin();
-	while (it != u.end())
-		u.erase(it++);
-	*/
 	return b;
 }
 
