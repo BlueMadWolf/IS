@@ -12,11 +12,11 @@ using namespace std;
 struct barley_break
 {
 	barley_break * parent;
-	vector<int> positions;
+	vector<short int> positions;
 	int g; 
 	int h;
 
-	barley_break(vector<int> v, barley_break * par = nullptr) : parent(par), positions(v) 
+	barley_break(vector<short int> v, barley_break * par = nullptr) : parent(par), positions(v) 
 	{ 
 		if (par == nullptr)
 			g = 0;
@@ -58,7 +58,7 @@ private:
 		return 2*cnt_conflict;
 	}
 
-	//манъеттонское по всем + линейный конфликт
+	//манхэттонское по всем + линейный конфликт
 	int  heuristic()
 	{
 		int s = 0;
@@ -79,7 +79,7 @@ private:
 	//создает новую позицию с перестановкой 0я
 	barley_break * step(int old_zero, int new_zero)
 	{
-		vector<int> v = positions;
+		vector<short int> v = positions;
 		swap(v[old_zero], v[new_zero]);
 		return new barley_break(v, this);
 	}
@@ -162,12 +162,10 @@ struct cmp
 };
 
 
-
-
-barley_break * A_star(barley_break * start, vector<int> goal)
+barley_break * A_star()
 {
 	priority_queue<barley_break *, deque<barley_break*>, cmp> q;
-	set<vector<int>> u;
+	set<vector<short int>> u;
 	
 	q.push(start); 
 	
@@ -175,7 +173,7 @@ barley_break * A_star(barley_break * start, vector<int> goal)
 	{
 		barley_break * current = q.top();
 		q.pop();
-		if (current->positions == goal)
+		if (current->h == 0)
 		{
 			while (!q.empty())
 			{
@@ -185,27 +183,28 @@ barley_break * A_star(barley_break * start, vector<int> goal)
 			}
 			return current;// нашли путь до нужной вершины
 		}
-		u.insert(current->positions);
 
-		for (auto v : current->neighbours())     
-			   if (u.find(v->positions) == u.end() || current->f() > v->f())
-				   q.push(v);
-			   else delete v;
+		for (auto v : current->neighbours())  
+		{ 
+			if (v->h == 0)
+			{
+				while (!q.empty())
+				{
+					barley_break * b = q.top();
+					delete b;
+					q.pop();
+				}
+				return v;
+			}
+
+			if (u.find(v->positions) == u.end())
+				q.push(v);
+			else delete v;
+		}
 	}
 		
 	return nullptr;
 
-}
-
-barley_break * solved_A()
-{
-	vector<int> goal(16);
-	for (int i = 0; i < 15; ++i)
-			goal[i] = i + 1;
-	goal[15] = 0;
-
-	barley_break * b = A_star(start, goal);
-	return b;
 }
 
 //разварачиваем решение и печатаем позиции с первой
@@ -237,15 +236,15 @@ void print_path(barley_break * b, time_t t)
 	cout << "steps: " << cnt - 1 << "   time: " << (double)(end - t) / CLOCKS_PER_SEC << endl << endl;
 }
 
-//алгоритм поиска для А*
-int search_ida(barley_break * b, int g, int bound, vector<int> goal, barley_break ** res)
+//алгоритм поиска для IDА*
+int search_ida(barley_break * b, int g, int bound,  barley_break ** res)
 {
 	int f = g + b->h;
 
 	if (f > bound)  
 		return f;
 	
-	if (b->positions == goal)
+	if (b->h == 0)
 	{
 		*res = b;
 		return -1; // флаг результата
@@ -255,7 +254,7 @@ int search_ida(barley_break * b, int g, int bound, vector<int> goal, barley_brea
 
 	for (auto v : b->neighbours())
 	{
-		int t = search_ida(v, g + 1, bound, goal, res);
+		int t = search_ida(v, g + 1, bound, res);
 		if (t == -1) 
 			return -1;
 		if (t < min) min = t;
@@ -265,7 +264,7 @@ int search_ida(barley_break * b, int g, int bound, vector<int> goal, barley_brea
 	return min;
 }
 
-barley_break * ida_star(barley_break * start, vector<int> goal)
+barley_break * ida_star()
 {
 	barley_break * res = nullptr;
 	int bound = start->h;
@@ -273,7 +272,7 @@ barley_break * ida_star(barley_break * start, vector<int> goal)
 
 	while (t != INT32_MAX)
 	{
-		int t = search_ida(start, 0, bound, goal, &res); // вызов поиска
+		int t = search_ida(start, 0, bound, &res); // вызов поиска
 		if (t == -1)
 			return res;
 		bound = t;
@@ -282,15 +281,6 @@ barley_break * ida_star(barley_break * start, vector<int> goal)
 	return res;
 }
 
-barley_break * solved_ida()
-{
-	vector<int> goal(16);
-	for (int i = 0; i < 15; ++i)
-		goal[i] = i + 1;
-	goal[15] = 0;
-
-	return ida_star(start, goal);
-}
 
 //ввод данных
 void inputData()
@@ -298,7 +288,7 @@ void inputData()
 	string initial_position;
 	cin >> initial_position;
 	//initial_position = "12349560EDA7FC8B";  //"143256C89AB7DEF0"; // "12345670D9A8ECBF"; //"12345678A90BCFDE";"12349560EDA7FC8B";  
-	vector<int> positions(16);
+	vector<short int> positions(16);
 
 	for (int i = 0; i < 16; ++i)
 		if (isdigit(initial_position[i]))
@@ -321,7 +311,7 @@ int main()
 	{
 		time_t s = clock();
 		
-		barley_break * end = solved_A();
+		barley_break * end = A_star();
 		if (end != nullptr)
 		{
 			cout << endl << "A*: " << endl;
@@ -329,7 +319,7 @@ int main()
 		}
 
 		s = clock();
-		end  = solved_ida();
+		end  = ida_star();
 		if (end != nullptr)
 		{
 			cout << "------------------------------" << endl << "IDA*: " << endl;
@@ -346,6 +336,10 @@ int main()
 //12345678A90BCFDE - 26
 //143256C89AB7DEF0 - 24
 //A64D8B3915EC02F7 - 51
+//51740D6C93A2E8BF - 31
+//1234057689ABCDFE - 33
+//2143057689ABCDFE - 45
+//A64B8D3951EC02F7 - 47
 /*
 1234567890BCDAFE
 It is impossible to find a solution.
