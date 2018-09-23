@@ -49,7 +49,7 @@ private:
 				int j = i + 1;
 				while (j % 4 > i % 4)
 				{
-					if (positions[i] > positions[j] && (positions[i] - 1) / 4 == (positions[j] - 1) / 4 && positions[j] != 0)
+					if (positions[i] > positions[j] && (positions[i] - 1) / 4 == (positions[j] - 1) / 4 && positions[j] != 0 && i/4 == (positions[i] - 1) / 4)
 						cnt_conflict++;
 					j++;
 				}
@@ -68,12 +68,15 @@ private:
 		return s + linear_conflict();
 	}
 
+public:
 	//находим позицию 0я
 	int find_zero()
 	{
 		for (int i = 0; i < 16; ++i)
 			if (positions[i] == 0)
 				return i;
+
+		return -1;
 	}
 
 	//создает новую позицию с перестановкой 0я
@@ -84,9 +87,10 @@ private:
 		return new barley_break(v, this);
 	}
 
-public:
+
 	//определяем новые позиции
-	list<barley_break *> neighbours()
+	//соседи вычисляются сразу в А* и IDA*, т.к. это занимает меньше времени
+	/*list<barley_break *> neighbours()
 	{
 		list<barley_break *> res;
 		barley_break * b;
@@ -117,8 +121,8 @@ public:
 				res.push_back(b);
 		}
 		return res;
-	}
-
+	}*/
+	
 	//печать матрицы на консоль
 	void printMatrix()
 	{
@@ -184,8 +188,42 @@ barley_break * A_star()
 			return current;// нашли путь до нужной вершины
 		}
 
-		for (auto v : current->neighbours())  
-		{ 
+		//соседи вычисляются прямо здесь для уменьшения времени работы на больших примерах
+		int z = current->find_zero();
+
+		barley_break * v;
+	
+		if (z % 4 != 0)
+		{
+			v = current->step(z, z - 1);
+			if ((current->parent == nullptr || v->positions != current->parent->positions )&& u.find(v->positions) == u.end())
+					q.push(v);
+				else delete v;
+				
+		}
+		if (z % 4 != 3)
+		{
+			v = current->step(z, z + 1);
+			if ((current->parent == nullptr || v->positions != current->parent->positions) && u.find(v->positions) == u.end())
+				q.push(v);
+			else delete v;
+		}
+		if (z / 4 != 0)
+		{
+			v = current->step(z, z - 4);
+			if ((current->parent == nullptr || v->positions != current->parent->positions) && u.find(v->positions) == u.end())
+				q.push(v);
+			else delete v;
+		}
+		if (z / 4 != 3)
+		{
+			v = current->step(z, z + 4);
+			if ((current->parent == nullptr || v->positions != current->parent->positions) && u.find(v->positions) == u.end())
+				q.push(v);
+			else delete v;
+		}
+		/*for (auto v : current->neighbours())
+		{
 			if (v->h == 0)
 			{
 				while (!q.empty())
@@ -200,7 +238,8 @@ barley_break * A_star()
 			if (u.find(v->positions) == u.end())
 				q.push(v);
 			else delete v;
-		}
+		}*/
+		
 	}
 		
 	return nullptr;
@@ -252,7 +291,8 @@ int search_ida(barley_break * b, int g, int bound,  barley_break ** res)
 
 	int min = INT32_MAX;
 
-	for (auto v : b->neighbours())
+	//соседи вычисляются прямо здесь для уменьшения времени работы на больших примерах
+	/*for (auto v : b->neighbours())
 	{
 		int t = search_ida(v, g + 1, bound, res);
 		if (t == -1) 
@@ -262,6 +302,61 @@ int search_ida(barley_break * b, int g, int bound,  barley_break ** res)
 	}
 
 	return min;
+	*/
+	int z = b->find_zero();
+	if (z % 4 != 0)
+	{
+		barley_break * v = b->step(z, z - 1);
+		if (b->parent == nullptr || v->positions != b->parent->positions)
+		{
+			int t = search_ida(v, g + 1, bound, res);
+			if (t == -1)
+				return -1;
+			if (t < min) min = t;
+			delete v;
+		}
+	}
+
+	if (z % 4 != 3)
+	{
+		barley_break * v = b->step(z, z + 1);
+		if (b->parent == nullptr || v->positions != b->parent->positions)
+		{
+			int t = search_ida(v, g + 1, bound, res);
+			if (t == -1)
+				return -1;
+			if (t < min) min = t;
+			delete v;
+		}
+	}
+
+	if (z / 4 != 0)
+	{
+		barley_break * v = b->step(z, z - 4);
+		if (b->parent == nullptr || v->positions != b->parent->positions)
+		{
+			int t = search_ida(v, g + 1, bound, res);
+			if (t == -1)
+				return -1;
+			if (t < min) min = t;
+			delete v;
+		}
+	}
+	if (z / 4 != 3)
+	{
+		barley_break * v = b->step(z, z + 4);
+		if (b->parent == nullptr || v->positions != b->parent->positions)
+		{
+			int t = search_ida(v, g + 1, bound, res);
+			if (t == -1)
+				return -1;
+			if (t < min) min = t;
+			delete v;
+		}
+
+	}
+	return min;
+	
 }
 
 barley_break * ida_star()
@@ -319,7 +414,7 @@ int main()
 		}
 
 		s = clock();
-		end  = ida_star();
+		end = ida_star();
 		if (end != nullptr)
 		{
 			cout << "------------------------------" << endl << "IDA*: " << endl;
