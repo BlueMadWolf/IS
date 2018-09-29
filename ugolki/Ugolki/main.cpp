@@ -1,7 +1,5 @@
 #include "Ugolki.h"
 
-checkers * me, * rival;
-
 void InputData()
 {
 	std::cout << "Will you be player 1 or 2?";
@@ -20,7 +18,6 @@ void InputData()
 			me = new checkers("H1G1F1E1H2G2F2E2H3G3F3E3");
 		}
 	}
-
 }
 
 int main()
