@@ -76,7 +76,7 @@ struct checkers
 private:
 
 	//внутренн€€ функци€ дл€ variants_of_positions, провер€ет возможность прыжков
-	void new_variants_of_steps(int our_pos, std::set<int> steps, std::list<int> new_steps)
+	void new_variants_of_steps(int our_pos, std::set<int> & steps, std::list<int> & new_steps)
 	{
 
 		if (our_pos % 8 != 7 && !right_free(our_pos)) //провер€ем прыжок вправо
