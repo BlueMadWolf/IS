@@ -8,6 +8,8 @@
 std::vector<bool> border(64, true); //для проверки занята ли конкретная позиция
 checkers * me, *rival;
 
+int num;
+
 //структура набора шашек
 struct checkers
 {
@@ -18,8 +20,8 @@ struct checkers
 	{
 		for (int i = 0; i < 12; ++i)
 		{
-			position.push_back((s[i * 2] - 'A' + 1) + (s[i * 2 + 1] - '0') * 8);
-			border[(s[i * 2] - 'A' + 1) + (s[i * 2 + 1] - '0') * 8] = false; //указываем, что данная клетка теперь занята
+			position.push_back((s[i * 2] - 'A' + 1) + (s[i * 2 + 1] - '1') * 8);
+			border[(s[i * 2] - 'A' + 1) + (s[i * 2 + 1] - '1') * 8] = false; //указываем, что данная клетка теперь занята
 		}
 	}
 
@@ -204,3 +206,23 @@ public:
 		return new_steps;
 	}
 };
+
+
+//является ли данная расстановка конечной
+bool isEnd(checkers * ch)
+{
+	if (num == 1)
+	{
+		for (int i = 0; i < 12; ++i)
+			if (ch->position[i] % 8 < 5 || ch->position[i] / 8 < 5)
+				return false;
+	}
+	else
+	{
+		for (int i = 0; i < 12; ++i)
+			if (ch->position[i] % 8 > 2 || ch->position[i] / 8 > 2)
+				return false;
+	}
+
+	return true;
+}
