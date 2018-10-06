@@ -4,46 +4,50 @@
 #include <string>
 #include <list>
 #include <set>
+#include <algorithm>
 
-std::vector<bool> border(64, true); //для проверки занята ли конкретная позиция
+
+using namespace std;
+
+std::vector<bool> board(64, true); //для проверки занята ли конкретная позиция
 checkers * me, *rival;
-
-int num;
 
 //структура набора шашек
 struct checkers
 {
 	checkers * parent;
 	std::vector<int> position;
+	int num_player;
 
-	checkers(std::string s, checkers * par = nullptr):parent(par)
+	checkers(std::string s, int num_player, checkers * par = nullptr):parent(par)
 	{
+		this->num_player = num_player;
 		for (int i = 0; i < 12; ++i)
 		{
 			position.push_back((s[i * 2] - 'A' + 1) + (s[i * 2 + 1] - '1') * 8);
-			border[(s[i * 2] - 'A' + 1) + (s[i * 2 + 1] - '1') * 8] = false; //указываем, что данная клетка теперь занята
+			board[(s[i * 2] - 'A' + 1) + (s[i * 2 + 1] - '1') * 8] = false; //указываем, что данная клетка теперь занята
 		}
 	}
 
-	checkers(std::vector<int> pos, checkers * par = nullptr) :parent(par), position(pos) {}
+	checkers(std::vector<int> pos, int numPlayer, checkers * par = nullptr) :parent(par), position(pos), num_player(numPlayer) {}
 
 	//создает дочерний узел с разницей в 1 шаг
 	checkers * step(int num_check, int new_positions)
 	{
 		std::vector<int> v = position;
 
-		border[v[num_check]] = true;  //не забываем изменить border
-		border[new_positions] = false;
+		board[v[num_check]] = true;  //не забываем изменить board
+		board[new_positions] = false;
 
 		v[num_check] = new_positions;
-		return new checkers(v, this);
+		return new checkers(v, num_player, this);
 	}
 
 	//свободна ли позиция справа 
 	bool right_free(int our_pos) 
 	{
 		if (our_pos % 8 != 7)
-			if (border[our_pos + 1])
+			if (board[our_pos + 1])
 				return true;
 		return false;
 	}
@@ -52,7 +56,7 @@ struct checkers
 	bool left_free(int our_pos)
 	{
 		if (our_pos % 8 != 0)
-			if (border[our_pos - 1])
+			if (board[our_pos - 1])
 				return true;
 		return false;
 	}
@@ -61,7 +65,7 @@ struct checkers
 	bool down_free(int our_pos)
 	{
 		if (our_pos / 8 != 0)
-			if (border[our_pos - 8])
+			if (board[our_pos - 8])
 				return true;
 		return false;
 	}
@@ -70,7 +74,7 @@ struct checkers
 	bool up_free(int our_pos)
 	{
 		if (our_pos / 8 != 7)
-			if (border[our_pos + 8])
+			if (board[our_pos + 8])
 				return true;
 		return false;
 	}
@@ -205,24 +209,88 @@ public:
 			}
 		return new_steps;
 	}
+
+	//является ли данная расстановка конечной
+	bool isEnd()
+	{
+		if (num_player == 1)
+		{
+			for (int i = 0; i < 12; ++i)
+				if (position[i] % 8 < 5 || position[i] / 8 < 5)
+					return false;
+		}
+		else
+		{
+			for (int i = 0; i < 12; ++i)
+				if (position[i] % 8 > 2 || position[i] / 8 > 2)
+					return false;
+		}
+
+		return true;
+	}
 };
 
-
-//является ли данная расстановка конечной
-bool isEnd(checkers * ch)
+int manhattan_dist(int curr_pos, int goal_pos)
 {
-	if (num == 1)
+	return abs(goal_pos - curr_pos) / 8 + abs(goal_pos - curr_pos) % 8;
+}
+
+vector<pair<int, int>>& get_manh_distances(checkers* curr_player)
+{
+	//Позиция, манх расстояние
+	vector<pair<int, int>> manh_distances(12);
+
+	int goal_pos = 0;
+	if (curr_player->num_player == 1)
+		goal_pos = 63;
+
+	for (int i = 0; i < 12; ++i)
 	{
-		for (int i = 0; i < 12; ++i)
-			if (ch->position[i] % 8 < 5 || ch->position[i] / 8 < 5)
-				return false;
+		manh_distances[i] = make_pair(curr_player->position[i], manhattan_dist(curr_player->position[i], goal_pos));
+	}
+
+	//Сортировка по расстояниям
+	sort(manh_distances.begin(), manh_distances.end(),
+		[](pair<int, int> p1, pair<int, int> p2) {return p1.second < p2.second; });
+
+	return manh_distances;
+}
+
+int closest_to_goal_free_position(vector<bool>& curr_board, int num_player)
+{
+	vector<int> variants_of_position(28);
+	if (num_player == 1)
+	{
+		variants_of_position = {63, 62, 55, 61, 54, 47, 60, 53, 46, 39, 59, 52, 
+			45, 38, 31, 58, 51, 44, 37, 30, 23, 57, 50, 43, 36, 29, 22, 15};
 	}
 	else
 	{
-		for (int i = 0; i < 12; ++i)
-			if (ch->position[i] % 8 > 2 || ch->position[i] / 8 > 2)
-				return false;
+		variants_of_position = { 0, 1, 8, 2, 9, 16, 3, 10, 17, 24, 4, 11, 
+			18, 25, 32, 5, 12, 19, 26, 33, 40, 6, 13, 20, 27, 34, 41, 48 };
 	}
 
-	return true;
+	for (int i = 0; i < variants_of_position.size(); ++i)
+	{
+		if (curr_board[variants_of_position[i]])
+			return variants_of_position[i];
+	}
+}
+
+int cnt_steps_to_best_free_pos(vector<bool> curr_board, checkers * curr_player, int curr_pos)
+{
+	int best_pos = closest_to_goal_free_position(curr_board, curr_player->num_player);
+	
+}
+
+
+int heuristic1(vector<bool> curr_board, checkers * curr_player)
+{
+	vector<bool> old_board = board;
+	board = curr_board;
+
+	vector<pair<int, int>> manh_distances = get_manh_distances(curr_player);
+	
+
+	board = old_board;
 }

@@ -3,18 +3,19 @@
 void InputData()
 {
 	std::cout << "Will you be player 1 or 2?";
-	std::cin >> num;
+	int num_p;
+	std::cin >> num_p;
 
-	if (num == 1)
+	if (num_p == 1)
 	{
-		me = new checkers("A1B1C1D1A2B2C2D2A3B3C3D3");
-		rival = new checkers("H8G8F8E8H7G7F7E7H6G6F6E6");
+		me = new checkers("A1B1C1D1A2B2C2D2A3B3C3D3", 1);
+		rival = new checkers("H8G8F8E8H7G7F7E7H6G6F6E6", 2);
 	}
 	else
 	{
 		{
-			rival = new checkers("A1B1C1D1A2B2C2D2A3B3C3D3");
-			me = new checkers("H8G8F8E8H7G7F7E7H6G6F6E6");
+			rival = new checkers("A1B1C1D1A2B2C2D2A3B3C3D3", 1);
+			me = new checkers("H8G8F8E8H7G7F7E7H6G6F6E6", 2);
 		}
 	}
 }
