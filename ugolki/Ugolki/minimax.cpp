@@ -3,28 +3,35 @@
 
 using namespace std;
 
-int _score(int alpha, int beta){  //depth пока не используем, сначала раскрываем ветки до конца
-	checkers x(); //заглушка. На каждой итерации будет дана позиция
-	int score_best = alpha;                          
-	int score;
-	// цикл по всем получаемым соседям
-	//вычисление следующего хода и сохранение оценки в score
-	//рекурисивно вызывается функция score = -score_alphabeta (depth - 1, beta, -best); //-beta?
-	//
-	if (score > score_best) {
-      score_best = score;
-      if (score_best > beta)
-		  return score_best;
-        //break;    
-    }
-}
-
-void minimax(){
-	checkers start_position(); //Позиция при получении очередного хода противника
-	int alpha = INT_MIN, beta = INT_MAX;
-	//Инициализируем игровую доску
-	//
-	//_score(alpha = -INFINITY, beta = +INFINITY);
-	//
-	//
-}
+//Пока минимакс чистый пытаемся 
+//Сайт1 https://stackoverrun.com/ru/q/9394120
+int minimax(int depth, checkers* cur){
+	if (!depth || cur->isEnd())
+		return heuristic1(board, cur);
+	// Если компьютер
+	int best_score;
+	if(cur == me){
+		best_score = INT_MIN;   //Внимательнее посмотреть тут. 
+		for(int x = 0; x < cur->position.size(); ++x){
+			list<int> variants = cur->variants_of_steps(x);
+			for(int y : variants){
+				checkers* temp = cur->step(x,y);
+				int score = minimax(depth-1, temp); //Здесь запускается противник, с сохранением нашего хода???? 
+				best_score = max(score, best_score);
+			}
+		}
+	}
+	//Если противник
+	else{
+		best_score = INT_MAX;   //Внимательнее посмотреть тут. 
+		for(int x = 0; x < cur->position.size(); ++x){
+			list<int> variants = cur->variants_of_steps(x);
+			for(int y : variants){
+				checkers* temp = cur->step(x,y);
+				int score = minimax(depth-1, temp);  //Здесь запускается компьютер, с сохранением хода противника????
+				best_score = min(score, best_score);
+			}
+		}
+	}
+	return best_score;
+}   
