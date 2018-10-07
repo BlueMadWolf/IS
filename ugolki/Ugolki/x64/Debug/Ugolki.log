@@ -1,9 +1,4 @@
 ﻿  main.cpp
-c:\users\alex\documents\git portable\is\ugolki\ugolki\ugolki.h(302): warning C4930: std::set<std::vector<int,std::allocator<_Ty>>,std::less<_Kty>,std::allocator<_Kty>> used_positions(std::vector<_Ty,std::allocator<_Ty>> (__cdecl *)(void)): функция с прототипом не вызвана (предполагалось определение переменной?)
-          with
-          [
-              _Ty=int,
-              _Kty=std::vector<int,std::allocator<int>>
-          ]
 c:\users\alex\documents\git portable\is\ugolki\ugolki\ugolki.h(263): warning C4172: возвращение адреса локальной или временной переменной : manh_distances
+c:\users\alex\documents\git portable\is\ugolki\ugolki\ugolki.h(282): warning C4172: возвращение адреса локальной или временной переменной : manh_distances
   Ugolki.vcxproj -> C:\Users\Alex\Documents\Git Portable\IS\ugolki\Ugolki\x64\Debug\Ugolki.exe

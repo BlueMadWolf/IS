@@ -44,7 +44,6 @@ struct checkers
 
 	~checkers() 
 	{
-		delete parent;
 		delete &position;
 	}
 
@@ -242,27 +241,7 @@ int manhattan_dist(int curr_pos, int goal_pos)
 	return abs(goal_pos - curr_pos) / 8 + abs(goal_pos - curr_pos) % 8;
 }
 
-vector<pair<int, int>>& get_manh_distances(checkers* curr_player)
-{
-	//Позиция, манх расстояние
-	vector<pair<int, int>> manh_distances(12);
-
-	int goal_pos = 0;
-	if (curr_player->num_player == 1)
-		goal_pos = 63;
-
-	for (int i = 0; i < 12; ++i)
-	{
-		manh_distances[i] = make_pair(curr_player->position[i], manhattan_dist(curr_player->position[i], goal_pos));
-	}
-
-	//Сортировка по расстояниям
-	sort(manh_distances.begin(), manh_distances.end(),
-		[](pair<int, int> p1, pair<int, int> p2) {return p1.second < p2.second; });
-
-	return manh_distances;
-}
-
+//<Позиция, манхэттэнское расстояниe до goal_pos>
 vector<pair<int, int>>& get_manh_distances(list<int>& variants, int goal_pos)
 {
 	//Позиция, манх расстояние
@@ -282,17 +261,33 @@ vector<pair<int, int>>& get_manh_distances(list<int>& variants, int goal_pos)
 	return manh_distances;
 }
 
+
+/*
+56	57	58	59	60	61	62	63
+48	49	50	51	52	53	54	55
+40	41	42	43	44	45	46	47
+32	33	34	35	36	37	38	39
+24	25	26	27	28	29	30	31
+16	17	18	19	20	21	22	23
+8	9	10	11	12	13	14	15
+0	1	2	3	4	5	6	7
+*/
+//Свободная позиция, которая ближе всего к целевому прямоугольнику
 int closest_to_goal_free_position(vector<bool>& curr_board, int num_player)
 {
 	vector<int> variants_of_best_position(28);
 	if (num_player == 1)
 	{
+		//Внутри целевого прямоугольника
 		variants_of_best_position = {63, 62, 55, 61, 54, 47, 60, 53, 46, 52, 45, 44,
+			//Ближайшие к целевому прямоугольнику
 			39, 59, 38, 51, 37, 43, 36, 35, 31, 58, 30, 50, 29, 42, 28, 34, 27, 26};
 	}
 	else
 	{
+		//Внутри целевого прямоугольника
 		variants_of_best_position = { 0, 1, 8, 2, 9, 16, 3, 10, 17, 11, 18, 19,
+			//Ближайшие к целевому прямоугольнику
 			24, 4, 25, 12, 26, 20, 27, 28, 32, 5, 33, 13, 34, 21, 35, 29, 36, 37};
 	}
 
@@ -304,9 +299,9 @@ int closest_to_goal_free_position(vector<bool>& curr_board, int num_player)
 	return 0;
 }
 
+//Количество шагов от текущей позиции до свободной, ближайшей к прямоугольнику 
 int cnt_steps_to_best_free_pos(vector<bool>& curr_board, checkers * curr_player, int curr_pos)
 {
-	
 	int best_pos = closest_to_goal_free_position(curr_board, curr_player->num_player);
 	
 	if (curr_pos == best_pos)
@@ -318,39 +313,67 @@ int cnt_steps_to_best_free_pos(vector<bool>& curr_board, checkers * curr_player,
 		return 16;
 	}
 
-	
-	set<vector<int>> used_positions(vector<int>());
+	//Позиции, которые уже использовались
+	set<int> used_positions;
+	used_positions.insert(curr_pos);
 
 	int cnt_steps = 0;
 	while (true)
 	{
-		int min_manh = 16;
-		int min_step = 0;
-		vector<pair<int, int>> manh_distances = get_manh_distances(curr_player);
-		for (int next_pos : vars)
+		if (curr_pos == best_pos)
+			return cnt_steps;
+
+		//Поиск лучшего шага для текущей позиции
+		list<int> vars = curr_player->variants_of_steps(curr_pos);
+		vector<pair<int, int>> manh_distances = get_manh_distances(vars, best_pos);
+		//Первая неиспользованная позиция в списке возможных ходов. Список отсортирован по манх расстоянию
+		int best_step = -1;
+		for (auto& p : manh_distances)
 		{
-			int next_dist = manhattan_dist(next_pos, best_pos);
-			if (next_dist < min_manh)
+			auto it = used_positions.find(p.first);
+			if (it == used_positions.end())
 			{
-				min_manh = next_dist;
-				min_step = next_pos;
+				used_positions.insert(p.first);
+				best_step = p.first;
+				break;
 			}
 		}
+
+		//Зацикливание
+		if (best_step == -1)
+			throw exception("No variants for doing step; curr_pos = " + curr_pos);
+
+		//Обновить текущую позицию
+		curr_pos = best_step;
+		//Обновить игрока (сделать шаг)
+		checkers * new_player_step = curr_player->step(curr_pos, best_step);
+		delete curr_player;
+		curr_player = new_player_step;
+		//Увеличить счётчик
+		++cnt_steps;
 	}
+	return cnt_steps;
 }
 
 
 int heuristic1(vector<bool> curr_board, checkers * curr_player)
 {
+	//Запоминание предыдущих board и player
 	vector<bool> old_board = board;
 	board = curr_board;
 	checkers * old_player = new checkers(curr_player->position, curr_player->num_player, curr_player->parent);
 
-	vector<pair<int, int>> manh_distances = get_manh_distances(curr_player);
-	
+	//Стоимость - сумма чисел шагов для каждой шашки, которые нужны чтобы шашка попала в целевой прямоугольник
+	int sum_cost = 0;
+	for (int i = 0; i < 12; ++i)
+	{
+		sum_cost += cnt_steps_to_best_free_pos(board, curr_player, curr_player->position[i]);
+	}
 
+	//Восстановление предыдущих board и player
 	board = old_board;
 	delete curr_player;
 	curr_player = old_player;
-	return 0;
+
+	return sum_cost;
 }
