@@ -216,13 +216,13 @@ public:
 		if (num_player == 1)
 		{
 			for (int i = 0; i < 12; ++i)
-				if (position[i] % 8 < 5 || position[i] / 8 < 5)
+				if (position[i] % 8 < 4 || position[i] / 8 < 5)
 					return false;
 		}
 		else
 		{
 			for (int i = 0; i < 12; ++i)
-				if (position[i] % 8 > 2 || position[i] / 8 > 2)
+				if (position[i] % 8 > 3 || position[i] / 8 > 2)
 					return false;
 		}
 
@@ -261,13 +261,13 @@ int closest_to_goal_free_position(vector<bool>& curr_board, int num_player)
 	vector<int> variants_of_position(28);
 	if (num_player == 1)
 	{
-		variants_of_position = {63, 62, 55, 61, 54, 47, 60, 53, 46, 39, 59, 52, 
-			45, 38, 31, 58, 51, 44, 37, 30, 23, 57, 50, 43, 36, 29, 22, 15};
+		variants_of_position = {63, 62, 55, 61, 54, 47, 60, 53, 46, 52, 45, 44, 
+			39, 59, 38, 51, 37, 43, 36, 35, 31, 58, 30, 50, 29, 42, 28, 34, 27, 26};
 	}
 	else
 	{
-		variants_of_position = { 0, 1, 8, 2, 9, 16, 3, 10, 17, 24, 4, 11, 
-			18, 25, 32, 5, 12, 19, 26, 33, 40, 6, 13, 20, 27, 34, 41, 48 };
+		variants_of_position = { 0, 1, 8, 2, 9, 16, 3, 10, 17, 11, 18, 19, 
+			24, 4, 25, 12, 26, 20, 27, 28, 32, 5, 33, 13, 34, 21, 35, 29, 36, 37};
 	}
 
 	for (int i = 0; i < variants_of_position.size(); ++i)
