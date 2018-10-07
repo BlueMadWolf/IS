@@ -9,7 +9,7 @@
 
 using namespace std;
 
-vector<bool> board(64, true); //для проверки занята ли конкретная позиция
+vector<bool> board(64, false); //для проверки занята ли конкретная позиция
 
 //структура набора шашек
 struct checkers
@@ -24,7 +24,7 @@ struct checkers
 		for (int i = 0; i < 12; ++i)
 		{
 			position.push_back((s[i * 2] - 'A' + 1) + (s[i * 2 + 1] - '1') * 8);
-			board[(s[i * 2] - 'A' + 1) + (s[i * 2 + 1] - '1') * 8] = false; //указываем, что данная клетка теперь занята
+			board[(s[i * 2] - 'A') + (s[i * 2 + 1] - '1') * 8] = true; //указываем, что данная клетка теперь занята
 		}
 	}
 
@@ -35,8 +35,8 @@ struct checkers
 	{
 		std::vector<int> v = position;
 
-		board[v[num_check]] = true;  //не забываем изменить board
-		board[new_positions] = false;
+		board[v[num_check]] = false;  //не забываем изменить board
+		board[new_positions] = true;
 
 		v[num_check] = new_positions;
 		return new checkers(v, num_player, this);
@@ -51,7 +51,7 @@ struct checkers
 	bool right_free(int our_pos) 
 	{
 		if (our_pos % 8 != 7)
-			if (board[our_pos + 1])
+			if (!board[our_pos + 1])
 				return true;
 		return false;
 	}
@@ -60,7 +60,7 @@ struct checkers
 	bool left_free(int our_pos)
 	{
 		if (our_pos % 8 != 0)
-			if (board[our_pos - 1])
+			if (!board[our_pos - 1])
 				return true;
 		return false;
 	}
@@ -69,7 +69,7 @@ struct checkers
 	bool down_free(int our_pos)
 	{
 		if (our_pos / 8 != 0)
-			if (board[our_pos - 8])
+			if (!board[our_pos - 8])
 				return true;
 		return false;
 	}
@@ -78,7 +78,7 @@ struct checkers
 	bool up_free(int our_pos)
 	{
 		if (our_pos / 8 != 7)
-			if (board[our_pos + 8])
+			if (!board[our_pos + 8])
 				return true;
 		return false;
 	}
@@ -231,6 +231,11 @@ public:
 		}
 
 		return true;
+	}
+
+	friend bool operator==(checkers c1, checkers c2)
+	{
+		return c1.position == c2.position && c1.parent == c2.parent;
 	}
 };
 
