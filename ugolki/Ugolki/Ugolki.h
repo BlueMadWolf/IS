@@ -9,8 +9,7 @@
 
 using namespace std;
 
-std::vector<bool> board(64, true); //для проверки занята ли конкретная позиция
-checkers * me, *rival;
+vector<bool> board(64, true); //для проверки занята ли конкретная позиция
 
 //структура набора шашек
 struct checkers
@@ -41,6 +40,12 @@ struct checkers
 
 		v[num_check] = new_positions;
 		return new checkers(v, num_player, this);
+	}
+
+	~checkers() 
+	{
+		delete parent;
+		delete &position;
 	}
 
 	//свободна ли позиция справа 
@@ -230,6 +235,8 @@ public:
 	}
 };
 
+checkers * me, *rival;
+
 int manhattan_dist(int curr_pos, int goal_pos)
 {
 	return abs(goal_pos - curr_pos) / 8 + abs(goal_pos - curr_pos) % 8;
@@ -256,31 +263,80 @@ vector<pair<int, int>>& get_manh_distances(checkers* curr_player)
 	return manh_distances;
 }
 
+vector<pair<int, int>>& get_manh_distances(list<int>& variants, int goal_pos)
+{
+	//Позиция, манх расстояние
+	vector<pair<int, int>> manh_distances(variants.size());
+
+	int i = 0;
+	for (int curr_var_pos: variants)
+	{
+		manh_distances[i] = make_pair(curr_var_pos, manhattan_dist(curr_var_pos, goal_pos));
+		++i;
+	}
+
+	//Сортировка по расстояниям
+	sort(manh_distances.begin(), manh_distances.end(),
+		[](pair<int, int> p1, pair<int, int> p2) {return p1.second < p2.second; });
+
+	return manh_distances;
+}
+
 int closest_to_goal_free_position(vector<bool>& curr_board, int num_player)
 {
-	vector<int> variants_of_position(28);
+	vector<int> variants_of_best_position(28);
 	if (num_player == 1)
 	{
-		variants_of_position = {63, 62, 55, 61, 54, 47, 60, 53, 46, 52, 45, 44, 
+		variants_of_best_position = {63, 62, 55, 61, 54, 47, 60, 53, 46, 52, 45, 44,
 			39, 59, 38, 51, 37, 43, 36, 35, 31, 58, 30, 50, 29, 42, 28, 34, 27, 26};
 	}
 	else
 	{
-		variants_of_position = { 0, 1, 8, 2, 9, 16, 3, 10, 17, 11, 18, 19, 
+		variants_of_best_position = { 0, 1, 8, 2, 9, 16, 3, 10, 17, 11, 18, 19,
 			24, 4, 25, 12, 26, 20, 27, 28, 32, 5, 33, 13, 34, 21, 35, 29, 36, 37};
 	}
 
-	for (int i = 0; i < variants_of_position.size(); ++i)
+	for (int i = 0; i < variants_of_best_position.size(); ++i)
 	{
-		if (curr_board[variants_of_position[i]])
-			return variants_of_position[i];
+		if (curr_board[variants_of_best_position[i]])
+			return variants_of_best_position[i];
 	}
+	return 0;
 }
 
-int cnt_steps_to_best_free_pos(vector<bool> curr_board, checkers * curr_player, int curr_pos)
+int cnt_steps_to_best_free_pos(vector<bool>& curr_board, checkers * curr_player, int curr_pos)
 {
+	
 	int best_pos = closest_to_goal_free_position(curr_board, curr_player->num_player);
 	
+	if (curr_pos == best_pos)
+		return 0;
+
+	list<int> vars = curr_player->variants_of_steps(curr_pos);
+	if (vars.size() == 0)
+	{
+		return 16;
+	}
+
+	
+	set<vector<int>> used_positions(vector<int>());
+
+	int cnt_steps = 0;
+	while (true)
+	{
+		int min_manh = 16;
+		int min_step = 0;
+		vector<pair<int, int>> manh_distances = get_manh_distances(curr_player);
+		for (int next_pos : vars)
+		{
+			int next_dist = manhattan_dist(next_pos, best_pos);
+			if (next_dist < min_manh)
+			{
+				min_manh = next_dist;
+				min_step = next_pos;
+			}
+		}
+	}
 }
 
 
@@ -288,9 +344,13 @@ int heuristic1(vector<bool> curr_board, checkers * curr_player)
 {
 	vector<bool> old_board = board;
 	board = curr_board;
+	checkers * old_player = new checkers(curr_player->position, curr_player->num_player, curr_player->parent);
 
 	vector<pair<int, int>> manh_distances = get_manh_distances(curr_player);
 	
 
 	board = old_board;
+	delete curr_player;
+	curr_player = old_player;
+	return 0;
 }
