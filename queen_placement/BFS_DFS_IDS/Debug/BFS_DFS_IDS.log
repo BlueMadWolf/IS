@@ -1,0 +1,8 @@
+﻿  main.cpp
+c:\flash\portablegit\is\queen_placement\bfs_dfs_ids\main.cpp(42): warning C4018: <: несоответствие типов со знаком и без знака
+c:\flash\portablegit\is\queen_placement\bfs_dfs_ids\main.cpp(44): warning C4018: <: несоответствие типов со знаком и без знака
+c:\flash\portablegit\is\queen_placement\bfs_dfs_ids\main.cpp(54): warning C4018: <: несоответствие типов со знаком и без знака
+c:\flash\portablegit\is\queen_placement\bfs_dfs_ids\main.cpp(82): warning C4018: <: несоответствие типов со знаком и без знака
+c:\flash\portablegit\is\queen_placement\bfs_dfs_ids\main.cpp(96): warning C4018: <: несоответствие типов со знаком и без знака
+c:\flash\portablegit\is\queen_placement\bfs_dfs_ids\main.cpp(105): warning C4018: <: несоответствие типов со знаком и без знака
+  BFS_DFS_IDS.vcxproj -> C:\flash\PortableGit\IS\queen_placement\BFS_DFS_IDS\Debug\BFS_DFS_IDS.exe

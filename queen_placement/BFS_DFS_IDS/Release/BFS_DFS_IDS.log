@@ -1,0 +1,13 @@
+﻿  main.cpp
+main.cpp(42): warning C4018: <: несоответствие типов со знаком и без знака
+main.cpp(44): warning C4018: <: несоответствие типов со знаком и без знака
+main.cpp(54): warning C4018: <: несоответствие типов со знаком и без знака
+main.cpp(82): warning C4018: <: несоответствие типов со знаком и без знака
+main.cpp(96): warning C4018: <: несоответствие типов со знаком и без знака
+main.cpp(105): warning C4018: <: несоответствие типов со знаком и без знака
+  Создание кода
+  21 of 527 functions ( 4.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    2 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+  BFS_DFS_IDS.vcxproj -> C:\flash\PortableGit\IS\queen_placement\BFS_DFS_IDS\Release\BFS_DFS_IDS.exe
