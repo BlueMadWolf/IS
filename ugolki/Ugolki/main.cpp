@@ -15,10 +15,13 @@ void based_template()
 void find_pos()
 {
 	int m = 2;
-	for (int i = 0; i < 8; ++i)
+	for (int i = 0; i < 12; ++i)
 	{
-		print_info[2 + (me->position[i]) % 8][(2 + (me->position[i]) / 8) * 2] = '0';
-		print_info[2 + (rival->position[i]) % 8][(2 + (rival->position[i]) / 8) * 2] = (char)('0' + i);
+		print_info[2 + (me->position[i]) / 8][(1 + (me->position[i]) % 8) * 2] = '0';
+		if(i > 8)
+			print_info[2 + (rival->position[i]) / 8][(1 + (rival->position[i]) % 8) * 2] = (char)('a' + i-9);
+		else
+			print_info[2 + (rival->position[i]) / 8][(1 + (rival->position[i]) % 8) * 2] = (char)('1' + i);
 	}
 }
 
@@ -72,7 +75,7 @@ int main()
 			cout<< "Player" + to_string(rival->num_player) + " lose" << endl;
 		else
 		{
-			cout << endl << "Choose cheker (1-8): " ;
+			cout << endl << "Choose cheker (1-12 (a = 10, c = 12)): " ;
 			int n;
 			cin >> n;
 			cout << endl << "Make step: ";
