@@ -42,11 +42,6 @@ struct checkers
 		return new checkers(v, num_player, this);
 	}
 
-	~checkers() 
-	{
-		delete &position;
-	}
-
 	//свободна ли позиция справа 
 	bool right_free(int our_pos) 
 	{
@@ -247,7 +242,7 @@ int manhattan_dist(int curr_pos, int goal_pos)
 }
 
 //<Позиция, манхэттэнское расстояниe до goal_pos>
-vector<pair<int, int>>& get_manh_distances(list<int>& variants, int goal_pos)
+vector<pair<int, int>> get_manh_distances(list<int>& variants, int goal_pos)
 {
 	//Позиция, манх расстояние
 	vector<pair<int, int>> manh_distances(variants.size());
@@ -329,7 +324,7 @@ int cnt_steps_to_best_free_pos(vector<bool>& curr_board, checkers * curr_player,
 			return cnt_steps;
 
 		//Поиск лучшего шага для текущей позиции
-		list<int> vars = curr_player->variants_of_steps(curr_pos);
+		vars = curr_player->variants_of_steps(curr_pos);
 		vector<pair<int, int>> manh_distances = get_manh_distances(vars, best_pos);
 		//Первая неиспользованная позиция в списке возможных ходов. Список отсортирован по манх расстоянию
 		int best_step = -1;
@@ -348,12 +343,12 @@ int cnt_steps_to_best_free_pos(vector<bool>& curr_board, checkers * curr_player,
 		if (best_step == -1)
 			throw exception("No variants for doing step; curr_pos = " + curr_pos);
 
-		//Обновить текущую позицию
-		curr_pos = best_step;
+		
 		//Обновить игрока (сделать шаг)
 		checkers * new_player_step = curr_player->step(curr_pos, best_step);
-		delete curr_player;
 		curr_player = new_player_step;
+		//Обновить текущую позицию
+		curr_pos = best_step;
 		//Увеличить счётчик
 		++cnt_steps;
 	}
@@ -377,7 +372,6 @@ int heuristic1(vector<bool> curr_board, checkers * curr_player)
 
 	//Восстановление предыдущих board и player
 	board = old_board;
-	delete curr_player;
 	curr_player = old_player;
 
 	return sum_cost;
