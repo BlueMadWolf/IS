@@ -1,12 +1,13 @@
-#include "Ugolki.h"
 #include <climits>
-#include "tree_minimax.h"
+#include "Ugolki.h"
 #include <queue>
 using namespace std;
 
 const int ddepth = 3;
 
-priority_queue<board_node*,bd_comp> q; 
+//priority_queue<board_node*,bd_comp> q; 
+
+int minimax(int depth, bool comp, board_node* bd, int a, int b, checkers* me_c, checkers* rival_c);
 
 pair<int,int> start(checkers* m, checkers* r){
 	//ƒопустим, что берем значени€ уже готовые
@@ -14,9 +15,10 @@ pair<int,int> start(checkers* m, checkers* r){
 	checkers* me_c = new checkers(*m);
 	checkers* rival_c = new checkers(*r);
 	int score_gen = minimax(ddepth, true, s, INT_MIN, INT_MAX, me_c, rival_c);
-	board_node* temp = q.top();
+	//board_node* temp = q.top();
 	
-	pair<int,int> pr(temp->ind, temp->pos);
+	//pair<int,int> pr(temp->ind, temp->pos);
+	pair<int, int> pr(1, 1);
 	return pr;
 }
 
@@ -33,7 +35,7 @@ int minimax(int depth, bool comp, board_node* bd, int a, int b, checkers* me_c, 
 			list<int> variants = me_c->variants_of_steps(x);
 			for(int y : variants){
 				board_node* next = new board_node(me_c,x,y,bd);
-				if(depth == ddepth) q.push(next);
+				//if(depth == ddepth) q.push(next);
 				score = minimax(depth-1, false, next, a, b, me_c, rival_c); 
 				if(next->parent!=nullptr) next->parent->score = score;
 				a = max(a, score);
@@ -53,11 +55,17 @@ int minimax(int depth, bool comp, board_node* bd, int a, int b, checkers* me_c, 
 			list<int> variants = rival_c->variants_of_steps(x);
 			for(int y : variants){
 				board_node* next = new board_node(rival_c,x,y,bd);
-				if(depth == ddepth) q.push(next);
+				//if(depth == ddepth) q.push(next);
 				score = minimax(depth-1, true, next, a,b,me_c, rival_c);
 				b = min(b, score);
 				if (a>=b) return score;
 			}
 		}
 	}
-}   
+}
+
+void step(vector<bool> & cur_board, checkers* cur, int num_check, int new_positions) {
+	cur_board[cur->position[num_check]] = true;
+	cur_board[new_positions] = false;
+	cur->position[num_check] = new_positions;
+}

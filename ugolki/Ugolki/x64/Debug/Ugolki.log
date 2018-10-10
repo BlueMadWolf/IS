@@ -1,4 +1,5 @@
 ﻿  main.cpp
-d:\документы\onedrive\документы\is\ugolki\ugolki\ugolki.h(266): warning C4172: возвращение адреса локальной или временной переменной : manh_distances
-  Ugolki.vcxproj -> D:\Документы\OneDrive\Документы\IS\ugolki\Ugolki\x64\Debug\Ugolki.exe
-  Ugolki.vcxproj -> D:\Документы\OneDrive\Документы\IS\ugolki\Ugolki\x64\Debug\Ugolki.pdb (Partial PDB)
+c:\users\arudnev\documents\gitportable\is\ugolki\ugolki\ugolki.h(266): warning C4172: возвращение адреса локальной или временной переменной : manh_distances
+c:\users\arudnev\documents\gitportable\is\ugolki\ugolki\ugolki.h(471): warning C4715: minimax: значение возвращается не при всех путях выполнения
+  Ugolki.vcxproj -> C:\Users\arudnev\Documents\GitPortable\IS\ugolki\Ugolki\x64\Debug\Ugolki.exe
+  Ugolki.vcxproj -> C:\Users\arudnev\Documents\GitPortable\IS\ugolki\Ugolki\x64\Debug\Ugolki.pdb (Partial PDB)

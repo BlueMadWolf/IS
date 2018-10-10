@@ -1,3 +1,4 @@
+//#include "Ugolki.h"
 #include "Ugolki.h"
 
 void InputData()
@@ -23,4 +24,5 @@ void InputData()
 int main()
 {
 	InputData();
+	start(me, rival);
 }

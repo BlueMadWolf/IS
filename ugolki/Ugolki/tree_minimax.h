@@ -1,4 +1,6 @@
-#include "Ugolki.h"
+//#include "Ugolki.h"
+/*
+void step(vector<bool> & cur_board, checkers* cur, int num_check, int new_positions);
 
 class board_node{
 public:
@@ -14,14 +16,11 @@ public:
 	}
 };
 
-void step(vector<bool> & cur_board, checkers* cur, int num_check, int new_positions){
-	cur_board[cur->position[num_check]] = true;  
-	cur_board[new_positions] = false;
-	cur->position[num_check] = new_positions;
-}
 
-struct bd_comp{
+/*struct bd_comp{
 	bool operator() (board_node* s1, board_node* s2) const{
 		return (s1->score < s2->score); //??
 	}
 };
+
+pair<int, int> start(checkers* m, checkers* r);*/
