@@ -1,19 +1,21 @@
 #include <iostream>
 #include <vector>
 #include <list>
-#include <queue>
+
 using namespace std;
+
+int proc;
 
 struct border
 {
-	border * parent; //нужно ли?
 	vector<int> positions;
+	bool exMutation;
 
-	border(vector<int> v, border * par = nullptr) : positions(v), parent(par)
+	border(vector<int> v, bool mut) : positions(v), exMutation(mut)
 	{ 
 		good_pos.resize(8, true); 
 
-		if (parent != nullptr)
+		if (exMutation)
 			mutation();
 	}
 
@@ -101,16 +103,18 @@ public:
 			child_pos1[i] = other_parent->positions[i];
 		}
 
-		return pair<border*, border *>(new border(child_pos1), new border(child_pos2));
+		return pair<border*, border *>(new border(child_pos1, true), new border(child_pos2,true));
 	}
 
 };
 
 //будем считать, что очередь отсортирована
-void selection(priority_queue<border * > & q)
+void selection(vector<border * > & v)
 {
-	q.pop(); //вытащили плохой вариант
-	q.push(q.top());
+	for (int i = v.size() - 1; i >= v.size() - 1 - proc; --i)
+	{
+
+	}
 };
 
 bool is_goal(border * b)
