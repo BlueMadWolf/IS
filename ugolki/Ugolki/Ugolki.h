@@ -87,7 +87,7 @@ private:
 		if (our_pos % 8 != 7 && !right_free(our_pos)) //проверяем прыжок вправо
 		{
 			int new_pos = our_pos + 1;
-			if (right_free(new_pos) && steps.find(new_pos + 1) == steps.end())
+			if (right_free(new_pos) && steps.find(new_pos + 1) == steps.end() && find(new_steps.begin(), new_steps.end(), new_pos + 1) == new_steps.end())
 			{
 				new_steps.push_back(new_pos + 1);
 				new_pos += 1;
@@ -98,7 +98,7 @@ private:
 		if (our_pos % 8 != 0 && !left_free(our_pos)) //проверяем прыжок влево
 		{
 			int new_pos = our_pos -  1;
-			if (left_free(new_pos) && steps.find(new_pos - 1) == steps.end())
+			if (left_free(new_pos) && steps.find(new_pos - 1) == steps.end() && find(new_steps.begin(), new_steps.end(), new_pos - 1) == new_steps.end())
 			{
 				new_steps.push_back(new_pos - 1);
 				new_pos -= 1;
@@ -109,7 +109,7 @@ private:
 		if (our_pos / 8 != 7 && !up_free(our_pos)) //проверяем прыжок вверх
 		{
 			int new_pos = our_pos + 8;
-			if (up_free(new_pos) && steps.find(new_pos + 8) == steps.end())
+			if (up_free(new_pos) && steps.find(new_pos + 8) == steps.end() && find(new_steps.begin(), new_steps.end(), new_pos + 8) == new_steps.end())
 			{
 				new_steps.push_back(new_pos + 8);
 				new_pos += 8;
@@ -120,7 +120,7 @@ private:
 		if (our_pos / 8 != 0 && !down_free(our_pos)) //проверяем прыжок вниз
 		{
 			int new_pos = our_pos - 8;
-			if (down_free(new_pos) && steps.find(new_pos - 8) == steps.end())
+			if (down_free(new_pos) && steps.find(new_pos - 8) == steps.end() && find(new_steps.begin(), new_steps.end(), new_pos - 8) == new_steps.end())
 			{
 				new_steps.push_back(new_pos - 8);
 				new_pos -= 8;
@@ -342,7 +342,7 @@ int cnt_steps_to_best_free_pos(vector<bool>& curr_board, checkers * curr_player,
 
 		//Зацикливание
 		if (best_step == -1)
-			throw exception("No variants for doing step; curr_pos = " + curr_pos);
+			return 16;//throw exception("No variants for doing step; curr_pos = " + curr_pos);
 
 		
 		//Обновить игрока (сделать шаг)
@@ -368,7 +368,7 @@ int heuristic1(vector<bool> curr_board, checkers * curr_player)
 	int sum_cost = 0;
 	for (int i = 0; i < 12; ++i)
 	{
-		sum_cost += cnt_steps_to_best_free_pos(board, curr_player, curr_player->position[i]);
+		sum_cost += cnt_steps_to_best_free_pos(board, curr_player, i);
 	}
 
 	//Восстановление предыдущих board и player
@@ -418,7 +418,7 @@ pair<int, int> start(checkers* m, checkers* r) {
 	int score_gen = minimax(ddepth, true, s, INT_MIN, INT_MAX, me_c, rival_c);
 	//board_node* temp = q.top();
 
-	//pair<int,int> pr(temp->ind, temp->pos);
+    //pair<int,int> pr(temp->ind, temp->pos);
 	pair<int, int> pr(1, 1);
 	return pr;
 }
@@ -433,7 +433,7 @@ int minimax(int depth, bool comp, board_node* bd, int a, int b, checkers* me_c, 
 		// Если компьютер
 		int score = INT_MIN;
 		for (int x = 0; x < me_c->position.size(); ++x) {
-			list<int> variants = me_c->variants_of_steps(x);
+			list<int> variants = me_c->variants_of_steps(me_c->position[x]);
 			for (int y : variants) {
 				board_node* next = new board_node(me_c, x, y, bd);
 				//if(depth == ddepth) q.push(next);
@@ -453,7 +453,7 @@ int minimax(int depth, bool comp, board_node* bd, int a, int b, checkers* me_c, 
 		}
 		int score = INT_MAX;
 		for (int x = 0; x < rival_c->position.size(); ++x) {
-			list<int> variants = rival_c->variants_of_steps(x);
+			list<int> variants = rival_c->variants_of_steps(rival_c->position[x]);
 			for (int y : variants) {
 				board_node* next = new board_node(rival_c, x, y, bd);
 				//if(depth == ddepth) q.push(next);
