@@ -300,10 +300,11 @@ int closest_to_goal_free_position(vector<bool>& curr_board, int num_player)
 }
 
 //Количество шагов от текущей позиции до свободной, ближайшей к прямоугольнику 
-int cnt_steps_to_best_free_pos(vector<bool>& curr_board, checkers * curr_player, int curr_pos)
+int cnt_steps_to_best_free_pos(vector<bool>& curr_board, checkers * curr_player, int curr_num)
 {
 	int best_pos = closest_to_goal_free_position(curr_board, curr_player->num_player);
 	
+	int curr_pos = curr_player->position[curr_num];
 	if (curr_pos == best_pos)
 		return 0;
 
@@ -345,7 +346,7 @@ int cnt_steps_to_best_free_pos(vector<bool>& curr_board, checkers * curr_player,
 
 		
 		//Обновить игрока (сделать шаг)
-		checkers * new_player_step = curr_player->step(curr_pos, best_step);
+		checkers * new_player_step = curr_player->step(curr_num, best_step);
 		curr_player = new_player_step;
 		//Обновить текущую позицию
 		curr_pos = best_step;
