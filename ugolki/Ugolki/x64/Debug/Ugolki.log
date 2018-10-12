@@ -1,4 +1,4 @@
 ﻿  main.cpp
-d:\документы\onedrive\документы\is\ugolki\ugolki\ugolki.h(466): warning C4715: minimax: значение возвращается не при всех путях выполнения
+d:\документы\onedrive\документы\is\ugolki\ugolki\ugolki.h(523): warning C4715: minimax: значение возвращается не при всех путях выполнения
   Ugolki.vcxproj -> D:\Документы\OneDrive\Документы\IS\ugolki\Ugolki\x64\Debug\Ugolki.exe
   Ugolki.vcxproj -> D:\Документы\OneDrive\Документы\IS\ugolki\Ugolki\x64\Debug\Ugolki.pdb (Partial PDB)

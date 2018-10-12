@@ -4,6 +4,7 @@
 #include <string>
 #include <list>
 #include <set>
+#include <queue>
 #include <algorithm>
 
 
@@ -456,7 +457,7 @@ public:
 };
 
 struct bd_comp{
-	operator() (board_node* s1, board_node* s2) const{
+	bool operator() (board_node* s1, board_node* s2) const{
 		return (s1->score < s2->score);
 	}
 };

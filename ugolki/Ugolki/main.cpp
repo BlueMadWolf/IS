@@ -12,9 +12,16 @@ void based_template()
 		print_info[i + 2] = to_string(i + 1) + "|_|_|_|_|_|_|_|_|";
 }
 
+void delete_info()
+{
+	for (int i = 0; i < 8; ++i)
+		print_info[i + 2] = to_string(i + 1) + "|_|_|_|_|_|_|_|_|";
+}
+
 void find_pos()
 {
 	int m = 2;
+	delete_info();
 	for (int i = 0; i < 12; ++i)
 	{
 		print_info[2 + (me->position[i]) / 8][(1 + (me->position[i]) % 8) * 2] = '0';
@@ -52,11 +59,18 @@ void InputData()
 	}
 }
 
-void rival_step(int n, string s)
+void rival_step(char c, string s)
 {
-	int n_p = (s[0] - 'A') * 8 + s[1] - '1';
-	rival->step(n, n_p);
+	int n = 0;
+	if (isdigit(c))
+		n = c - '1';
+	else
+		n = c - 'a' + 9;
+	int n_p = (s[0] - 'A') + (s[1] - '1')*8;
+	rival = rival->step(n, n_p);
 }
+
+bool s;
 
 int main()
 {
@@ -64,28 +78,50 @@ int main()
 	InputData();
 	bool end = false;
 
+	print_board();
+
+	if (rival->num_player == 1)
+	{
+		cout << endl << "Choose cheker (1-12 (a = 10, c = 12)): ";
+		char c;
+		cin >> c;
+		cout << endl << "Make step: ";
+		string s;
+		cin >> s;
+		rival_step(c, s);
+		print_board();
+		end = rival->isEnd();
+		s = true;
+	}
+
 	while (!end)
 	{
-		print_board();
+		
 		std::pair<int, int> st = start(me, rival);
-	    me->step(st.first, st.second);
+	    me = me->step(st.first, st.second);
 		print_board();
 		end = me->isEnd();
 		if (end)
-			cout<< "Player" + to_string(rival->num_player) + " lose" << endl;
+		{
+			cout << "Player" + to_string(rival->num_player) + " lose" << endl;
+			s = false;
+			break;
+		}
 		else
 		{
-			cout << endl << "Choose cheker (1-12 (a = 10, c = 12)): " ;
-			int n;
-			cin >> n;
+			cout << endl << "Choose cheker (1-12 (a = 10, c = 12)): ";
+			char c;
+			cin >> c;
 			cout << endl << "Make step: ";
 			string s;
 			cin >> s;
-			rival_step(n, s);
+			rival_step(c, s);
 			print_board();
 			end = rival->isEnd();
-			system("Pause");
+			s = true;
 		}
 	}
 
+	if (s)
+		cout << "Player" + to_string(me->num_player) + " lose" << endl;
 }
