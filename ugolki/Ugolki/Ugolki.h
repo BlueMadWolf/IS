@@ -440,6 +440,23 @@ int heuristic1(vector<bool> curr_board, checkers * curr_player)
 	return sum_cost;
 }
 
+int heuristic2(vector<bool> curr_board, checkers * curr_player)
+{
+	int sum_cost;
+	vector<int> costs1 = {};
+	vector<int> costs2 = {};
+
+	for (int i = 0; i < 12; ++i)
+	{
+		if (curr_player->num_player == 1)
+			sum_cost += costs1[curr_player->position[i]];
+		if (curr_player->num_player == 2)
+			sum_cost += costs2[curr_player->position[i]];
+	}
+
+	return sum_cost;
+}
+
 void step(vector<bool> & cur_board, checkers* cur, int num_check, int new_positions);
 
 class board_node {
