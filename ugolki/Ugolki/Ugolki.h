@@ -275,20 +275,81 @@ vector<pair<int, int>> get_manh_distances(list<int>& variants, int goal_pos)
 //Свободная позиция, которая ближе всего к целевому прямоугольнику
 int closest_to_goal_free_position(vector<bool>& curr_board, int num_player)
 {
-	vector<int> variants_of_best_position(28);
+	vector<int> variants_of_best_position(30);
 	if (num_player == 1)
 	{
 		//Внутри целевого прямоугольника
-		variants_of_best_position = {63, 62, 55, 61, 54, 47, 60, 53, 46, 52, 45, 44,
+		//variants_of_best_position = {63, 62, 55, 61, 54, 47, 60, 53, 46, 52, 45, 44,
 			//Ближайшие к целевому прямоугольнику
-			39, 59, 38, 51, 37, 43, 36, 35, 31, 58, 30, 50, 29, 42, 28, 34, 27, 26};
+			//39, 59, 38, 51, 37, 43, 36, 35, 31, 58, 30, 50, 29, 42, 28, 34, 27, 26};
+		variants_of_best_position[0] = 63;
+		variants_of_best_position[1] = 62;
+		variants_of_best_position[2] = 55;
+		variants_of_best_position[3] = 61;
+		variants_of_best_position[4] = 54;
+		variants_of_best_position[5] = 47;
+		variants_of_best_position[6] = 60;
+		variants_of_best_position[7] = 53;
+		variants_of_best_position[8] = 46;
+		variants_of_best_position[9] = 52;
+		variants_of_best_position[10] = 45;
+		variants_of_best_position[11] = 44;
+		variants_of_best_position[12] = 39;
+		variants_of_best_position[13] = 59;
+		variants_of_best_position[14] = 38;
+		variants_of_best_position[15] = 51;
+		variants_of_best_position[16] = 37;
+		variants_of_best_position[17] = 43;
+		variants_of_best_position[18] = 36;
+		variants_of_best_position[19] = 35;
+		variants_of_best_position[20] = 31;
+		variants_of_best_position[21] = 58;
+		variants_of_best_position[22] = 30;
+		variants_of_best_position[23] = 50;
+		variants_of_best_position[24] = 29;
+		variants_of_best_position[25] = 42;
+		variants_of_best_position[26] = 28;
+		variants_of_best_position[27] = 34;
+		variants_of_best_position[28] = 27;
+		variants_of_best_position[29] = 26;
 	}
 	else
 	{
 		//Внутри целевого прямоугольника
-		variants_of_best_position = { 0, 1, 8, 2, 9, 16, 3, 10, 17, 11, 18, 19,
+		//variants_of_best_position = { 0, 1, 8, 2, 9, 16, 3, 10, 17, 11, 18, 19,
 			//Ближайшие к целевому прямоугольнику
-			24, 4, 25, 12, 26, 20, 27, 28, 32, 5, 33, 13, 34, 21, 35, 29, 36, 37};
+		//	24, 4, 25, 12, 26, 20, 27, 28, 32, 5, 33, 13, 34, 21, 35, 29, 36, 37};
+
+		variants_of_best_position[0] = 0;
+		variants_of_best_position[1] = 1;
+		variants_of_best_position[2] = 8;
+		variants_of_best_position[3] = 2;
+		variants_of_best_position[4] = 9;
+		variants_of_best_position[5] = 16;
+		variants_of_best_position[6] = 3;
+		variants_of_best_position[7] = 10;
+		variants_of_best_position[8] = 17;
+		variants_of_best_position[9] = 11;
+		variants_of_best_position[10] = 18;
+		variants_of_best_position[11] = 19;
+		variants_of_best_position[12] = 24;
+		variants_of_best_position[13] = 4;
+		variants_of_best_position[14] = 25;
+		variants_of_best_position[15] = 12;
+		variants_of_best_position[16] = 26;
+		variants_of_best_position[17] = 20;
+		variants_of_best_position[18] = 27;
+		variants_of_best_position[19] = 28;
+		variants_of_best_position[20] = 32;
+		variants_of_best_position[21] = 5;
+		variants_of_best_position[22] = 33;
+		variants_of_best_position[23] = 13;
+		variants_of_best_position[24] = 34;
+		variants_of_best_position[25] = 21;
+		variants_of_best_position[26] = 35;
+		variants_of_best_position[27] = 29;
+		variants_of_best_position[28] = 36;
+		variants_of_best_position[29] = 37;
 	}
 
 	for (int i = 0; i < variants_of_best_position.size(); ++i)
@@ -394,19 +455,15 @@ public:
 	}
 };
 
-
-/*struct bd_comp{
-bool operator() (board_node* s1, board_node* s2) const{
-return (s1->score < s2->score); //??
-}
-};*/
-
-//pair<int, int> start(checkers* m, checkers* r);
-
+struct bd_comp{
+	operator() (board_node* s1, board_node* s2) const{
+		return (s1->score < s2->score);
+	}
+};
 
 const int ddepth = 3;
 
-//priority_queue<board_node*,bd_comp> q; 
+priority_queue<board_node*, vector<board_node*>, bd_comp> q; 
 
 int minimax(int depth, bool comp, board_node* bd, int a, int b, checkers* me_c, checkers* rival_c);
 
@@ -416,10 +473,9 @@ pair<int, int> start(checkers* m, checkers* r) {
 	checkers* me_c = new checkers(*m);
 	checkers* rival_c = new checkers(*r);
 	int score_gen = minimax(ddepth, true, s, INT_MIN, INT_MAX, me_c, rival_c);
-	//board_node* temp = q.top();
+	board_node* temp = q.top();
 
-    //pair<int,int> pr(temp->ind, temp->pos);
-	pair<int, int> pr(1, 1);
+    pair<int,int> pr(temp->ind, temp->pos);
 	return pr;
 }
 
@@ -436,7 +492,7 @@ int minimax(int depth, bool comp, board_node* bd, int a, int b, checkers* me_c, 
 			list<int> variants = me_c->variants_of_steps(me_c->position[x]);
 			for (int y : variants) {
 				board_node* next = new board_node(me_c, x, y, bd);
-				//if(depth == ddepth) q.push(next);
+				if(depth == ddepth) q.push(next);
 				score = minimax(depth - 1, false, next, a, b, me_c, rival_c);
 				if (next->parent != nullptr) next->parent->score = score;
 				a = max(a, score);
@@ -456,7 +512,7 @@ int minimax(int depth, bool comp, board_node* bd, int a, int b, checkers* me_c, 
 			list<int> variants = rival_c->variants_of_steps(rival_c->position[x]);
 			for (int y : variants) {
 				board_node* next = new board_node(rival_c, x, y, bd);
-				//if(depth == ddepth) q.push(next);
+				if(depth == ddepth) q.push(next);
 				score = minimax(depth - 1, true, next, a, b, me_c, rival_c);
 				b = min(b, score);
 				if (a >= b) return score;
