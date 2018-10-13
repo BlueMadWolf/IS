@@ -1,0 +1,4 @@
+﻿  main.cpp
+d:\документы\onedrive\документы\is\queen_placement\genetic_algorithm\main.cpp(152): warning C4018: >=: несоответствие типов со знаком и без знака
+  genetic_algorithm.vcxproj -> D:\Документы\OneDrive\Документы\IS\queen_placement\genetic_algorithm\Debug\genetic_algorithm.exe
+  genetic_algorithm.vcxproj -> D:\Документы\OneDrive\Документы\IS\queen_placement\genetic_algorithm\Debug\genetic_algorithm.pdb (Partial PDB)
