@@ -440,21 +440,39 @@ int heuristic1(vector<bool> curr_board, checkers * curr_player)
 	return sum_cost;
 }
 
+int cntInHouse(checkers* curr_player)
+{
+	int cnt = 0;
+	if (curr_player->num_player == 1)
+	{
+		for (auto pos : curr_player->position)
+		{
+			if ((pos % 8 < 4) && (pos / 8 < 3))
+				++cnt;
+		}
+	}
+	if (curr_player->num_player == 2)
+	{
+		for (auto pos : curr_player->position)
+		{
+			if ((pos % 8 > 3) && (pos / 8 > 4))
+				++cnt;
+		}
+	}
+
+	return cnt;
+}
+
 int heuristic2(vector<bool> curr_board, checkers * curr_player)
 {
-	int sum_cost;
-	vector<int> costs1 = {};
-	vector<int> costs2 = {};
+	int sum_cost = cntInHouse(curr_player);
 
 	for (int i = 0; i < 12; ++i)
 	{
-		if (curr_player->num_player == 1)
-			sum_cost += costs1[curr_player->position[i]];
-		if (curr_player->num_player == 2)
-			sum_cost += costs2[curr_player->position[i]];
+		manhattan_dist(curr_player->position[i], 63);
 	}
 
-	return sum_cost;
+	return 100 - sum_cost;
 }
 
 void step(vector<bool> & cur_board, checkers* cur, int num_check, int new_positions);
@@ -480,12 +498,15 @@ struct bd_comp{
 };
 
 const int ddepth = 3;
+auto heuristic = heuristic2;
 
 priority_queue<board_node*, vector<board_node*>, bd_comp> q; 
 
 int minimax(int depth, bool comp, board_node* bd, int a, int b, checkers* me_c, checkers* rival_c);
 
 pair<int, int> start(checkers* m, checkers* r) {
+	while (q.size())
+		q.pop();
 	//Допустим, что берем значения уже готовые
 	board_node* s = new board_node();
 	checkers* me_c = new checkers(*m);
@@ -500,7 +521,7 @@ pair<int, int> start(checkers* m, checkers* r) {
 int minimax(int depth, bool comp, board_node* bd, int a, int b, checkers* me_c, checkers* rival_c) {
 	if (comp) {
 		if (!depth || me_c->isEnd()) {
-			int h = heuristic1(bd->position, me_c);
+			int h = heuristic(bd->position, me_c);
 			bd->score = h;
 			return h;
 		}
@@ -521,7 +542,7 @@ int minimax(int depth, bool comp, board_node* bd, int a, int b, checkers* me_c, 
 	//Если противник
 	else {
 		if (!depth || rival_c->isEnd()) {
-			int h = heuristic1(bd->position, rival_c);
+			int h = heuristic(bd->position, rival_c);
 			bd->score = h;
 			return h;
 		}
