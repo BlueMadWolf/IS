@@ -1,2 +1,5 @@
-﻿  genetic_algorithm.vcxproj -> D:\Документы\OneDrive\Документы\IS\queen_placement\genetic_algorithm\x64\Debug\genetic_algorithm.exe
+﻿  main.cpp
+d:\документы\onedrive\документы\is\queen_placement\genetic_algorithm\main.cpp(134): warning C4244: return: преобразование "__int64" в "int", возможна потеря данных
+d:\документы\onedrive\документы\is\queen_placement\genetic_algorithm\main.cpp(160): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  genetic_algorithm.vcxproj -> D:\Документы\OneDrive\Документы\IS\queen_placement\genetic_algorithm\x64\Debug\genetic_algorithm.exe
   genetic_algorithm.vcxproj -> D:\Документы\OneDrive\Документы\IS\queen_placement\genetic_algorithm\x64\Debug\genetic_algorithm.pdb (Partial PDB)

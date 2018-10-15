@@ -254,11 +254,11 @@ int main()
 
 		steps++;
 
-		if (steps % 1000 == 0)
+		/*if (steps % 1000 == 0)
 		{
 			cout << v[0]->suit << endl;
 			system("Pause");
-		}
+		}*/
 	}
 
 	print_answer();
