@@ -493,7 +493,7 @@ public:
 
 struct bd_comp{
 	bool operator() (board_node* s1, board_node* s2) const{
-		return (s1->score < s2->score);
+		return (s1->score > s2->score);
 	}
 };
 
@@ -553,6 +553,7 @@ int minimax(int depth, bool comp, board_node* bd, int a, int b, checkers* me_c, 
 				board_node* next = new board_node(rival_c, x, y, bd);
 				if(depth == ddepth) q.push(next);
 				score = minimax(depth - 1, true, next, a, b, me_c, rival_c);
+				if (next->parent != nullptr) next->parent->score = score;
 				b = min(b, score);
 				if (a >= b) return score;
 			}
