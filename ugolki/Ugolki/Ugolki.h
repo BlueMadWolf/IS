@@ -594,9 +594,10 @@ int newminimax(node* cur, checkers* curr_p, vector<bool> cur_board, bool comp, i
 		for (int x = 0; x < curr_p->position.size(); ++x){
 			list<int> v = curr_p->variants_of_steps(curr_p->position[x]);
 			for (int y : v) {
-				step(cur_board,curr_p, x, y);
-				node* next = new node(cur_board);			
-				test = newminimax(next,r1,cur_board,0,depth-1,a,b); //Здесь надо копию противника
+				auto temp = cur_board;
+				step(temp,curr_p, x, y);
+				node* next = new node(temp);			
+				test = newminimax(next,r1,temp,0,depth-1,a,b); //Здесь надо копию противника
 				if(test > score){
 					score = test;
 					best_move = next;
@@ -614,9 +615,10 @@ int newminimax(node* cur, checkers* curr_p, vector<bool> cur_board, bool comp, i
 		for (int x = 0; x < curr_p->position.size(); ++x){
 			list<int> v = curr_p->variants_of_steps(curr_p->position[x]);
 			for (int y : v) {
-				step(cur_board,curr_p, x, y);
-				node* next = new node(cur_board);			
-				test = newminimax(next,m1,cur_board,1,depth-1,a,b); //Здесь надо копию нас
+				auto temp = cur_board;
+				step(temp,curr_p, x, y);
+				node* next = new node(temp);			
+				test = newminimax(next,m1,temp,1,depth-1,a,b); //Здесь надо копию нас
 				if(test <= score){
 					score = test;
 					best_move = next;
@@ -636,19 +638,11 @@ int newminimax(node* cur, checkers* curr_p, vector<bool> cur_board, bool comp, i
 }
 
 void newstart(){
-	ofstream file;
-	file.open( "check.txt", std::ios_base::app );
 	node* st = new node(board);
 	m1 = new checkers(*me);
 	r1 = new checkers(*rival);
-
+	//next_move = new node(board);
 	newminimax(st,m1,board,1,ddepth,INT_MIN,INT_MAX);
-
-	file << "NewStart Board" << endl;
-	for(int i = 0; i < next_move->curr_board.size(); ++i)
-		file << next_move->curr_board[i] << "  ";
-	file << endl;
-	file.close();
 }
 
 pair<int, int> find_step(vector<bool> oldboard, vector<bool> newboard) { 
@@ -662,4 +656,13 @@ pair<int, int> find_step(vector<bool> oldboard, vector<bool> newboard) {
 			new_pos = i; 
 	}
 	return pair<int, int>(old_pos, new_pos); 
+}
+
+int find_index(vector<int> vpos, int pos) { 
+	int indx = -1;
+
+	for (int i = 0; i < 12; ++i) 
+		if (vpos[i] == pos) 
+		indx = i; 
+	return indx; 
 }
