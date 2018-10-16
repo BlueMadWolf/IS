@@ -99,7 +99,7 @@ int main()
 		newstart();
 		std::pair<int, int> st = find_step(board,next_move->curr_board);
 		//std::pair<int, int> st = start(me, rival);
-	    //me = me->step(find_index(me->position, st.first), st.second);
+	    me = me->step(find_index(me->position, st.first), st.second);
 		print_board();
 		end = me->isEnd();
 		if (end)

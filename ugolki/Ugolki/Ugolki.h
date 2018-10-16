@@ -587,6 +587,7 @@ int newminimax(node* cur, checkers* curr_p, vector<bool> cur_board, bool comp, i
 	int test = -1;
 	node* best_move = nullptr;
 	int score = 0;
+	vector<bool> oldb = cur_board;
 	if(comp){ //TRUE - компьютер
 		if(depth == 0 || curr_p->isEnd())
 			return heuristic2(cur->curr_board, curr_p);
@@ -594,15 +595,18 @@ int newminimax(node* cur, checkers* curr_p, vector<bool> cur_board, bool comp, i
 		for (int x = 0; x < curr_p->position.size(); ++x){
 			list<int> v = curr_p->variants_of_steps(curr_p->position[x]);
 			for (int y : v) {
-				auto temp = cur_board;
-				step(temp,curr_p, x, y);
-				node* next = new node(temp);			
-				test = newminimax(next,r1,temp,0,depth-1,a,b); //Здесь надо копию противника
+				step(cur_board,curr_p, x, y);
+				/*cout << endl <<"step, player = me, depth = " << depth << endl;
+						for(int i = 0; i < cur_board.size(); ++ i)
+							cout << cur_board[i] << " ";
+						cout << endl;*/
+				node* next = new node(cur_board);			
+				test = newminimax(next,r1,cur_board,0,depth-1,a,b); //Здесь надо копию противника
 				if(test > score){
 					score = test;
 					best_move = next;
 				}
-
+				//cur_board = oldb;
 				a = max(a, test);
 				if (a >= b) goto br;
 			}
@@ -615,15 +619,18 @@ int newminimax(node* cur, checkers* curr_p, vector<bool> cur_board, bool comp, i
 		for (int x = 0; x < curr_p->position.size(); ++x){
 			list<int> v = curr_p->variants_of_steps(curr_p->position[x]);
 			for (int y : v) {
-				auto temp = cur_board;
-				step(temp,curr_p, x, y);
-				node* next = new node(temp);			
-				test = newminimax(next,m1,temp,1,depth-1,a,b); //Здесь надо копию нас
+				step(cur_board,curr_p, x, y);
+				/*cout << endl <<"step, player = rival, depth = " << depth << endl;
+						for(int i = 0; i < cur_board.size(); ++ i)
+							cout << cur_board[i] << " ";
+						cout << endl;*/
+				node* next = new node(cur_board);			
+				test = newminimax(next,m1,cur_board,1,depth-1,a,b); //Здесь надо копию нас
 				if(test <= score){
 					score = test;
 					best_move = next;
 				}
-
+				//cur_board = oldb;
 				b = min(b, test);
 				if (a >= b) goto br;
 			}
@@ -633,6 +640,10 @@ int newminimax(node* cur, checkers* curr_p, vector<bool> cur_board, bool comp, i
 	br:
 	if (depth == ddepth && best_move != nullptr){
 		next_move = best_move;
+		cout << endl <<"best_move" << endl;
+		for(int i = 0; i < best_move->curr_board.size(); ++ i)
+			cout << best_move->curr_board[i] << " ";
+		cout << endl;
 	}
 	return score;
 }
