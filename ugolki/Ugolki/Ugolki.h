@@ -6,6 +6,7 @@
 #include <set>
 #include <queue>
 #include <algorithm>
+#include <fstream>
 
 
 using namespace std;
@@ -561,8 +562,104 @@ int minimax(int depth, bool comp, board_node* bd, int a, int b, checkers* me_c, 
 	}
 }
 
+
 void step(vector<bool> & cur_board, checkers* cur, int num_check, int new_positions) {
-	cur_board[cur->position[num_check]] = true;
-	cur_board[new_positions] = false;
+	cur_board[cur->position[num_check]] = false;
+	cur_board[new_positions] = true;
 	cur->position[num_check] = new_positions;
+}
+
+class node{
+public:
+	//checkers* me_c;
+	//checkers* rival_c;
+	vector<bool> curr_board;
+
+	node(vector<bool> bd): curr_board(bd){
+	}
+};
+
+node* next_move;
+checkers* m1;
+checkers* r1;
+
+int newminimax(node* cur, checkers* curr_p, vector<bool> cur_board, bool comp, int depth, int a, int b){
+	int test = -1;
+	node* best_move = nullptr;
+	int score = 0;
+	if(comp){ //TRUE - компьютер
+		if(depth == 0 || curr_p->isEnd())
+			return heuristic2(cur->curr_board, curr_p);
+		score = INT_MIN;
+		for (int x = 0; x < curr_p->position.size(); ++x){
+			list<int> v = curr_p->variants_of_steps(curr_p->position[x]);
+			for (int y : v) {
+				step(cur_board,curr_p, x, y);
+				node* next = new node(cur_board);			
+				test = newminimax(next,r1,cur_board,0,depth-1,a,b); //Здесь надо копию противника
+				if(test > score){
+					score = test;
+					best_move = next;
+				}
+
+				a = max(a, test);
+				if (a >= b) goto br;
+			}
+		}
+	}
+	else{
+		if(depth == 0 || curr_p->isEnd())
+			return heuristic2(cur->curr_board, curr_p);
+		score = INT_MAX;
+		for (int x = 0; x < curr_p->position.size(); ++x){
+			list<int> v = curr_p->variants_of_steps(curr_p->position[x]);
+			for (int y : v) {
+				step(cur_board,curr_p, x, y);
+				node* next = new node(cur_board);			
+				test = newminimax(next,m1,cur_board,1,depth-1,a,b); //Здесь надо копию нас
+				if(test <= score){
+					score = test;
+					best_move = next;
+				}
+
+				b = min(b, test);
+				if (a >= b) goto br;
+			}
+		}
+	}
+
+	br:
+	if (depth == ddepth && best_move != nullptr){
+		next_move = best_move;
+	}
+	return score;
+}
+
+void newstart(){
+	ofstream file;
+	file.open( "check.txt", std::ios_base::app );
+	node* st = new node(board);
+	m1 = new checkers(*me);
+	r1 = new checkers(*rival);
+
+	newminimax(st,m1,board,1,ddepth,INT_MIN,INT_MAX);
+
+	file << "NewStart Board" << endl;
+	for(int i = 0; i < next_move->curr_board.size(); ++i)
+		file << next_move->curr_board[i] << "  ";
+	file << endl;
+	file.close();
+}
+
+pair<int, int> find_step(vector<bool> oldboard, vector<bool> newboard) { 
+	int old_pos, new_pos; 
+
+	for (int i = 0; i < 64; ++i){
+		if (oldboard[i] != newboard[i]) 
+		if (oldboard[i]) 
+			old_pos = i; 
+		else 
+			new_pos = i; 
+	}
+	return pair<int, int>(old_pos, new_pos); 
 }

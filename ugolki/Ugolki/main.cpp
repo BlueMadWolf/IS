@@ -96,9 +96,17 @@ int main()
 
 	while (!end)
 	{
-		
-		std::pair<int, int> st = start(me, rival);
+		newstart();
+		std::pair<int, int> st = find_step(board,next_move->curr_board);
+		//std::pair<int, int> st = start(me, rival);
 	    me = me->step(st.first, st.second);
+		ofstream file; 
+		file.open( "check.txt", std::ios_base::app );
+		file << "Start Board" << endl;
+		for(int i = 0; i < board.size(); ++i)
+			file << board[i] << "  ";
+		file << endl;
+		file.close();
 		print_board();
 		end = me->isEnd();
 		if (end)
