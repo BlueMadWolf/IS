@@ -13,6 +13,8 @@ using namespace std;
 
 vector<bool> board(64, false); //для проверки занята ли конкретная позиция
 
+pair<int, int> answer;
+
 //структура набора шашек
 struct checkers
 {
@@ -476,98 +478,118 @@ int heuristic2(vector<bool> curr_board, checkers * curr_player)
 	return 100 - sum_cost;
 }
 
-void step(vector<bool> & cur_board, checkers* cur, int num_check, int new_positions);
 
-class board_node {
-public:
-	board_node* parent;
-	vector<bool> position;
-	int ind, pos;
-	int score;
-	board_node() :parent(nullptr), ind(0), pos(0) { position.assign(board.begin(), board.end()); }
-
-	board_node(checkers * curr, int i, int ps, board_node* p) : parent(p), ind(i), pos(ps) {
-		position = p->position;
-		step(position, curr, ind, pos);
-	}
-};
-
-struct bd_comp{
-	bool operator() (board_node* s1, board_node* s2) const{
-		return (s1->score > s2->score);
-	}
-};
 
 const int ddepth = 3;
 auto heuristic = heuristic2;
-
-priority_queue<board_node*, vector<board_node*>, bd_comp> q; 
-
-int minimax(int depth, bool comp, board_node* bd, int a, int b, checkers* me_c, checkers* rival_c);
-
-pair<int, int> start(checkers* m, checkers* r) {
-	while (q.size())
-		q.pop();
-	//Допустим, что берем значения уже готовые
-	board_node* s = new board_node();
-	checkers* me_c = new checkers(*m);
-	checkers* rival_c = new checkers(*r);
-	int score_gen = minimax(ddepth, true, s, INT_MIN, INT_MAX, me_c, rival_c);
-	board_node* temp = q.top();
-
-    pair<int,int> pr(temp->ind, temp->pos);
-	return pr;
-}
-
-int minimax(int depth, bool comp, board_node* bd, int a, int b, checkers* me_c, checkers* rival_c) {
-	if (comp) {
-		if (!depth || me_c->isEnd()) {
-			int h = heuristic(bd->position, me_c);
-			bd->score = h;
-			return h;
-		}
-		// Если компьютер
-		int score = INT_MIN;
-		for (int x = 0; x < me_c->position.size(); ++x) {
-			list<int> variants = me_c->variants_of_steps(me_c->position[x]);
-			for (int y : variants) {
-				board_node* next = new board_node(me_c, x, y, bd);
-				if(depth == ddepth) q.push(next);
-				score = minimax(depth - 1, false, next, a, b, me_c, rival_c);
-				if (next->parent != nullptr) next->parent->score = score;
-				a = max(a, score);
-				if (a >= b) return score;
-			}
-		}
-	}
-	//Если противник
-	else {
-		if (!depth || rival_c->isEnd()) {
-			int h = heuristic(bd->position, rival_c);
-			bd->score = h;
-			return h;
-		}
-		int score = INT_MAX;
-		for (int x = 0; x < rival_c->position.size(); ++x) {
-			list<int> variants = rival_c->variants_of_steps(rival_c->position[x]);
-			for (int y : variants) {
-				board_node* next = new board_node(rival_c, x, y, bd);
-				if(depth == ddepth) q.push(next);
-				score = minimax(depth - 1, true, next, a, b, me_c, rival_c);
-				if (next->parent != nullptr) next->parent->score = score;
-				b = min(b, score);
-				if (a >= b) return score;
-			}
-		}
-	}
-}
-
+checkers* m1;
+checkers* r1;
 
 void step(vector<bool> & cur_board, checkers* cur, int num_check, int new_positions) {
 	cur_board[cur->position[num_check]] = false;
 	cur_board[new_positions] = true;
 	cur->position[num_check] = new_positions;
 }
+
+void additionalAB(vector<bool> cboard, checkers * player1, checkers * player2, int depth, bool comp, int & a, int & b)
+{
+	if (depth == 0)
+	{
+		if (comp)
+			a = heuristic(cboard, new checkers(player1->position, player1->num_player));
+		else
+			a = heuristic(cboard, new checkers(player2->position, player2->num_player));
+		return;
+	}
+
+	if (comp)
+	{
+		for (int x = 0; x < 12; ++x)
+		{
+			checkers * c = new checkers(player1->position, player1->num_player);
+			checkers * c1 = new checkers(player2->position, player2->num_player);
+
+			auto v = c->variants_of_steps(c->position[x]);
+			for (auto y : v)
+			{
+				step(cboard, c, x, y);
+				int a1 = a;
+				int b1 = b;
+				additionalAB(cboard, c, c1, depth - 1, false, a1, b1);
+
+				if (a1 > a)
+				{
+					a = a1;
+				}
+			}
+
+			delete c;
+			delete c1;
+		}
+	}
+	else
+	{
+		for (int x = 0; x < 12; ++x)
+		{
+			checkers * c1 = new checkers(player1->position, player1->num_player);
+			checkers * c = new checkers(player2->position, player2->num_player);
+
+			auto v = c->variants_of_steps(c->position[x]);
+			for (auto y : v)
+			{
+				step(cboard, c, x, y);
+				int a1 = a;
+				int b1 = b;
+				additionalAB(cboard, c1, c, depth - 1, false, a1, b1);
+
+				if (a1 > a)
+				{
+					a = a1;
+				}
+			}
+
+			delete c;
+			delete c1;
+		}
+		
+
+	}
+}
+
+pair<int, int> abAlgorithm(checkers * player, vector<bool> curboard,  int a, int b)
+{
+	pair<int, int> nanswer(-1, -1);
+	
+	for (int x = 0; x < 12; ++x)
+	{
+		checkers * c = new checkers(player->position, player->num_player);
+		auto v = player->variants_of_steps(player->position[x]);
+		for (auto y : v)
+		{
+			step(curboard, c, x, y);
+			int a1 = a;
+			int b1 = b;
+
+			checkers * newrival = new checkers(r1->position, r1->num_player);
+			additionalAB(curboard, player, newrival, ddepth - 1, false, a1, b1);
+
+			if (a1 > a)
+			{
+				a = a1;
+				nanswer.first = x;
+				nanswer.second = y;
+			}
+
+			delete newrival;
+		}
+
+		delete c;
+	}
+
+	return nanswer;
+}
+
+
 
 class node{
 public:
@@ -580,8 +602,6 @@ public:
 };
 
 node* next_move;
-checkers* m1;
-checkers* r1;
 
 int newminimax(node* cur, checkers* curr_p, vector<bool> cur_board, bool comp, int depth, int a, int b){
 	int test = -1;
@@ -653,7 +673,8 @@ void newstart(){
 	m1 = new checkers(*me);
 	r1 = new checkers(*rival);
 	//next_move = new node(board);
-	newminimax(st,m1,board,1,ddepth,INT_MIN,INT_MAX);
+	//newminimax(st,m1,board,1,ddepth,INT_MIN,INT_MAX);
+	answer = abAlgorithm(m1, board, INT_MIN, INT_MIN);
 }
 
 pair<int, int> find_step(vector<bool> oldboard, vector<bool> newboard) { 
