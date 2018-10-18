@@ -30,6 +30,8 @@ struct checkers
 			position.push_back((s[i * 2] - 'A') + (s[i * 2 + 1] - '1') * 8);
 			board[(s[i * 2] - 'A') + (s[i * 2 + 1] - '1') * 8] = true; //указываем, что данная клетка теперь занята
 		}
+
+		
 	}
 
 	checkers(std::vector<int> pos, int numPlayer, checkers * par = nullptr) :parent(par), position(pos), num_player(numPlayer) {}
@@ -468,20 +470,20 @@ int cntInHouse(checkers* curr_player)
 
 int heuristic2(vector<bool> curr_board, checkers * curr_player)
 {
-	int sum_cost = cntInHouse(curr_player);
+	int sum_cost = 0;
+	int cnt = cntInHouse(curr_player);
 
 	for (int i = 0; i < 12; ++i)
 	{
 		manhattan_dist(curr_player->position[i], 63);
 	}
 
-	return 100 - sum_cost;
+	return -sum_cost*cnt;
 }
 
 
-
 const int ddepth = 3;
-auto heuristic = heuristic2;
+auto heuristic = heuristic1;
 checkers* m1;
 checkers* r1;
 
@@ -515,7 +517,7 @@ void additionalAB(vector<bool> cboard, checkers * player1, checkers * player2, i
 				step(cboard, c, x, y);
 				int a1 = a;
 				int b1 = b;
-				additionalAB(cboard, c, c1, depth - 1, false, a1, b1);
+				additionalAB(cboard, c, c1, depth - 1, !comp, a1, b1);
 
 				if (a1 > a)
 				{
@@ -540,7 +542,7 @@ void additionalAB(vector<bool> cboard, checkers * player1, checkers * player2, i
 				step(cboard, c, x, y);
 				int a1 = a;
 				int b1 = b;
-				additionalAB(cboard, c1, c, depth - 1, false, a1, b1);
+				additionalAB(cboard, c1, c, depth - 1, !comp, a1, b1);
 
 				if (a1 > a)
 				{
