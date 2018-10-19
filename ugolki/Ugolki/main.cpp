@@ -1,6 +1,8 @@
 #include "Ugolki.h"
 
 std::vector<string> print_info(11);
+std::vector<int> home1(12);
+std::vector<int> home2(12);
 
 void based_template()
 {
@@ -10,6 +12,17 @@ void based_template()
 
 	for (int i = 0; i < 8; ++i)
 		print_info[i + 2] = to_string(i + 1) + "|_|_|_|_|_|_|_|_|";
+
+	for (int i = 0; i < 4; ++i)
+	{
+		home1[i] = i;
+		home1[i + 4] = i + 8;
+		home1[i + 8] = i + 16;
+
+		home2[i] = 63 - i;
+		home2[i + 4] = 63 - (i + 8);
+		home2[i + 8] = 63 - (i + 16);
+	}
 }
 
 void delete_info()
@@ -59,6 +72,22 @@ void InputData()
 	}
 }
 
+bool inhome(checkers * c1)
+{
+	if (c1->num_player == 1)
+	{
+		for (int i = 0; i < 12; ++i)
+			if (find(home1.begin(), home1.end(), c1->position[i]) != home1.end())
+				return true;
+	}
+	else
+		for (int i = 0; i < 12; ++i)
+			if (find(home2.begin(), home2.end(), c1->position[i]) != home2.end())
+				return true;
+
+	return false;
+}
+
 void rival_step(char c, string s)
 {
 	int n = 0;
@@ -76,13 +105,15 @@ int main()
 {
 	based_template();
 	InputData();
-	bool end = false;
+	bool end = false, fl = false;
+	int step = 0;
 
 	print_board();
 
 	if (rival->num_player == 1)
 	{
-		cout << endl << "Choose cheker (1-12 (a = 10, c = 12)): ";
+		step++;
+		cout << endl << "Step: " << step << endl << "Choose cheker (1-12 (a = 10, c = 12)): ";
 		char c;
 		cin >> c;
 		cout << endl << "Make step: ";
@@ -91,7 +122,7 @@ int main()
 		rival_step(c, s);
 		print_board();
 		end = rival->isEnd();
-		s = true;
+		fl = true;
 	}
 
 	while (!end)
@@ -100,30 +131,50 @@ int main()
 		//std::pair<int, int> st = find_step(board,next_move->curr_board);
 		//std::pair<int, int> st = start(me, rival);
 		//me = me->step(find_index(me->position, st.first), st.second);
+		step++;
 		me = me->step(answer.first, answer.second);
+		cout << "Step: " << step << endl;
 		print_board();
 		end = me->isEnd();
+		if (step > 39 && inhome(me))
+		{
+			fl = true;
+			break;
+		}
+
 		if (end)
 		{
 			cout << "Player" + to_string(rival->num_player) + " lose" << endl;
-			s = false;
+			fl = false;
 			break;
 		}
 		else
 		{
-			cout << endl << "Choose cheker (1-12 (a = 10, c = 12)): ";
+			step++;
+			cout << endl << "Step: " << step << endl << "Choose cheker (1-12 (a = 10, c = 12)): ";
 			char c;
 			cin >> c;
 			cout << endl << "Make step: ";
 			string s;
 			cin >> s;
 			rival_step(c, s);
+
 			print_board();
 			end = rival->isEnd();
-			s = true;
+			fl = true;
+
+			if (step > 39 && inhome(rival))
+			{
+				fl = false;
+				break;
+			}
 		}
 	}
 
-	if (s)
+	if (fl)
 		cout << "Player" + to_string(me->num_player) + " lose" << endl;
+	else
+		cout << "Player" + to_string(rival->num_player) + " lose" << endl;
+
+	system("Pause");
 }

@@ -637,8 +637,8 @@ public:
 
 node* next_move;
 
-int newminimax(node* cur, checkers* curr_p, vector<bool> cur_board, bool comp, int depth, int a, int b){
-	int test = -1;
+unsigned long long newminimax(node* cur, checkers* curr_p, vector<bool> cur_board, bool comp, int depth, unsigned long long a, unsigned long long b){
+	unsigned long long test = -1;
 	node* best_move = nullptr;
 	int score = 0;
 	vector<bool> oldb = cur_board;
