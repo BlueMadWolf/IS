@@ -1,2 +1,4 @@
 ﻿  main.cpp
+c:\users\alex\documents\git portable\is\ugolki\ugolki\ugolki.h(647): warning C4244: return: преобразование "__int64" в "int", возможна потеря данных
+c:\users\alex\documents\git portable\is\ugolki\ugolki\ugolki.h(671): warning C4244: return: преобразование "__int64" в "int", возможна потеря данных
   Ugolki.vcxproj -> C:\Users\Alex\Documents\Git Portable\IS\ugolki\Ugolki\x64\Debug\Ugolki.exe

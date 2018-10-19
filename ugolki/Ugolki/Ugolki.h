@@ -442,7 +442,7 @@ int heuristic1(vector<bool> curr_board, checkers * curr_player)
 	board = old_board;
 	curr_player = old_player;
 
-	return sum_cost;
+	return -sum_cost;
 }
 
 int cntInHouse(checkers* curr_player)
@@ -468,17 +468,19 @@ int cntInHouse(checkers* curr_player)
 	return cnt;
 }
 
-int heuristic2(vector<bool> curr_board, checkers * curr_player)
+long long heuristic2(vector<bool> curr_board, checkers * curr_player)
 {
-	int sum_cost = 0;
-	int cnt = cntInHouse(curr_player);
+	long long sum_cost = 1;
+	long long cnt = cntInHouse(curr_player);
 
 	for (int i = 0; i < 12; ++i)
 	{
-		sum_cost += manhattan_dist(curr_player->position[i], 63);
+		long long cur = (manhattan_dist(curr_player->position[i],
+			closest_to_goal_free_position(curr_board, curr_player->num_player)) + 1);
+		sum_cost *= cur;//pow(cur, 0.5);
 	}
 
-	return -sum_cost;
+	return -sum_cost; //* (cnt+1);
 }
 
 
@@ -493,7 +495,8 @@ void step(vector<bool> & cur_board, checkers* cur, int num_check, int new_positi
 	cur->position[num_check] = new_positions;
 }
 
-void additionalAB(vector<bool> cboard, checkers * player1, checkers * player2, int depth, bool comp, int & a, int & b)
+void additionalAB(vector<bool> cboard, checkers * player1, checkers * player2, 
+	int depth, bool comp, long long & a, long long & b)
 {
 	if (depth == 0)
 	{
@@ -514,8 +517,8 @@ void additionalAB(vector<bool> cboard, checkers * player1, checkers * player2, i
 
 				vector<bool> bcopy = cboard;
 				step(cboard, c, x, y);
-				int a1 = a;
-				int b1 = b;
+				long long a1 = a;
+				long long b1 = b;
 				additionalAB(cboard, c, c1, depth - 1, !comp, a1, b1);
 
 				cboard = bcopy;
@@ -526,7 +529,7 @@ void additionalAB(vector<bool> cboard, checkers * player1, checkers * player2, i
 				{
 					a = a1;
 				}
-				if (b1 < b)
+				if (b1 > b)
 				{
 					b = b1;
 				}
@@ -548,15 +551,15 @@ void additionalAB(vector<bool> cboard, checkers * player1, checkers * player2, i
 				vector<bool> bcopy = cboard;
 
 				step(cboard, c, x, y);
-				int a1 = a;
-				int b1 = b;
+				long long a1 = a;
+				long long b1 = b;
 				additionalAB(cboard, c1, c, depth - 1, !comp, a1, b1);
 
 				cboard = bcopy;
 				delete c;
 				delete c1;
 
-				if (b1 < b)
+				if (b1 > b)
 				{
 					b = b1;
 				}
@@ -578,7 +581,7 @@ void additionalAB(vector<bool> cboard, checkers * player1, checkers * player2, i
 	}
 }
 
-pair<int, int> abAlgorithm(checkers * player, vector<bool> curboard,  int a, int b)
+pair<int, int> abAlgorithm(checkers * player, vector<bool> curboard, long long a, long long b)
 {
 	pair<int, int> nanswer(-1, -1);
 	
@@ -590,8 +593,8 @@ pair<int, int> abAlgorithm(checkers * player, vector<bool> curboard,  int a, int
 		{
 			vector<bool> bcopy = curboard;
 			step(curboard, c, x, y);
-			int a1 = a;
-			int b1 = b;
+			long long a1 = a;
+			long long b1 = b;
 
 			checkers * newrival = new checkers(r1->position, r1->num_player);
 			additionalAB(curboard, c, newrival, ddepth - 1, false, a1, b1);
@@ -604,6 +607,10 @@ pair<int, int> abAlgorithm(checkers * player, vector<bool> curboard,  int a, int
 				a = a1;
 				nanswer.first = x;
 				nanswer.second = y;
+			}
+			if (b1 > b)
+			{
+				b = b1;
 			}
 
 			//if (a1 >= b1)
@@ -693,7 +700,7 @@ int newminimax(node* cur, checkers* curr_p, vector<bool> cur_board, bool comp, i
 		cout << endl;
 	}
 	return score;
-}
+} 
 
 void newstart(){
 	node* st = new node(board);
@@ -701,7 +708,7 @@ void newstart(){
 	r1 = new checkers(*rival);
 	//next_move = new node(board);
 	//newminimax(st,m1,board,1,ddepth,INT_MIN,INT_MAX);
-	answer = abAlgorithm(m1, board, INT_MIN, INT_MAX);
+	answer = abAlgorithm(m1, board, LLONG_MIN, LLONG_MIN);
 }
 
 pair<int, int> find_step(vector<bool> oldboard, vector<bool> newboard) { 
