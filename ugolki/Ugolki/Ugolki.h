@@ -517,6 +517,11 @@ void additionalAB(vector<bool> cboard, checkers * player1, checkers * player2, i
 				int b1 = b;
 				additionalAB(cboard, c, c1, depth - 1, !comp, a1, b1);
 
+				if (b1 > b || a1 > b1)
+					break;
+				
+				b = b1;
+
 				if (a1 > a)
 				{
 					a = a1;
@@ -542,10 +547,16 @@ void additionalAB(vector<bool> cboard, checkers * player1, checkers * player2, i
 				int b1 = b;
 				additionalAB(cboard, c1, c, depth - 1, !comp, a1, b1);
 
+				if (b1 > b || a1 > b1)
+					break;
+				
+				b = b1;
+
 				if (a1 > a)
 				{
 					a = a1;
 				}
+
 			}
 
 			delete c;
