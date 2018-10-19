@@ -1,8 +1,7 @@
 ﻿  main.cpp
   Создание кода
-  2 of 711 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+  2 of 623 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    12 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   Создание кода завершено
-  Ugolki.vcxproj -> D:\Документы\OneDrive\Документы\IS\ugolki\Ugolki\x64\Release\Ugolki.exe
-  Ugolki.vcxproj -> D:\Документы\OneDrive\Документы\IS\ugolki\Ugolki\x64\Release\Ugolki.pdb (Full PDB)
+  Ugolki.vcxproj -> C:\Users\Alex\Documents\Git Portable\IS\ugolki\Ugolki\x64\Release\Ugolki.exe
