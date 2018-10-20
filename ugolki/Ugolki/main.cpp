@@ -113,7 +113,7 @@ int main()
 	if (rival->num_player == 1)
 	{
 		step++;
-		cout << endl << "Step: " << step << endl << "Choose cheker (1-12 (a = 10, c = 12)): ";
+		cout << endl << "Step: " << step/2 << endl << "Choose cheker (1-12 (a = 10, c = 12)): ";
 		char c;
 		cin >> c;
 		cout << endl << "Make step: ";
@@ -133,10 +133,10 @@ int main()
 		//me = me->step(find_index(me->position, st.first), st.second);
 		step++;
 		me = me->step(answer.first, answer.second);
-		cout << "Step: " << step << endl;
+		cout << "Step: " << step/2 << endl;
 		print_board();
 		end = me->isEnd();
-		if (step > 39 && inhome(me))
+		if (step/2 > 39 && inhome(me))
 		{
 			fl = true;
 			break;
@@ -151,7 +151,7 @@ int main()
 		else
 		{
 			step++;
-			cout << endl << "Step: " << step << endl << "Choose cheker (1-12 (a = 10, c = 12)): ";
+			cout << endl << "Step: " << step/2 << endl << "Choose cheker (1-12 (a = 10, c = 12)): ";
 			char c;
 			cin >> c;
 			cout << endl << "Make step: ";
@@ -163,7 +163,7 @@ int main()
 			end = rival->isEnd();
 			fl = true;
 
-			if (step > 39 && inhome(rival))
+			if (step/2 > 39 && inhome(rival))
 			{
 				fl = false;
 				break;

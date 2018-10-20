@@ -112,6 +112,56 @@ public:
 	}
 };
 
+class State2
+{
+	vector<int> board;
+	int heuristic;
+
+	State2(vector<int> board) { this->board = board; calc_heuristic(); }
+	State2() 
+	{
+		board.resize(8);
+		fill(board.begin(), board.end(), -1);
+	}
+
+	void set_ith_to_h(int i, int h)
+	{
+		board[i] = h;
+	}
+
+	int first_free_index()
+	{
+		int ind = 0;
+		for (ind = 0; ind < board.size(); ++ind)
+		{
+			if (board[ind] == -1)
+				break;
+		}
+	}
+
+	void set_first_free_to_h(int h)
+	{
+		int ind = first_free_index();
+		if (ind < 8)
+			board[ind] = h;
+	}
+
+	void calc_heuristic()
+	{
+		heuristic = 0;
+		for (int i = 0; i < board.size(); ++i)
+		{
+			for (int j = i + 1; j < board.size(); ++j)
+			{
+				if ((board[i] == board[j]) || (board[i] == (board[j] - (j - i))) || (board[i] == (board[j] + (j - i))))
+				{
+					heuristic += 2;
+				}
+			}
+		}
+	}
+};
+
 State* bfs(State* init_state)
 {
 	set<vector<int>> used;
@@ -207,14 +257,21 @@ int main()
 {
 	State * s1 = new State({ 0, 0, 0, 0, 0, 0, 0, 0 }, 0);
 	
+	time_t st, en;
+
+
 	s1->print_board();
 	s1->print_iq_vice_versa();
 
+	st = clock();
 	State* last = bfs(s1);
+	en = clock();
+	cout << "time = " << double(st - en) / CLOCKS_PER_SEC;
+
 	last->print_board();
 
-	last = dfs(s1);
-	last->print_board();
+	//last = dfs(s1);
+	//last->print_board();
 
 	/*cout << s.heuristic << endl;
 	s.print_incorrect_queens();
