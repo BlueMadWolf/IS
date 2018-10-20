@@ -480,7 +480,7 @@ long long heuristic2(vector<bool> curr_board, checkers * curr_player)
 		sum_cost *= cur;//pow(cur, 0.5);
 	}
 
-	return -sum_cost; //* (cnt+1);
+	return -sum_cost * pow(cnt + 1, 6); //* (cnt+1);
 }
 
 
@@ -619,7 +619,8 @@ pair<int, int> abAlgorithm(checkers * player, vector<bool> curboard, long long a
 
 		delete c;
 	}
-
+	cout << "a = " << a << endl;
+	cout << "b = " << b << endl;
 	return nanswer;
 }
 
