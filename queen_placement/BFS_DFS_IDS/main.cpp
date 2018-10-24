@@ -10,6 +10,7 @@
 #include<functional>
 #include<queue>
 #include<stack>
+#include<iomanip>
 
 
 using namespace std;
@@ -112,56 +113,6 @@ public:
 	}
 };
 
-class State2
-{
-	vector<int> board;
-	int heuristic;
-
-	State2(vector<int> board) { this->board = board; calc_heuristic(); }
-	State2() 
-	{
-		board.resize(8);
-		fill(board.begin(), board.end(), -1);
-	}
-
-	void set_ith_to_h(int i, int h)
-	{
-		board[i] = h;
-	}
-
-	int first_free_index()
-	{
-		int ind = 0;
-		for (ind = 0; ind < board.size(); ++ind)
-		{
-			if (board[ind] == -1)
-				break;
-		}
-	}
-
-	void set_first_free_to_h(int h)
-	{
-		int ind = first_free_index();
-		if (ind < 8)
-			board[ind] = h;
-	}
-
-	void calc_heuristic()
-	{
-		heuristic = 0;
-		for (int i = 0; i < board.size(); ++i)
-		{
-			for (int j = i + 1; j < board.size(); ++j)
-			{
-				if ((board[i] == board[j]) || (board[i] == (board[j] - (j - i))) || (board[i] == (board[j] + (j - i))))
-				{
-					heuristic += 2;
-				}
-			}
-		}
-	}
-};
-
 State* bfs(State* init_state)
 {
 	set<vector<int>> used;
@@ -253,8 +204,128 @@ State* dfs(State* init_state)
 }
 
 
+class State2
+{
+public:
+	State2 * pred;
+
+	vector<int> board;
+	int heuristic;
+
+	State2(vector<int> board) { this->board = board; calc_heuristic(); }
+	State2()
+	{
+		board.resize(8);
+		fill(board.begin(), board.end(), -1);
+	}
+
+	void set_ith_to_h(int i, int h)
+	{
+		board[i] = h;
+		calc_heuristic();
+	}
+
+	int first_free_index()
+	{
+		int ind = 0;
+		for (ind = 0; ind < board.size(); ++ind)
+		{
+			if (board[ind] == -1)
+				break;
+		}
+		return ind;
+	}
+
+	void set_first_free_to_h(int h)
+	{
+		int ind = first_free_index();
+		if (ind < 8)
+			board[ind] = h;
+		calc_heuristic();
+	}
+
+	void calc_heuristic()
+	{
+		heuristic = 0;
+		int free = first_free_index();
+		for (int i = 0; i < free; ++i)
+		{
+			for (int j = i + 1; j < free; ++j)
+			{
+				if ((board[i] == board[j]) || (board[i] == (board[j] - (j - i))) || (board[i] == (board[j] + (j - i))))
+				{
+					heuristic += 2;
+				}
+			}
+		}
+	}
+
+	void print_board()
+	{
+		int w = 5;
+		cout << setw(w);
+		for (int i = 0; i < board.size(); ++i)
+		{
+			int j = 0;
+			for (; j < board[i]; ++j)
+			{
+				cout << setw(w) << "[]";
+			}
+			cout << setw(w) << "MM";
+			++j;
+			for (; j < board.size(); ++j)
+			{
+				cout << setw(w) << "[]";
+			}
+			cout << endl;
+			cout << endl;
+		}
+		cout << endl;
+	}
+};
+
+
+State2 * last_state2 = nullptr;
+
+bool try_set(State2* s)
+{
+	bool res = false;
+	int free = s->first_free_index();
+	if (free == 8)
+	{
+		if (s->heuristic == 0)
+		{
+			last_state2 = s;
+			return true;
+		}
+		else
+			return false;
+	}
+	
+	for (int i = 0; i < 8; ++i)
+	{
+		State2* news = new State2(s->board);
+		news->set_ith_to_h(free, i);
+		int h = news->heuristic;
+		if (h == 0)
+		{
+			if (try_set(news))
+				return true;
+			else
+				delete news;
+		}
+		else
+		{
+			delete news;
+		}
+	}
+	return false;
+}
+
+
 int main()
 {
+	/*
 	State * s1 = new State({ 0, 0, 0, 0, 0, 0, 0, 0 }, 0);
 	
 	time_t st, en;
@@ -269,6 +340,7 @@ int main()
 	cout << "time = " << double(st - en) / CLOCKS_PER_SEC;
 
 	last->print_board();
+	*/
 
 	//last = dfs(s1);
 	//last->print_board();
@@ -276,6 +348,23 @@ int main()
 	/*cout << s.heuristic << endl;
 	s.print_incorrect_queens();
 	s.print_iq_vice_versa();*/
+
+	vector<int> v = { 6, -1, -1, -1,
+					-1, -1, -1, -1 };
+
+	State2 * s2 = new State2(v);
+
+	time_t st, en;
+
+	st = clock();
+	bool is_set = try_set(s2);
+	en = clock();
+	cout << "time = " << double(en-st) / CLOCKS_PER_SEC << endl << endl;
+
+	if (is_set)
+		last_state2->print_board();
+	else
+		cout << "No solution" << endl;
 
 	system("pause");
 }

@@ -88,15 +88,107 @@ bool inhome(checkers * c1)
 	return false;
 }
 
-void rival_step(char c, string s)
+pair<char, string> chose_step()
 {
+	cout << "Choose cheker (1-12 (a = 10, c = 12)): ";
+	char c;
+	cin >> c;
+	cout << endl << "Make step: " << endl;
+	string s;
+	cin >> s;
+
+	return make_pair(c, s);
+}
+
+pair<int, int> correct_step_to_digits(pair<char, string> step)
+{
+	char c = step.first;
+	string s = step.second;
+
 	int n = 0;
 	if (isdigit(c))
 		n = c - '1';
 	else
-		n = c - 'a' + 9;
-	int n_p = (s[0] - 'A') + (s[1] - '1')*8;
-	rival = rival->step(n, n_p);
+	{
+		if (c == 'a' || c == 'b' || c == 'c' || c == 'd')
+			n = c - 'a' + 9;
+	}
+	int n_p = (s[0] - 'A') + (s[1] - '1') * 8;
+
+	return make_pair(n, n_p);
+}
+
+bool is_correct_step(pair<char, string> step)
+{
+	char c = step.first;
+	char c1 = step.second[0];
+	char c2 = step.second[1];
+
+	if (!isdigit(c) && c != 'a' && c != 'b' && c != 'c')
+	{
+		return false;
+	}
+	
+	if (c1 != 'A' && c1 != 'B' && c1 != 'C' && c1 != 'D' &&
+		c1 != 'E' && c1 != 'F' && c1 != 'G' && c1 != 'H')
+	{
+		return false;
+	}
+
+	if (c2 != '1' && c2 != '2' && c2 != '3' && c2 != '4' &&
+		c2 != '5' && c2 != '6' && c2 != '7' && c2 != '8')
+	{
+		return false;
+	}
+
+	pair<int, int> p = correct_step_to_digits(step);
+	list<int> l = rival->variants_of_steps(rival->position[p.first]);
+	auto it = find(l.begin(), l.end(), p.second);
+	if (it == l.end())
+		return false;
+
+	return true;
+}
+
+pair<char, string> get_correct_step()
+{
+	pair<char, string> p = chose_step();
+	while (!is_correct_step(p))
+	{
+		cout << "	!!! Wrong move !!!" << endl;
+		p = chose_step();
+	}
+	return p;
+}
+
+void rival_step(char c, string s)
+{
+	pair<int, int> p = correct_step_to_digits(make_pair(c, s));
+	rival = rival->step(p.first, p.second);
+}
+
+string get_string_step_by_int_step(int step)
+{
+	step = step;
+	int letter = step % 8;
+	int digit = step / 8;
+	
+	string s;
+	s += ('A' + letter);
+	s += ('1' + digit);
+
+	return s;
+}
+
+void print_string_step_by_answer()
+{
+	int p1 = me->position[answer.first];
+	int p2 = answer.second;
+
+	string s1 = get_string_step_by_int_step(p1);
+	string s2 = get_string_step_by_int_step(p2);
+
+	cout << "Step: " << s1 << " => " << s2 << endl;
 }
 
 bool s;
@@ -106,20 +198,16 @@ int main()
 	based_template();
 	InputData();
 	bool end = false, fl = false;
-	int step = 0;
+	int step = 2;
 
 	print_board();
 
 	if (rival->num_player == 1)
 	{
 		step++;
-		cout << endl << "Step: " << step/2 << endl << "Choose cheker (1-12 (a = 10, c = 12)): ";
-		char c;
-		cin >> c;
-		cout << endl << "Make step: ";
-		string s;
-		cin >> s;
-		rival_step(c, s);
+		cout << endl << "	Number of step: " << step / 2 << endl;
+		pair<char, string> p = get_correct_step();
+		rival_step(p.first, p.second);
 		print_board();
 		end = rival->isEnd();
 		fl = true;
@@ -131,9 +219,12 @@ int main()
 		//std::pair<int, int> st = find_step(board,next_move->curr_board);
 		//std::pair<int, int> st = start(me, rival);
 		//me = me->step(find_index(me->position, st.first), st.second);
+		
+		print_string_step_by_answer();
+
 		step++;
 		me = me->step(answer.first, answer.second);
-		cout << "Step: " << step/2 << endl;
+		cout << "	Number of step: " << step/2 << endl;
 		print_board();
 		end = me->isEnd();
 		if (step/2 > 39 && inhome(me))
@@ -151,13 +242,9 @@ int main()
 		else
 		{
 			step++;
-			cout << endl << "Step: " << step/2 << endl << "Choose cheker (1-12 (a = 10, c = 12)): ";
-			char c;
-			cin >> c;
-			cout << endl << "Make step: ";
-			string s;
-			cin >> s;
-			rival_step(c, s);
+			cout << endl << "	Number of step: " << step/2 << endl;
+			pair<char, string> p = get_correct_step();
+			rival_step(p.first, p.second);
 
 			print_board();
 			end = rival->isEnd();
