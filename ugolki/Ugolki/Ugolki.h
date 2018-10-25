@@ -30,8 +30,6 @@ struct checkers
 			position.push_back((s[i * 2] - 'A') + (s[i * 2 + 1] - '1') * 8);
 			board[(s[i * 2] - 'A') + (s[i * 2 + 1] - '1') * 8] = true; //указываем, что данная клетка теперь занята
 		}
-
-		
 	}
 
 	checkers(std::vector<int> pos, int numPlayer, checkers * par = nullptr) :parent(par), position(pos), num_player(numPlayer) {}
@@ -278,10 +276,11 @@ vector<pair<int, int>> get_manh_distances(list<int>& variants, int goal_pos)
 8	9	10	11	12	13	14	15
 0	1	2	3	4	5	6	7
 */
-//Свободная позиция, которая ближе всего к целевому прямоугольнику
-int closest_to_goal_free_position(vector<bool>& curr_board, int num_player)
+
+vector<int> variants_of_best_position(30);
+
+void fill_variants(int num_player)
 {
-	vector<int> variants_of_best_position(30);
 	if (num_player == 1)
 	{
 		//Внутри целевого прямоугольника
@@ -357,6 +356,12 @@ int closest_to_goal_free_position(vector<bool>& curr_board, int num_player)
 		variants_of_best_position[28] = 36;
 		variants_of_best_position[29] = 37;
 	}
+}
+
+//Свободная позиция, которая ближе всего к целевому прямоугольнику
+int closest_to_goal_free_position(vector<bool>& curr_board, int num_player)
+{
+	fill_variants(num_player);
 
 	for (int i = 0; i < variants_of_best_position.size(); ++i)
 	{
@@ -468,15 +473,63 @@ int cntInHouse(checkers* curr_player)
 	return cnt;
 }
 
+bool checker_in_contrary_home(checkers* curr_player, int num)
+{
+	int pos = curr_player->position[num];
+	if (curr_player->num_player == 2)
+	{
+		if ((pos % 8 < 4) && (pos / 8 < 3))
+			return true;
+	}
+	if (curr_player->num_player == 1)
+	{
+		if ((pos % 8 > 3) && (pos / 8 > 4))
+			return true;
+	}
+	return false;
+}
+
+vector<int> h_in_contrary(64);
+
+void fill_h_in_contrary()
+{
+	fill(h_in_contrary.begin(), h_in_contrary.end(), 0);
+	vector<int> ch1 = { 0, 8, 1, 16, 9, 2, 17, 10, 3, 18, 11 };
+	vector<int> ch2 = { 63, 62, 55, 61, 54, 47, 60, 53, 46, 52, 45, 44 };
+
+	int k = 1;
+	for (auto e : ch1)
+	{
+		h_in_contrary[e] = k;
+		++k;
+	}
+
+	k = 1;
+	for (auto e : ch2)
+	{
+		h_in_contrary[e] = k;
+		++k;
+	}
+}
+
 long long heuristic2(vector<bool> curr_board, checkers * curr_player)
 {
+	
 	long long sum_cost = 1;
 	long long cnt = cntInHouse(curr_player);
 
 	for (int i = 0; i < 12; ++i)
 	{
-		long long cur = (manhattan_dist(curr_player->position[i],
-			closest_to_goal_free_position(curr_board, curr_player->num_player)) + 1);
+		long long cur;
+		if (checker_in_contrary_home(curr_player, i))
+		{ 
+			cur = h_in_contrary[curr_player->position[i]];
+		}
+		else
+		{
+			cur = (manhattan_dist(curr_player->position[i],
+				closest_to_goal_free_position(curr_board, curr_player->num_player)) + 1);
+		}
 		sum_cost *= cur;//pow(cur, 0.5);
 	}
 

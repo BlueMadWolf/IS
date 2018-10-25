@@ -191,6 +191,58 @@ void print_string_step_by_answer()
 	cout << "Step: " << s1 << " => " << s2 << endl;
 }
 
+void positions_to_file(checkers * p1, checkers* p2)
+{
+	ofstream fout;
+	fout.open("../positions.txt");
+	if (p1->num_player == 1)
+	{
+		for (auto e : p1->position)
+		{
+			fout << e << ' ';
+		}
+		fout << endl;
+		for (auto e : p2->position)
+		{
+			fout << e << ' ';
+		}
+		fout << endl;
+	}
+	else
+	{
+		for (auto e : p2->position)
+		{
+			fout << e << ' ';
+		}
+		fout << endl;
+		for (auto e : p1->position)
+		{
+			fout << e << ' ';
+		}
+		fout << endl;
+	}	
+}
+
+void position_from_file(checkers* p1, checkers* p2)
+{
+	ifstream fin;
+	fin.open("../positions.txt");
+
+	fill(board.begin(), board.end(), false);
+
+	for (auto& e : p1->position)
+	{
+		fin >> e;
+		board[e] = true;
+	}
+	for (auto& e : p2->position)
+	{
+		fin >> e;
+		board[e] = true;
+	}
+
+}
+
 bool s;
 
 int main()
@@ -224,6 +276,9 @@ int main()
 
 		step++;
 		me = me->step(answer.first, answer.second);
+
+		positions_to_file(me, rival);
+
 		cout << "	Number of step: " << step/2 << endl;
 		print_board();
 		end = me->isEnd();
