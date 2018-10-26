@@ -16,11 +16,46 @@ namespace dragons
         public Form1()
         {
             InitializeComponent();
+
+            SortedDictionary<string, string> d = get_dictionary("..//..//facts.txt");
+
+            foreach (var item in d.Keys)
+            {
+                if (item.First() == 'T')
+                {
+                    checkedListBoxT.Items.Add("" + item + ": " + d[item]);
+                }
+                if (item.First() == 'S')
+                {
+                    checkedListBoxS.Items.Add("" + item + ": " + d[item]);
+                }
+                if (item.First() == 'P')
+                {
+                    checkedListBoxP.Items.Add("" + item + ": " + d[item]);
+                }
+                if (item.First() == 'Z')
+                {
+                    checkedListBoxZ.Items.Add("" + item + ": " + d[item]);
+                }
+                if (item.First() == 'C')
+                {
+                    checkedListBoxС.Items.Add("" + item + ": " + d[item]);
+                }
+                if (item.First() == 'W')
+                {
+                    checkedListBoxW.Items.Add("" + item + ": " + d[item]);
+                }
+                if (item.First() == 'F')
+                {
+                    checkedListBoxF.Items.Add("" + item + ": " + d[item]);
+                }
+            }
         }
 
-        private Dictionary<string, string> get_dictionary(string fname)
+        private SortedDictionary<string, string> get_dictionary(string fname)
         {
-            Dictionary<string, string> d = new Dictionary<string, string>();
+          
+            SortedDictionary<string, string> d = new SortedDictionary<string, string>();
             using (StreamReader fs = new StreamReader(fname))
             {
                 while (true)
@@ -30,15 +65,11 @@ namespace dragons
                     if (temp == null) break;
 
                     string[] strs = temp.Split(':');
-                    d[strs[0]] = d[strs[1]];
+                    d.Add(strs[0], strs[1]);
                 }
             }
             return d;
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //Dictionary<string, string> d = get_dictionary("facts.txt");
-        }
+        
     }
 }
