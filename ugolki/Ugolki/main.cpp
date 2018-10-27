@@ -221,6 +221,7 @@ void positions_to_file(checkers * p1, checkers* p2)
 		}
 		fout << endl;
 	}	
+	fout.close();
 }
 
 void position_from_file(checkers* p1, checkers* p2)
@@ -230,23 +231,90 @@ void position_from_file(checkers* p1, checkers* p2)
 
 	fill(board.begin(), board.end(), false);
 
-	for (auto& e : p1->position)
+	if (p1->num_player == 1)
 	{
-		fin >> e;
-		board[e] = true;
+		for (auto& e : p1->position)
+		{
+			fin >> e;
+			board[e] = true;
+		}
+		for (auto& e : p2->position)
+		{
+			fin >> e;
+			board[e] = true;
+		}
 	}
-	for (auto& e : p2->position)
+	else
 	{
-		fin >> e;
-		board[e] = true;
+		for (auto& e : p2->position)
+		{
+			fin >> e;
+			board[e] = true;
+		}
+		for (auto& e : p1->position)
+		{
+			fin >> e;
+			board[e] = true;
+		}
 	}
 
 }
 
 bool s;
 
-int main()
+void do_my_step()
 {
+	newstart();
+
+	me = me->step(answer.first, answer.second);
+
+	positions_to_file(me, rival);
+}
+
+void do_steps(pair<char, string> step)
+{
+	if (!is_correct_step(step))
+	{
+		ofstream fout;
+		fout.open("../positions.txt");
+
+		fout << "Wrong move" << endl;
+		fout.close();
+	}
+	else
+	{
+		rival_step(step.first, step.second);
+
+		do_my_step();
+	}
+}
+
+int main(int argc, char* argv[])
+{
+	if (argc == 1)
+	{
+		me = new checkers("A1B1C1D1A2B2C2D2A3B3C3D3", 1);
+		rival = new checkers("H8G8F8E8H7G7F7E7H6G6F6E6", 2);
+
+		do_my_step();
+	}
+	else
+	{
+		me = new checkers("A1B1C1D1A2B2C2D2A3B3C3D3", 2);
+		rival = new checkers("H8G8F8E8H7G7F7E7H6G6F6E6", 1);
+
+		position_from_file(me, rival);
+
+		char c = argv[1][0];
+		string s = string(argv[2], 2);
+
+		based_template();
+		print_board();
+
+		do_steps(make_pair(c, s));
+	}
+
+	/*
 	based_template();
 	InputData();
 	bool end = false, fl = false;
@@ -271,7 +339,7 @@ int main()
 		//std::pair<int, int> st = find_step(board,next_move->curr_board);
 		//std::pair<int, int> st = start(me, rival);
 		//me = me->step(find_index(me->position, st.first), st.second);
-		
+
 		print_string_step_by_answer();
 
 		step++;
@@ -279,10 +347,10 @@ int main()
 
 		positions_to_file(me, rival);
 
-		cout << "	Number of step: " << step/2 << endl;
+		cout << "	Number of step: " << step / 2 << endl;
 		print_board();
 		end = me->isEnd();
-		if (step/2 > 39 && inhome(me))
+		if (step / 2 > 39 && inhome(me))
 		{
 			fl = true;
 			break;
@@ -297,7 +365,7 @@ int main()
 		else
 		{
 			step++;
-			cout << endl << "	Number of step: " << step/2 << endl;
+			cout << endl << "	Number of step: " << step / 2 << endl;
 			pair<char, string> p = get_correct_step();
 			rival_step(p.first, p.second);
 
@@ -305,7 +373,7 @@ int main()
 			end = rival->isEnd();
 			fl = true;
 
-			if (step/2 > 39 && inhome(rival))
+			if (step / 2 > 39 && inhome(rival))
 			{
 				fl = false;
 				break;
@@ -317,6 +385,6 @@ int main()
 		cout << "Player" + to_string(me->num_player) + " lose" << endl;
 	else
 		cout << "Player" + to_string(rival->num_player) + " lose" << endl;
-
 	system("Pause");
+	*/
 }

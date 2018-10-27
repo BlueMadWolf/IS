@@ -1,0 +1,9 @@
+C:\flash\PortableGit\IS\ugolki\Int\bin\Debug\Int.exe
+C:\flash\PortableGit\IS\ugolki\Int\bin\Debug\Int.pdb
+C:\flash\PortableGit\IS\ugolki\Int\obj\Debug\Int.csprojResolveAssemblyReference.cache
+C:\flash\PortableGit\IS\ugolki\Int\obj\Debug\Int.Form1.resources
+C:\flash\PortableGit\IS\ugolki\Int\obj\Debug\Int.Properties.Resources.resources
+C:\flash\PortableGit\IS\ugolki\Int\obj\Debug\Int.csproj.GenerateResource.Cache
+C:\flash\PortableGit\IS\ugolki\Int\obj\Debug\Int.csproj.CoreCompileInputs.cache
+C:\flash\PortableGit\IS\ugolki\Int\obj\Debug\Int.exe
+C:\flash\PortableGit\IS\ugolki\Int\obj\Debug\Int.pdb
