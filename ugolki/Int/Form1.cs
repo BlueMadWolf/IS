@@ -43,6 +43,8 @@ namespace Int
             '5', '6', '7', '8', '9','a', 'b', 'c'};
         List<char> step_letters = new List<char> { 'A', 'B', 'C', 'D',
             'E', 'F', 'G', 'H'};
+        int comp_from = 0;
+        int comp_to = 0;
 
         private void drawLines()
         {
@@ -105,6 +107,7 @@ namespace Int
                     fs.Write(item + " ");
                 }
                 fs.WriteLine();
+                fs.Close();
             }
         }
 
@@ -123,6 +126,7 @@ namespace Int
                     positions1.Add(Convert.ToInt32(strs1[i]));
                     positions2.Add(Convert.ToInt32(strs2[i]));
                 }
+                fs.Close();
             }
         }
 
@@ -195,16 +199,92 @@ namespace Int
             return s;
         }
         
-        private bool tryDoDtep(int from, int to)
+        private string startUgolki(int from, int to)
         {
             
             Process proc = new Process();
             proc.StartInfo.FileName = exefname;
-            proc.StartInfo.Arguments = "";
+            proc.StartInfo.Arguments = posToChar(from).ToString() + ' ' + posToString(to).ToString();
+            proc.StartInfo.UseShellExecute = false;
+            proc.StartInfo.RedirectStandardOutput = true;
+
             proc.Start();
             proc.WaitForExit();
 
-            return false;
+            string output = proc.StandardOutput.ReadToEnd();
+
+            return output;
+            
+        }
+
+        private bool getPositions(string output)
+        {
+            string[] strs1 = output.Split(' ');
+
+            int n = Int32.Parse(strs1[0]);
+            if (n == -1)
+                return false;
+
+            for (int i = 0; i < 12; ++i)
+            {
+                n = Int32.Parse(strs1[i]);
+                if (positions1[i] != n)
+                {
+                    comp_from = positions1[i];
+                    comp_to = n;
+                    positions1[i] = n;
+                }
+                n = Int32.Parse(strs1[i+12]);
+                if (positions2[i] != n)
+                {
+                    //position_to_delete = positions2[i];
+                    positions2[i] = n;
+                }
+            }
+
+            return true;
+        }
+
+        private void clearCheck(int pos)
+        {
+            int width = pictureBox1.Width;
+            int height = pictureBox1.Height;
+            int w = width / 8;
+            int h = height / 8;
+
+            int posx = w * (pos % 8) + (w / 4)-4;
+            int posy = h * (pos / 8) + (h / 4)-4;
+
+            g.FillEllipse(new SolidBrush(pictureBox1.BackColor), posx, posy, (w / 2)+8, (h / 2)+8);
+        }
+
+        private void clearCheckers()
+        {
+            foreach (var item in positions1)
+            {
+                clearCheck(item);
+            }
+
+            foreach (var item in positions2)
+            {
+                clearCheck(item);
+            }
+        }
+
+        private void drawPoint(int pos, Color c)
+        {
+            int width = pictureBox1.Width;
+            int height = pictureBox1.Height;
+            int w = width / 8;
+            int h = height / 8;
+
+            pen.Width = 2;
+            pen.Color = c;
+            int posx = w * (pos % 8) + w / 3 + w/12;
+            int posy = h * (pos / 8) + h / 3 + w/12;
+
+            g.DrawEllipse(pen, posx, posy, w / 5, h / 5);
+
         }
 
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
@@ -224,22 +304,34 @@ namespace Int
                 moving_from = posy * 8 + posx;
 
                 fillChecker(moving_from, Color.Red);
-                //posToChar(moving_from);
-                //posToString(moving_from);
+                
+                drawPoint(comp_from, pictureBox1.BackColor);
+                drawPoint(comp_to, pictureBox1.BackColor);
             }
             else
             {
                 now_moving = false;
-                fillChecker(moving_from, pictureBox1.BackColor);
-                drawCheck(moving_from, Color.Green);
+                clearCheck(moving_from);
+                
 
                 int posx = e.X / w;
                 int posy = e.Y / h;
 
                 int moving_to = posy * 8 + posx;
-                //posToChar(moving_to);
-                //posToString(moving_to);
 
+                string output = startUgolki(moving_from, moving_to);
+                bool b = getPositions(output);
+                if (b)
+                {
+                    drawCheckers();
+                    clearCheck(comp_from);
+                    drawPoint(comp_from, Color.Red);
+                    drawPoint(comp_to, Color.Red);
+                }
+                else
+                {
+                    drawCheck(moving_from, Color.Green);
+                } 
             }
 
             pictureBox1.Image = pictureBox1.Image;

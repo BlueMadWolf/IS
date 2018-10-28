@@ -672,8 +672,8 @@ pair<int, int> abAlgorithm(checkers * player, vector<bool> curboard, long long a
 
 		delete c;
 	}
-	cout << "a = " << a << endl;
-	cout << "b = " << b << endl;
+	//cout << "a = " << a << endl;
+	//cout << "b = " << b << endl;
 	return nanswer;
 }
 

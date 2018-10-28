@@ -194,32 +194,32 @@ void print_string_step_by_answer()
 void positions_to_file(checkers * p1, checkers* p2)
 {
 	ofstream fout;
-	fout.open("../positions.txt");
+	fout.open("../../../positions.txt");
 	if (p1->num_player == 1)
 	{
 		for (auto e : p1->position)
 		{
 			fout << e << ' ';
+			cout << e << ' ';
 		}
-		fout << endl;
 		for (auto e : p2->position)
 		{
 			fout << e << ' ';
+			cout << e << ' ';
 		}
-		fout << endl;
 	}
 	else
 	{
 		for (auto e : p2->position)
 		{
 			fout << e << ' ';
+			cout << e << ' ';
 		}
-		fout << endl;
 		for (auto e : p1->position)
 		{
 			fout << e << ' ';
+			cout << e << ' ';
 		}
-		fout << endl;
 	}	
 	fout.close();
 }
@@ -227,7 +227,7 @@ void positions_to_file(checkers * p1, checkers* p2)
 void position_from_file(checkers* p1, checkers* p2)
 {
 	ifstream fin;
-	fin.open("../positions.txt");
+	fin.open("../../../positions.txt");
 
 	fill(board.begin(), board.end(), false);
 
@@ -275,11 +275,12 @@ void do_steps(pair<char, string> step)
 {
 	if (!is_correct_step(step))
 	{
-		ofstream fout;
-		fout.open("../positions.txt");
+		//ofstream fout;
+		//fout.open("../positions.txt");
 
-		fout << "Wrong move" << endl;
-		fout.close();
+		//fout << -1 << endl;
+		cout << -1;
+		//fout.close();
 	}
 	else
 	{
@@ -293,27 +294,28 @@ int main(int argc, char* argv[])
 {
 	if (argc == 1)
 	{
-		me = new checkers("A1B1C1D1A2B2C2D2A3B3C3D3", 1);
-		rival = new checkers("H8G8F8E8H7G7F7E7H6G6F6E6", 2);
+		me = new checkers("A1B1C1D1A2B2C2D2A3B3C3D3", 2);
+		rival = new checkers("H8G8F8E8H7G7F7E7H6G6F6E6", 1);
 
 		do_my_step();
 	}
 	else
 	{
-		me = new checkers("A1B1C1D1A2B2C2D2A3B3C3D3", 2);
-		rival = new checkers("H8G8F8E8H7G7F7E7H6G6F6E6", 1);
+		me = new checkers("A1B1C1D1A2B2C2D2A3B3C3D3", 1);
+		rival = new checkers("H8G8F8E8H7G7F7E7H6G6F6E6", 2);
 
+		//print_board();
 		position_from_file(me, rival);
 
 		char c = argv[1][0];
 		string s = string(argv[2], 2);
 
-		based_template();
-		print_board();
+		//based_template();
+		//print_board();
 
 		do_steps(make_pair(c, s));
 	}
-
+	//system("Pause");
 	/*
 	based_template();
 	InputData();
