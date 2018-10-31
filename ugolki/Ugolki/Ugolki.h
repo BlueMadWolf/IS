@@ -496,26 +496,37 @@ bool checker_in_contrary_home(checkers* curr_player, int num)
 	return false;
 }
 
-vector<int> h_in_contrary(64);
-
-void fill_h_in_contrary()
+int h_in_contrary(int num_p, int pos)
 {
-	fill(h_in_contrary.begin(), h_in_contrary.end(), 0);
-	vector<int> ch1 = { 0, 8, 1, 16, 9, 2, 17, 10, 3, 18, 11 };
-	vector<int> ch2 = { 63, 62, 55, 61, 54, 47, 60, 53, 46, 52, 45, 44 };
-
-	int k = 1;
-	for (auto e : ch1)
+	if (num_p == 2)
 	{
-		h_in_contrary[e] = k;
-		++k;
+		if (pos == 0)
+			return 1;
+		if (pos == 1 || pos == 8)
+			return 2;
+		if (pos == 2 || pos == 9 || pos == 16)
+			return 3;
+		if (pos == 3 || pos == 10 || pos == 17)
+			return 4;
+		if (pos == 11 || pos == 18)
+			return 5;
+		if (pos == 19)
+			return 6;
 	}
-
-	k = 1;
-	for (auto e : ch2)
+	else
 	{
-		h_in_contrary[e] = k;
-		++k;
+		if (pos == 63)
+			return 1;
+		if (pos == 62 || pos == 55)
+			return 2;
+		if (pos == 61 || pos == 54 || pos == 47)
+			return 3;
+		if (pos == 60 || pos == 53 || pos == 46)
+			return 4;
+		if (pos == 52 || pos == 45)
+			return 5;
+		if (pos == 44)
+			return 6;
 	}
 }
 
@@ -525,23 +536,24 @@ long long heuristic2(vector<bool> curr_board, checkers * curr_player)
 	long long sum_cost = 1;
 	long long cnt = cntInHouse(curr_player);
 
-	int best_pos = curr_player->num_player == 1 ? 1 : 2;
+	//int best_pos = curr_player->num_player == 1 ? 1 : 2;
 	for (int i = 0; i < 12; ++i)
 	{
 		long long cur;
-		/*if (checker_in_contrary_home(curr_player, i))
+		if(checker_in_contrary_home(curr_player, i))
 		{ 
-			cur = h_in_contrary[curr_player->position[i]];
-		}*/
-		//else
+			cur = h_in_contrary(curr_player->num_player, curr_player->position[i]);
+
+		}
+		else
 		{
 			cur = (manhattan_dist(curr_player->position[i],
-				closest_to_goal_free_position(curr_board, curr_player->num_player, curr_player->position[i])) + 1);
+				closest_to_goal_free_position(curr_board, curr_player->num_player, curr_player->position[i])) + 10);
 		}
 		sum_cost *= cur;//pow(cur, 0.5);
 	}
 
-	return -sum_cost * pow(cnt + 1, 6); //* (cnt+1);
+	return -sum_cost - pow(cnt + 1, 6); //* (cnt+1);
 }
 
 

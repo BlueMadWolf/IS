@@ -22,7 +22,7 @@ namespace Int
             //g.ScaleTransform(1, -1);
             //g.TranslateTransform(0, -pictureBox1.Height);
 
-            
+            pictureBox1.Visible = false;
         }
 
         string fname = "..//..//..//positions.txt";
@@ -306,8 +306,28 @@ namespace Int
             labelManH.Text = heuristic(positions2, 0).ToString();
         }
 
+        private bool isMansCheck(int pos)
+        {
+            bool b = false;
+            foreach (var item in positions2)
+            {
+                if (item == pos)
+                    b = true;
+            }
+            return b;
+        }
+
+        private void incorrectStep()
+        {
+            label1.Visible = true;
+            pictureBox1.Visible = false;
+            label1.Text = "Некорректный шаг!\nНажмите на меня,\n чтобы продолжить!";
+        }
+
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
         {
+            label1.Visible = false;
+
             int width = pictureBox1.Width;
             int height = pictureBox1.Height;
             int w = width / 8;
@@ -322,10 +342,19 @@ namespace Int
 
                 moving_from = posy * 8 + posx;
 
-                fillChecker(moving_from, Color.Red);
-                
-                drawPoint(comp_from, pictureBox1.BackColor);
-                drawPoint(comp_to, pictureBox1.BackColor);
+                if (!isMansCheck(moving_from))
+                {
+                    now_moving = false;
+
+                    incorrectStep();
+                }
+                else
+                {
+                    fillChecker(moving_from, Color.Red);
+
+                    drawPoint(comp_from, pictureBox1.BackColor);
+                    drawPoint(comp_to, pictureBox1.BackColor);
+                }
             }
             else
             {
@@ -353,8 +382,8 @@ namespace Int
                 }
                 else
                 {
-                    label1.Visible = true;
-                    label1.Text = "Некорректный шаг!\nНажмите на меня,\n чтобы продолжить!";
+                    incorrectStep();
+
                     drawCheck(moving_from, Color.Green);
                 } 
             }
@@ -379,6 +408,7 @@ namespace Int
                 first_click_on_label1 = false;
             }
 
+            pictureBox1.Visible = true;
             label1.Visible = false;
         }
     }
