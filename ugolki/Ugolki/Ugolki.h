@@ -359,12 +359,14 @@ void fill_variants(int num_player)
 }
 
 //Свободная позиция, которая ближе всего к целевому прямоугольнику
-int closest_to_goal_free_position(vector<bool>& curr_board, int num_player)
+int closest_to_goal_free_position(vector<bool>& curr_board, int num_player, int curr_pos)
 {
 	fill_variants(num_player);
 
 	for (int i = 0; i < variants_of_best_position.size(); ++i)
 	{
+		if (curr_pos == variants_of_best_position[i])
+			return curr_pos;
 		if (!curr_board[variants_of_best_position[i]])
 			return variants_of_best_position[i];
 	}
@@ -374,11 +376,16 @@ int closest_to_goal_free_position(vector<bool>& curr_board, int num_player)
 //Количество шагов от текущей позиции до свободной, ближайшей к прямоугольнику 
 int cnt_steps_to_best_free_pos(vector<bool>& curr_board, checkers * curr_player, int curr_num)
 {
-	int best_pos = closest_to_goal_free_position(curr_board, curr_player->num_player);
+	
 	
 	int curr_pos = curr_player->position[curr_num];
+
+	int best_pos = closest_to_goal_free_position(curr_board, curr_player->num_player, curr_pos);
+
 	if (curr_pos == best_pos)
 		return 0;
+
+
 
 	list<int> vars = curr_player->variants_of_steps(curr_pos);
 	if (vars.size() == 0)
@@ -518,17 +525,18 @@ long long heuristic2(vector<bool> curr_board, checkers * curr_player)
 	long long sum_cost = 1;
 	long long cnt = cntInHouse(curr_player);
 
+	int best_pos = curr_player->num_player == 1 ? 1 : 2;
 	for (int i = 0; i < 12; ++i)
 	{
 		long long cur;
-		if (checker_in_contrary_home(curr_player, i))
+		/*if (checker_in_contrary_home(curr_player, i))
 		{ 
 			cur = h_in_contrary[curr_player->position[i]];
-		}
-		else
+		}*/
+		//else
 		{
 			cur = (manhattan_dist(curr_player->position[i],
-				closest_to_goal_free_position(curr_board, curr_player->num_player)) + 1);
+				closest_to_goal_free_position(curr_board, curr_player->num_player, curr_player->position[i])) + 1);
 		}
 		sum_cost *= cur;//pow(cur, 0.5);
 	}

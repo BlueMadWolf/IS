@@ -22,13 +22,7 @@ namespace Int
             //g.ScaleTransform(1, -1);
             //g.TranslateTransform(0, -pictureBox1.Height);
 
-            drawLines();
-            drawDigits();
-
-            positions_to_default();
-            positions_from_file();
-
-            drawCheckers();
+            
         }
 
         string fname = "..//..//..//positions.txt";
@@ -45,6 +39,8 @@ namespace Int
             'E', 'F', 'G', 'H'};
         int comp_from = 0;
         int comp_to = 0;
+        int step_number = 1;
+        bool first_click_on_label1 = true;
 
         private void drawLines()
         {
@@ -287,6 +283,29 @@ namespace Int
 
         }
 
+        private int manh_dist(int from, int to)
+        {
+            int s1 = Math.Abs((from % 8) - (to % 8));
+            int s2 = Math.Abs((from / 8) - (to / 8));
+            return s1 + s2;
+        }
+
+        private int heuristic(List<int> positions, int best_pos)
+        {
+            int sum = 0;
+            foreach (var item in positions)
+            {
+                sum += manh_dist(item, best_pos);
+            }
+            return sum;
+        }
+
+        private void updateHeuristics()
+        {
+            labelCompH.Text = heuristic(positions1, 63).ToString();
+            labelManH.Text = heuristic(positions2, 0).ToString();
+        }
+
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
         {
             int width = pictureBox1.Width;
@@ -320,9 +339,13 @@ namespace Int
                 int moving_to = posy * 8 + posx;
 
                 string output = startUgolki(moving_from, moving_to);
-                bool b = getPositions(output);
-                if (b)
+                bool correct_step = getPositions(output);
+                if (correct_step)
                 {
+                    step_number += 1;
+                    labelStepNumber.Text = step_number.ToString();
+                    updateHeuristics();
+
                     drawCheckers();
                     clearCheck(comp_from);
                     drawPoint(comp_from, Color.Red);
@@ -330,11 +353,33 @@ namespace Int
                 }
                 else
                 {
+                    label1.Visible = true;
+                    label1.Text = "Некорректный шаг!\nНажмите на меня,\n чтобы продолжить!";
                     drawCheck(moving_from, Color.Green);
                 } 
             }
 
             pictureBox1.Image = pictureBox1.Image;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            if (first_click_on_label1)
+            {
+                drawLines();
+                drawDigits();
+
+                positions_to_default();
+                positions_from_file();
+
+                drawCheckers();
+
+                updateHeuristics();
+
+                first_click_on_label1 = false;
+            }
+
+            label1.Visible = false;
         }
     }
 }

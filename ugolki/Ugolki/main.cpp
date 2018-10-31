@@ -264,7 +264,18 @@ bool s;
 
 void do_my_step()
 {
+	/*me->num_player -= 1;
+	me->num_player = (me->num_player + 1) % 2 + 1;
+	rival->num_player -= 1;
+	rival->num_player = (rival->num_player + 1) % 2 + 1;*/
+	
 	newstart();
+
+	/*me->num_player -= 1;
+	me->num_player = (me->num_player + 1) % 2 + 1;
+	rival->num_player -= 1;
+	rival->num_player = (rival->num_player + 1) % 2 + 1;*/
+
 
 	me = me->step(answer.first, answer.second);
 
