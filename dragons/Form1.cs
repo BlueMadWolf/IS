@@ -49,6 +49,14 @@ namespace dragons
                 {
                     checkedListBoxF.Items.Add("" + item + ": " + d[item]);
                 }
+                if (item.First() == 'O')
+                {
+                    checkedListBoxO.Items.Add("" + item + ": " + d[item]);
+                }
+                if (item.First() == 'G')
+                {
+                    checkedListBoxG.Items.Add("" + item + ": " + d[item]);
+                }
             }
         }
 
@@ -69,7 +77,6 @@ namespace dragons
                 }
             }
             return d;
-        }
-        
+        }        
     }
 }
