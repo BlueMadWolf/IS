@@ -36,23 +36,23 @@
             this.labelC = new System.Windows.Forms.Label();
             this.labelF = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.label3 = new System.Windows.Forms.Label();
-            this.labelO = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.start = new System.Windows.Forms.Button();
-            this.checkedListBoxT = new System.Windows.Forms.ListBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.checkedListBoxS = new System.Windows.Forms.ListBox();
-            this.checkedListBoxZ = new System.Windows.Forms.ListBox();
+            this.checkedListBoxG = new System.Windows.Forms.ListBox();
+            this.checkedListBoxW = new System.Windows.Forms.ListBox();
             this.checkedListBoxO = new System.Windows.Forms.ListBox();
-            this.checkedListBoxF = new System.Windows.Forms.ListBox();
             this.checkedListBoxС = new System.Windows.Forms.ListBox();
             this.checkedListBoxP = new System.Windows.Forms.ListBox();
-            this.checkedListBoxW = new System.Windows.Forms.ListBox();
-            this.checkedListBoxG = new System.Windows.Forms.ListBox();
-            this.summary = new System.Windows.Forms.ListBox();
+            this.checkedListBoxF = new System.Windows.Forms.ListBox();
+            this.checkedListBoxS = new System.Windows.Forms.ListBox();
+            this.checkedListBoxZ = new System.Windows.Forms.ListBox();
+            this.checkedListBoxT = new System.Windows.Forms.ListBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.labelO = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.summary = new System.Windows.Forms.ListBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.start = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -170,86 +170,23 @@
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 15;
             // 
-            // label3
+            // checkedListBoxG
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 494);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(118, 13);
-            this.label3.TabIndex = 17;
-            this.label3.Text = "Поставленная задача";
+            this.checkedListBoxG.FormattingEnabled = true;
+            this.checkedListBoxG.Location = new System.Drawing.Point(3, 522);
+            this.checkedListBoxG.Name = "checkedListBoxG";
+            this.checkedListBoxG.Size = new System.Drawing.Size(194, 95);
+            this.checkedListBoxG.TabIndex = 7;
+            this.checkedListBoxG.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.checkedListBoxG_MouseDoubleClick);
             // 
-            // labelO
+            // checkedListBoxW
             // 
-            this.labelO.AutoSize = true;
-            this.labelO.Location = new System.Drawing.Point(204, 353);
-            this.labelO.Name = "labelO";
-            this.labelO.Size = new System.Drawing.Size(125, 13);
-            this.labelO.TabIndex = 16;
-            this.labelO.Text = "Особенности драконов";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(17, 353);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 24);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Вывод";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(3, 385);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(661, 236);
-            this.textBox2.TabIndex = 2;
-            // 
-            // start
-            // 
-            this.start.Location = new System.Drawing.Point(325, 94);
-            this.start.Name = "start";
-            this.start.Size = new System.Drawing.Size(109, 49);
-            this.start.TabIndex = 4;
-            this.start.Text = "Запуск";
-            this.start.UseVisualStyleBackColor = true;
-            // 
-            // checkedListBoxT
-            // 
-            this.checkedListBoxT.FormattingEnabled = true;
-            this.checkedListBoxT.Location = new System.Drawing.Point(3, 15);
-            this.checkedListBoxT.Name = "checkedListBoxT";
-            this.checkedListBoxT.Size = new System.Drawing.Size(165, 95);
-            this.checkedListBoxT.TabIndex = 5;
-            this.checkedListBoxT.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.checkedListBoxT_MouseDoubleClick);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(27, 1);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(102, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Выбранные факты";
-            // 
-            // checkedListBoxS
-            // 
-            this.checkedListBoxS.FormattingEnabled = true;
-            this.checkedListBoxS.Location = new System.Drawing.Point(183, 17);
-            this.checkedListBoxS.Name = "checkedListBoxS";
-            this.checkedListBoxS.Size = new System.Drawing.Size(289, 95);
-            this.checkedListBoxS.TabIndex = 7;
-            this.checkedListBoxS.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.checkedListBoxS_MouseDoubleClick);
-            // 
-            // checkedListBoxZ
-            // 
-            this.checkedListBoxZ.FormattingEnabled = true;
-            this.checkedListBoxZ.Location = new System.Drawing.Point(183, 128);
-            this.checkedListBoxZ.Name = "checkedListBoxZ";
-            this.checkedListBoxZ.Size = new System.Drawing.Size(289, 95);
-            this.checkedListBoxZ.TabIndex = 8;
-            this.checkedListBoxZ.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.checkedListBoxZ_MouseDoubleClick);
+            this.checkedListBoxW.FormattingEnabled = true;
+            this.checkedListBoxW.Location = new System.Drawing.Point(3, 380);
+            this.checkedListBoxW.Name = "checkedListBoxW";
+            this.checkedListBoxW.Size = new System.Drawing.Size(165, 95);
+            this.checkedListBoxW.TabIndex = 9;
+            this.checkedListBoxW.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.checkedListBoxW_MouseDoubleClick);
             // 
             // checkedListBoxO
             // 
@@ -259,15 +196,6 @@
             this.checkedListBoxO.Size = new System.Drawing.Size(289, 95);
             this.checkedListBoxO.TabIndex = 9;
             this.checkedListBoxO.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.checkedListBoxO_MouseDoubleClick);
-            // 
-            // checkedListBoxF
-            // 
-            this.checkedListBoxF.FormattingEnabled = true;
-            this.checkedListBoxF.Location = new System.Drawing.Point(183, 242);
-            this.checkedListBoxF.Name = "checkedListBoxF";
-            this.checkedListBoxF.Size = new System.Drawing.Size(289, 95);
-            this.checkedListBoxF.TabIndex = 10;
-            this.checkedListBoxF.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.checkedListBoxF_MouseDoubleClick);
             // 
             // checkedListBoxС
             // 
@@ -287,32 +215,59 @@
             this.checkedListBoxP.TabIndex = 8;
             this.checkedListBoxP.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.checkedListBoxP_MouseDoubleClick);
             // 
-            // checkedListBoxW
+            // checkedListBoxF
             // 
-            this.checkedListBoxW.FormattingEnabled = true;
-            this.checkedListBoxW.Location = new System.Drawing.Point(3, 380);
-            this.checkedListBoxW.Name = "checkedListBoxW";
-            this.checkedListBoxW.Size = new System.Drawing.Size(165, 95);
-            this.checkedListBoxW.TabIndex = 9;
-            this.checkedListBoxW.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.checkedListBoxW_MouseDoubleClick);
+            this.checkedListBoxF.FormattingEnabled = true;
+            this.checkedListBoxF.Location = new System.Drawing.Point(183, 242);
+            this.checkedListBoxF.Name = "checkedListBoxF";
+            this.checkedListBoxF.Size = new System.Drawing.Size(289, 95);
+            this.checkedListBoxF.TabIndex = 10;
+            this.checkedListBoxF.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.checkedListBoxF_MouseDoubleClick);
             // 
-            // checkedListBoxG
+            // checkedListBoxS
             // 
-            this.checkedListBoxG.FormattingEnabled = true;
-            this.checkedListBoxG.Location = new System.Drawing.Point(3, 522);
-            this.checkedListBoxG.Name = "checkedListBoxG";
-            this.checkedListBoxG.Size = new System.Drawing.Size(194, 95);
-            this.checkedListBoxG.TabIndex = 7;
-            this.checkedListBoxG.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.checkedListBoxG_MouseDoubleClick);
+            this.checkedListBoxS.FormattingEnabled = true;
+            this.checkedListBoxS.Location = new System.Drawing.Point(183, 17);
+            this.checkedListBoxS.Name = "checkedListBoxS";
+            this.checkedListBoxS.Size = new System.Drawing.Size(289, 95);
+            this.checkedListBoxS.TabIndex = 7;
+            this.checkedListBoxS.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.checkedListBoxS_MouseDoubleClick);
             // 
-            // summary
+            // checkedListBoxZ
             // 
-            this.summary.FormattingEnabled = true;
-            this.summary.Location = new System.Drawing.Point(21, 15);
-            this.summary.Name = "summary";
-            this.summary.Size = new System.Drawing.Size(272, 290);
-            this.summary.TabIndex = 7;
-            this.summary.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.summary_MouseDoubleClick);
+            this.checkedListBoxZ.FormattingEnabled = true;
+            this.checkedListBoxZ.Location = new System.Drawing.Point(183, 128);
+            this.checkedListBoxZ.Name = "checkedListBoxZ";
+            this.checkedListBoxZ.Size = new System.Drawing.Size(289, 95);
+            this.checkedListBoxZ.TabIndex = 8;
+            this.checkedListBoxZ.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.checkedListBoxZ_MouseDoubleClick);
+            // 
+            // checkedListBoxT
+            // 
+            this.checkedListBoxT.FormattingEnabled = true;
+            this.checkedListBoxT.Location = new System.Drawing.Point(3, 15);
+            this.checkedListBoxT.Name = "checkedListBoxT";
+            this.checkedListBoxT.Size = new System.Drawing.Size(165, 95);
+            this.checkedListBoxT.TabIndex = 5;
+            this.checkedListBoxT.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.checkedListBoxT_MouseDoubleClick);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 494);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(118, 13);
+            this.label3.TabIndex = 17;
+            this.label3.Text = "Поставленная задача";
+            // 
+            // labelO
+            // 
+            this.labelO.AutoSize = true;
+            this.labelO.Location = new System.Drawing.Point(204, 353);
+            this.labelO.Name = "labelO";
+            this.labelO.Size = new System.Drawing.Size(125, 13);
+            this.labelO.TabIndex = 16;
+            this.labelO.Text = "Особенности драконов";
             // 
             // checkBox1
             // 
@@ -323,6 +278,52 @@
             this.checkBox1.TabIndex = 8;
             this.checkBox1.Text = "Обратный вывод";
             this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // summary
+            // 
+            this.summary.FormattingEnabled = true;
+            this.summary.Location = new System.Drawing.Point(21, 15);
+            this.summary.Name = "summary";
+            this.summary.Size = new System.Drawing.Size(272, 290);
+            this.summary.TabIndex = 7;
+            this.summary.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.summary_MouseDoubleClick);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(27, 1);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(102, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Выбранные факты";
+            // 
+            // start
+            // 
+            this.start.Location = new System.Drawing.Point(325, 94);
+            this.start.Name = "start";
+            this.start.Size = new System.Drawing.Size(109, 49);
+            this.start.TabIndex = 4;
+            this.start.Text = "Запуск";
+            this.start.UseVisualStyleBackColor = true;
+            this.start.Click += new System.EventHandler(this.start_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(17, 353);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(69, 24);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Вывод";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(3, 385);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(661, 236);
+            this.textBox2.TabIndex = 2;
             // 
             // Form1
             // 

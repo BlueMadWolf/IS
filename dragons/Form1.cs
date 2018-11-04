@@ -13,32 +13,34 @@ namespace dragons
 {
     public partial class Form1 : Form
     {
+        public SortedDictionary<string, string> facts = new SortedDictionary<string, string>();
+        Dictionary<string, Rule> rules = new Dictionary<string, Rule>();
         public Form1()
         {
             InitializeComponent();
 
-            SortedDictionary<string, string> d = get_dictionary("..//..//facts.txt");
-            Dictionary<string, Rule> rules = get_rules("..//..//rules.txt");
-            foreach (var item in d.Keys)
+            facts = get_dictionary("..//..//facts.txt");
+            rules = get_rules("..//..//rules.txt");
+            foreach (var item in facts.Keys)
             {
                 if (item.First() == 'T')
-                    checkedListBoxT.Items.Add("" + item + ": " + d[item]);
+                    checkedListBoxT.Items.Add("" + item + ": " + facts[item]);
                 if (item.First() == 'S')
-                    checkedListBoxS.Items.Add("" + item + ": " + d[item]);
+                    checkedListBoxS.Items.Add("" + item + ": " + facts[item]);
                 if (item.First() == 'P')
-                    checkedListBoxP.Items.Add("" + item + ": " + d[item]);
+                    checkedListBoxP.Items.Add("" + item + ": " + facts[item]);
                 if (item.First() == 'Z')
-                    checkedListBoxZ.Items.Add("" + item + ": " + d[item]);
+                    checkedListBoxZ.Items.Add("" + item + ": " + facts[item]);
                 if (item.First() == 'C')
-                    checkedListBoxС.Items.Add("" + item + ": " + d[item]);
+                    checkedListBoxС.Items.Add("" + item + ": " + facts[item]);
                 if (item.First() == 'W')
-                    checkedListBoxW.Items.Add("" + item + ": " + d[item]);
+                    checkedListBoxW.Items.Add("" + item + ": " + facts[item]);
                 if (item.First() == 'F')
-                    checkedListBoxF.Items.Add("" + item + ": " + d[item]);
+                    checkedListBoxF.Items.Add("" + item + ": " + facts[item]);
                 if (item.First() == 'O')
-                    checkedListBoxO.Items.Add("" + item + ": " + d[item]);
+                    checkedListBoxO.Items.Add("" + item + ": " + facts[item]);
                 if (item.First() == 'G')
-                    checkedListBoxG.Items.Add("" + item + ": " + d[item]);
+                    checkedListBoxG.Items.Add("" + item + ": " + facts[item]);
             }
         }
 
@@ -51,7 +53,7 @@ namespace dragons
                     string temp = fs.ReadLine();
                     if (temp == null) break;
                     string[] strs = temp.Split(':');
-                    d.Add(strs[0], strs[1]);
+                    d.Add(strs[0].Trim(' '), strs[1]);
                 }
             }
             return d;
@@ -60,6 +62,7 @@ namespace dragons
         public class Rule {
             public List<string> preconditions;
             public string consequence;
+            
             public Rule(string r) {
                 preconditions = new List<string>();
                 var temp = r.Split('-');
@@ -69,11 +72,22 @@ namespace dragons
                     preconditions.Add(i.Trim(' '));
             }
 
-            public string print() {
-                string res = "";
+            public bool compare(List<string> f) {
+                bool res = true;
                 foreach (var i in preconditions)
-                    res += i + ',';
-                res += "->" + consequence;
+                    res = res && f.Contains(i);
+                return res;
+            }
+
+           public string print() {
+                Form1 _form = new Form1();
+                string res = "";
+                foreach (var i in preconditions) {
+                    res += _form.facts[i];
+                    if (i != preconditions.Last())
+                        res += " , ";
+                }
+                res += "->" + _form.facts[consequence];
                 return res;
             }
         }
@@ -183,6 +197,35 @@ namespace dragons
                     break;
                 default:
                     break;
+            }
+        }
+
+        private bool agenda(ref Dictionary<string, Rule> w, ref List<string> f)
+        {
+            bool res = false;
+            foreach (var i in w) {
+                if (i.Value.compare(f)) {
+                    var ft = i.Value.consequence;
+                    if (!f.Contains(ft)) {
+                        f.Add(i.Value.consequence);
+                        res = true;
+                        textBox2.Text += i.Value.print() + Environment.NewLine;
+                        
+                    }
+                    //w.Remove(i.Key);
+                }
+            }
+            return res;
+        }
+        
+        private void start_Click(object sender, EventArgs e)
+        {
+            Dictionary<string, Rule> work = rules;
+            List<string> in_fact = new List<string>();
+            foreach (var i in summary.Items)
+                in_fact.Add(i.ToString().Split(':')[0].Trim(' '));
+
+            while (agenda(ref work, ref in_fact)) {
             }
         } 
     }
