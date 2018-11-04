@@ -28,13 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.checkedListBoxT = new System.Windows.Forms.CheckedListBox();
-            this.checkedListBoxS = new System.Windows.Forms.CheckedListBox();
-            this.checkedListBoxZ = new System.Windows.Forms.CheckedListBox();
-            this.checkedListBoxP = new System.Windows.Forms.CheckedListBox();
-            this.checkedListBoxW = new System.Windows.Forms.CheckedListBox();
-            this.checkedListBoxС = new System.Windows.Forms.CheckedListBox();
-            this.checkedListBoxF = new System.Windows.Forms.CheckedListBox();
             this.labelT = new System.Windows.Forms.Label();
             this.labelS = new System.Windows.Forms.Label();
             this.labelZ = new System.Windows.Forms.Label();
@@ -43,81 +36,28 @@
             this.labelC = new System.Windows.Forms.Label();
             this.labelF = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.checkedListBoxG = new System.Windows.Forms.CheckedListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.labelO = new System.Windows.Forms.Label();
-            this.checkedListBoxO = new System.Windows.Forms.CheckedListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.start = new System.Windows.Forms.Button();
+            this.checkedListBoxT = new System.Windows.Forms.ListBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.checkedListBoxS = new System.Windows.Forms.ListBox();
+            this.checkedListBoxZ = new System.Windows.Forms.ListBox();
+            this.checkedListBoxO = new System.Windows.Forms.ListBox();
+            this.checkedListBoxF = new System.Windows.Forms.ListBox();
+            this.checkedListBoxС = new System.Windows.Forms.ListBox();
+            this.checkedListBoxP = new System.Windows.Forms.ListBox();
+            this.checkedListBoxW = new System.Windows.Forms.ListBox();
+            this.checkedListBoxG = new System.Windows.Forms.ListBox();
+            this.summary = new System.Windows.Forms.ListBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // checkedListBoxT
-            // 
-            this.checkedListBoxT.FormattingEnabled = true;
-            this.checkedListBoxT.Location = new System.Drawing.Point(5, 16);
-            this.checkedListBoxT.Margin = new System.Windows.Forms.Padding(2);
-            this.checkedListBoxT.Name = "checkedListBoxT";
-            this.checkedListBoxT.Size = new System.Drawing.Size(165, 94);
-            this.checkedListBoxT.TabIndex = 1;
-            this.checkedListBoxT.Tag = "T";
-            // 
-            // checkedListBoxS
-            // 
-            this.checkedListBoxS.FormattingEnabled = true;
-            this.checkedListBoxS.Location = new System.Drawing.Point(183, 16);
-            this.checkedListBoxS.Margin = new System.Windows.Forms.Padding(2);
-            this.checkedListBoxS.Name = "checkedListBoxS";
-            this.checkedListBoxS.Size = new System.Drawing.Size(289, 94);
-            this.checkedListBoxS.TabIndex = 2;
-            // 
-            // checkedListBoxZ
-            // 
-            this.checkedListBoxZ.FormattingEnabled = true;
-            this.checkedListBoxZ.Location = new System.Drawing.Point(183, 127);
-            this.checkedListBoxZ.Margin = new System.Windows.Forms.Padding(2);
-            this.checkedListBoxZ.Name = "checkedListBoxZ";
-            this.checkedListBoxZ.Size = new System.Drawing.Size(289, 94);
-            this.checkedListBoxZ.TabIndex = 4;
-            // 
-            // checkedListBoxP
-            // 
-            this.checkedListBoxP.FormattingEnabled = true;
-            this.checkedListBoxP.Location = new System.Drawing.Point(5, 127);
-            this.checkedListBoxP.Margin = new System.Windows.Forms.Padding(2);
-            this.checkedListBoxP.Name = "checkedListBoxP";
-            this.checkedListBoxP.Size = new System.Drawing.Size(165, 94);
-            this.checkedListBoxP.TabIndex = 3;
-            // 
-            // checkedListBoxW
-            // 
-            this.checkedListBoxW.FormattingEnabled = true;
-            this.checkedListBoxW.Location = new System.Drawing.Point(5, 380);
-            this.checkedListBoxW.Margin = new System.Windows.Forms.Padding(2);
-            this.checkedListBoxW.Name = "checkedListBoxW";
-            this.checkedListBoxW.Size = new System.Drawing.Size(165, 94);
-            this.checkedListBoxW.TabIndex = 6;
-            // 
-            // checkedListBoxС
-            // 
-            this.checkedListBoxС.FormattingEnabled = true;
-            this.checkedListBoxС.Location = new System.Drawing.Point(5, 241);
-            this.checkedListBoxС.Margin = new System.Windows.Forms.Padding(2);
-            this.checkedListBoxС.Name = "checkedListBoxС";
-            this.checkedListBoxС.Size = new System.Drawing.Size(165, 94);
-            this.checkedListBoxС.TabIndex = 5;
-            // 
-            // checkedListBoxF
-            // 
-            this.checkedListBoxF.FormattingEnabled = true;
-            this.checkedListBoxF.Location = new System.Drawing.Point(183, 241);
-            this.checkedListBoxF.Margin = new System.Windows.Forms.Padding(2);
-            this.checkedListBoxF.Name = "checkedListBoxF";
-            this.checkedListBoxF.Size = new System.Drawing.Size(289, 94);
-            this.checkedListBoxF.TabIndex = 7;
             // 
             // labelT
             // 
@@ -192,46 +132,43 @@
             // splitContainer1
             // 
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.splitContainer1.IsSplitterFixed = true;
             this.splitContainer1.Location = new System.Drawing.Point(3, 31);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.checkedListBoxG);
+            this.splitContainer1.Panel1.Controls.Add(this.checkedListBoxW);
+            this.splitContainer1.Panel1.Controls.Add(this.checkedListBoxO);
+            this.splitContainer1.Panel1.Controls.Add(this.checkedListBoxС);
+            this.splitContainer1.Panel1.Controls.Add(this.checkedListBoxP);
+            this.splitContainer1.Panel1.Controls.Add(this.checkedListBoxF);
+            this.splitContainer1.Panel1.Controls.Add(this.checkedListBoxS);
+            this.splitContainer1.Panel1.Controls.Add(this.checkedListBoxZ);
+            this.splitContainer1.Panel1.Controls.Add(this.checkedListBoxT);
             this.splitContainer1.Panel1.Controls.Add(this.label3);
             this.splitContainer1.Panel1.Controls.Add(this.labelO);
-            this.splitContainer1.Panel1.Controls.Add(this.checkedListBoxO);
-            this.splitContainer1.Panel1.Controls.Add(this.checkedListBoxT);
             this.splitContainer1.Panel1.Controls.Add(this.labelF);
             this.splitContainer1.Panel1.Controls.Add(this.labelT);
-            this.splitContainer1.Panel1.Controls.Add(this.checkedListBoxF);
             this.splitContainer1.Panel1.Controls.Add(this.labelW);
             this.splitContainer1.Panel1.Controls.Add(this.labelS);
             this.splitContainer1.Panel1.Controls.Add(this.labelC);
-            this.splitContainer1.Panel1.Controls.Add(this.checkedListBoxW);
-            this.splitContainer1.Panel1.Controls.Add(this.checkedListBoxS);
             this.splitContainer1.Panel1.Controls.Add(this.labelZ);
             this.splitContainer1.Panel1.Controls.Add(this.labelP);
-            this.splitContainer1.Panel1.Controls.Add(this.checkedListBoxС);
-            this.splitContainer1.Panel1.Controls.Add(this.checkedListBoxP);
-            this.splitContainer1.Panel1.Controls.Add(this.checkedListBoxZ);
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.checkBox1);
+            this.splitContainer1.Panel2.Controls.Add(this.summary);
+            this.splitContainer1.Panel2.Controls.Add(this.label1);
+            this.splitContainer1.Panel2.Controls.Add(this.start);
             this.splitContainer1.Panel2.Controls.Add(this.label2);
             this.splitContainer1.Panel2.Controls.Add(this.textBox2);
-            this.splitContainer1.Size = new System.Drawing.Size(1279, 628);
+            this.splitContainer1.Size = new System.Drawing.Size(1159, 628);
             this.splitContainer1.SplitterDistance = 483;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 15;
-            // 
-            // checkedListBoxG
-            // 
-            this.checkedListBoxG.FormattingEnabled = true;
-            this.checkedListBoxG.Location = new System.Drawing.Point(5, 522);
-            this.checkedListBoxG.Name = "checkedListBoxG";
-            this.checkedListBoxG.Size = new System.Drawing.Size(195, 94);
-            this.checkedListBoxG.TabIndex = 18;
             // 
             // label3
             // 
@@ -251,36 +188,147 @@
             this.labelO.TabIndex = 16;
             this.labelO.Text = "Особенности драконов";
             // 
-            // checkedListBoxO
-            // 
-            this.checkedListBoxO.FormattingEnabled = true;
-            this.checkedListBoxO.Location = new System.Drawing.Point(183, 380);
-            this.checkedListBoxO.Name = "checkedListBoxO";
-            this.checkedListBoxO.Size = new System.Drawing.Size(288, 94);
-            this.checkedListBoxO.TabIndex = 15;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 349);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(17, 353);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(40, 13);
+            this.label2.Size = new System.Drawing.Size(69, 24);
             this.label2.TabIndex = 3;
             this.label2.Text = "Вывод";
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(16, 380);
+            this.textBox2.Location = new System.Drawing.Point(3, 385);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(701, 236);
+            this.textBox2.Size = new System.Drawing.Size(661, 236);
             this.textBox2.TabIndex = 2;
+            // 
+            // start
+            // 
+            this.start.Location = new System.Drawing.Point(325, 94);
+            this.start.Name = "start";
+            this.start.Size = new System.Drawing.Size(109, 49);
+            this.start.TabIndex = 4;
+            this.start.Text = "Запуск";
+            this.start.UseVisualStyleBackColor = true;
+            // 
+            // checkedListBoxT
+            // 
+            this.checkedListBoxT.FormattingEnabled = true;
+            this.checkedListBoxT.Location = new System.Drawing.Point(3, 15);
+            this.checkedListBoxT.Name = "checkedListBoxT";
+            this.checkedListBoxT.Size = new System.Drawing.Size(165, 95);
+            this.checkedListBoxT.TabIndex = 5;
+            this.checkedListBoxT.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.checkedListBoxT_MouseDoubleClick);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(27, 1);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(102, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Выбранные факты";
+            // 
+            // checkedListBoxS
+            // 
+            this.checkedListBoxS.FormattingEnabled = true;
+            this.checkedListBoxS.Location = new System.Drawing.Point(183, 17);
+            this.checkedListBoxS.Name = "checkedListBoxS";
+            this.checkedListBoxS.Size = new System.Drawing.Size(289, 95);
+            this.checkedListBoxS.TabIndex = 7;
+            this.checkedListBoxS.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.checkedListBoxS_MouseDoubleClick);
+            // 
+            // checkedListBoxZ
+            // 
+            this.checkedListBoxZ.FormattingEnabled = true;
+            this.checkedListBoxZ.Location = new System.Drawing.Point(183, 128);
+            this.checkedListBoxZ.Name = "checkedListBoxZ";
+            this.checkedListBoxZ.Size = new System.Drawing.Size(289, 95);
+            this.checkedListBoxZ.TabIndex = 8;
+            this.checkedListBoxZ.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.checkedListBoxZ_MouseDoubleClick);
+            // 
+            // checkedListBoxO
+            // 
+            this.checkedListBoxO.FormattingEnabled = true;
+            this.checkedListBoxO.Location = new System.Drawing.Point(183, 380);
+            this.checkedListBoxO.Name = "checkedListBoxO";
+            this.checkedListBoxO.Size = new System.Drawing.Size(289, 95);
+            this.checkedListBoxO.TabIndex = 9;
+            this.checkedListBoxO.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.checkedListBoxO_MouseDoubleClick);
+            // 
+            // checkedListBoxF
+            // 
+            this.checkedListBoxF.FormattingEnabled = true;
+            this.checkedListBoxF.Location = new System.Drawing.Point(183, 242);
+            this.checkedListBoxF.Name = "checkedListBoxF";
+            this.checkedListBoxF.Size = new System.Drawing.Size(289, 95);
+            this.checkedListBoxF.TabIndex = 10;
+            this.checkedListBoxF.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.checkedListBoxF_MouseDoubleClick);
+            // 
+            // checkedListBoxС
+            // 
+            this.checkedListBoxС.FormattingEnabled = true;
+            this.checkedListBoxС.Location = new System.Drawing.Point(3, 242);
+            this.checkedListBoxС.Name = "checkedListBoxС";
+            this.checkedListBoxС.Size = new System.Drawing.Size(165, 95);
+            this.checkedListBoxС.TabIndex = 7;
+            this.checkedListBoxС.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.checkedListBoxC_MouseDoubleClick);
+            // 
+            // checkedListBoxP
+            // 
+            this.checkedListBoxP.FormattingEnabled = true;
+            this.checkedListBoxP.Location = new System.Drawing.Point(3, 128);
+            this.checkedListBoxP.Name = "checkedListBoxP";
+            this.checkedListBoxP.Size = new System.Drawing.Size(165, 95);
+            this.checkedListBoxP.TabIndex = 8;
+            this.checkedListBoxP.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.checkedListBoxP_MouseDoubleClick);
+            // 
+            // checkedListBoxW
+            // 
+            this.checkedListBoxW.FormattingEnabled = true;
+            this.checkedListBoxW.Location = new System.Drawing.Point(3, 380);
+            this.checkedListBoxW.Name = "checkedListBoxW";
+            this.checkedListBoxW.Size = new System.Drawing.Size(165, 95);
+            this.checkedListBoxW.TabIndex = 9;
+            this.checkedListBoxW.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.checkedListBoxW_MouseDoubleClick);
+            // 
+            // checkedListBoxG
+            // 
+            this.checkedListBoxG.FormattingEnabled = true;
+            this.checkedListBoxG.Location = new System.Drawing.Point(3, 522);
+            this.checkedListBoxG.Name = "checkedListBoxG";
+            this.checkedListBoxG.Size = new System.Drawing.Size(194, 95);
+            this.checkedListBoxG.TabIndex = 7;
+            this.checkedListBoxG.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.checkedListBoxG_MouseDoubleClick);
+            // 
+            // summary
+            // 
+            this.summary.FormattingEnabled = true;
+            this.summary.Location = new System.Drawing.Point(21, 15);
+            this.summary.Name = "summary";
+            this.summary.Size = new System.Drawing.Size(272, 290);
+            this.summary.TabIndex = 7;
+            this.summary.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.summary_MouseDoubleClick);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(396, 17);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(112, 17);
+            this.checkBox1.TabIndex = 8;
+            this.checkBox1.Text = "Обратный вывод";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1286, 662);
+            this.ClientSize = new System.Drawing.Size(1169, 662);
             this.Controls.Add(this.splitContainer1);
             this.Name = "Form1";
             this.Text = "Книга драконов";
@@ -295,13 +343,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.CheckedListBox checkedListBoxT;
-        private System.Windows.Forms.CheckedListBox checkedListBoxS;
-        private System.Windows.Forms.CheckedListBox checkedListBoxZ;
-        private System.Windows.Forms.CheckedListBox checkedListBoxP;
-        private System.Windows.Forms.CheckedListBox checkedListBoxW;
-        private System.Windows.Forms.CheckedListBox checkedListBoxС;
-        private System.Windows.Forms.CheckedListBox checkedListBoxF;
+
         private System.Windows.Forms.Label labelT;
         private System.Windows.Forms.Label labelS;
         private System.Windows.Forms.Label labelZ;
@@ -313,9 +355,20 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label labelO;
-        private System.Windows.Forms.CheckedListBox checkedListBoxO;
-        private System.Windows.Forms.CheckedListBox checkedListBoxG;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button start;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ListBox checkedListBoxT;
+        private System.Windows.Forms.ListBox checkedListBoxG;
+        private System.Windows.Forms.ListBox checkedListBoxW;
+        private System.Windows.Forms.ListBox checkedListBoxO;
+        private System.Windows.Forms.ListBox checkedListBoxС;
+        private System.Windows.Forms.ListBox checkedListBoxP;
+        private System.Windows.Forms.ListBox checkedListBoxF;
+        private System.Windows.Forms.ListBox checkedListBoxS;
+        private System.Windows.Forms.ListBox checkedListBoxZ;
+        private System.Windows.Forms.ListBox summary;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 
