@@ -174,10 +174,9 @@ namespace dragons
             checkedListBoxG.Items.Remove(checkedListBoxG.SelectedItem);
         }
 
-        private void summary_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            var rem = summary.SelectedItem.ToString()[0];
-            switch (rem) { 
+        private void return_facts(char rem) {
+            switch (rem)
+            {
                 case 'T':
                     checkedListBoxT.Items.Add(summary.SelectedItem);
                     summary.Items.Remove(summary.SelectedItem);
@@ -217,6 +216,11 @@ namespace dragons
                 default:
                     break;
             }
+        }
+
+        private void summary_MouseDoubleClick(object sender, MouseEventArgs e){
+            var rem = summary.SelectedItem.ToString()[0];
+            return_facts(rem);
         }
 
         private bool agenda(ref Dictionary<string, Rule> w, ref List<string> f)
@@ -259,12 +263,19 @@ namespace dragons
                 in_fact.Add(i.ToString().Split(':')[0].Trim(' '));
             if (!checkBox1.Checked)
                 while (agenda(ref rules, ref in_fact)) { }
-            else
-                while (ret_agenda(ref rules, ref in_fact)) { }   
+            else{
+                int depth = 0;
+                while (ret_agenda(ref rules, ref in_fact) && depth < 3)
+                    ++depth;
+            }
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
+            /*foreach (var t in summary.Items.ToString()) {
+                var rem = t.ToString()[0];
+                return_facts(rem);
+            }*/
             summary.Items.Clear();
             textBox2.Text = "";
             if (checkBox1.Checked){
