@@ -79,7 +79,7 @@ namespace dragons
                 return res;
             }
 
-           public string print() {
+           public string forward_print() {
                 Form1 _form = new Form1();
                 string res = "";
                 foreach (var i in preconditions) {
@@ -90,6 +90,25 @@ namespace dragons
                 res += "->" + _form.facts[consequence];
                 return res;
             }
+
+           public string return_print(){
+               Form1 _form = new Form1();
+               string res = "" + _form.facts[consequence] + " -> ";
+               foreach (var t in preconditions)
+                   if (t != preconditions.Last())
+                       res += _form.facts[t] + ", ";
+                   else
+                       res += _form.facts[t];
+               return res;
+           } 
+
+           public string isDragon() {
+               Form1 _form = new Form1();
+               string res = "";
+               if(consequence[0] == 'F')
+                   res = _form.facts[consequence]; 
+               return res;
+           }
         }
 
         //Словарь правил, ключ - идентификатор правила, значение - правило, 
@@ -203,29 +222,75 @@ namespace dragons
         private bool agenda(ref Dictionary<string, Rule> w, ref List<string> f)
         {
             bool res = false;
-            foreach (var i in w) {
+            foreach (var i in w)
                 if (i.Value.compare(f)) {
                     var ft = i.Value.consequence;
                     if (!f.Contains(ft)) {
                         f.Add(i.Value.consequence);
                         res = true;
-                        textBox2.Text += i.Value.print() + Environment.NewLine;
-                        
+                        textBox2.Text += i.Value.forward_print() + Environment.NewLine;
+                        string dr = i.Value.isDragon();
+                        if (dr != "")
+                            listBox1.Items.Add(dr);
                     }
-                    //w.Remove(i.Key);
                 }
-            }
             return res;
         }
-        
+
+        private bool ret_agenda(ref Dictionary<string, Rule> w, ref List<string> f)
+        {
+            bool res = false;
+            foreach (var i in w)
+                if (f.Contains(i.Value.consequence)){
+                    res = true;
+                    foreach (var j in i.Value.preconditions) 
+                        if (!f.Contains(j)) 
+                            f.Add(j);
+                    textBox2.Text += i.Value.return_print() + Environment.NewLine;
+                }
+            return res;
+        }
+
         private void start_Click(object sender, EventArgs e)
         {
-            Dictionary<string, Rule> work = rules;
+            textBox2.Text = "";
             List<string> in_fact = new List<string>();
             foreach (var i in summary.Items)
                 in_fact.Add(i.ToString().Split(':')[0].Trim(' '));
+            if (!checkBox1.Checked)
+                while (agenda(ref rules, ref in_fact)) { }
+            else
+                while (ret_agenda(ref rules, ref in_fact)) { }   
+        }
 
-            while (agenda(ref work, ref in_fact)) {
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            summary.Items.Clear();
+            textBox2.Text = "";
+            if (checkBox1.Checked){
+                label4.Visible = false;
+                listBox1.Visible = false;
+                checkedListBoxT.Enabled = false;
+                checkedListBoxS.Enabled = false;
+                checkedListBoxP.Enabled = false;
+                checkedListBoxZ.Enabled = false;
+                checkedListBoxС.Enabled = false;
+                checkedListBoxW.Enabled = false;
+                checkedListBoxO.Enabled = false;
+                checkedListBoxG.Enabled = false;
+            }
+            else{
+                label4.Visible = true;
+                listBox1.Visible = true;
+                checkedListBoxT.Enabled = true;
+                checkedListBoxS.Enabled = true;
+                checkedListBoxP.Enabled = true;
+                checkedListBoxZ.Enabled = true;
+                checkedListBoxС.Enabled = true;
+                checkedListBoxW.Enabled = true;
+                checkedListBoxO.Enabled = true;
+                checkedListBoxG.Enabled = true;
+            
             }
         } 
     }
