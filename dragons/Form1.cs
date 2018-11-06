@@ -19,6 +19,10 @@ namespace dragons
         {
             InitializeComponent();
 
+            load();
+        }
+
+        private void load() {
             facts = get_dictionary("..//..//facts.txt");
             rules = get_rules("..//..//rules.txt");
             foreach (var item in facts.Keys)
@@ -42,6 +46,7 @@ namespace dragons
                 if (item.First() == 'G')
                     checkedListBoxG.Items.Add("" + item + ": " + facts[item]);
             }
+        
         }
 
         private SortedDictionary<string, string> get_dictionary(string fname)
@@ -241,12 +246,13 @@ namespace dragons
             return res;
         }
 
-        private bool ret_agenda(ref Dictionary<string, Rule> w, ref List<string> f)
+        private bool ret_agenda(ref Dictionary<string, Rule> w, ref List<string> f, ref List<string> rep)
         {
             bool res = false;
             foreach (var i in w)
-                if (f.Contains(i.Value.consequence)){
+                if (f.Contains(i.Value.consequence) && !rep.Contains(i.Key)){
                     res = true;
+                    rep.Add(i.Key);
                     foreach (var j in i.Value.preconditions) 
                         if (!f.Contains(j)) 
                             f.Add(j);
@@ -264,9 +270,8 @@ namespace dragons
             if (!checkBox1.Checked)
                 while (agenda(ref rules, ref in_fact)) { }
             else{
-                int depth = 0;
-                while (ret_agenda(ref rules, ref in_fact) && depth < 3)
-                    ++depth;
+                List<string> repeat = new List<string>();
+                while (ret_agenda(ref rules, ref in_fact, ref repeat)) { }
             }
         }
 
@@ -301,8 +306,24 @@ namespace dragons
                 checkedListBoxW.Enabled = true;
                 checkedListBoxO.Enabled = true;
                 checkedListBoxG.Enabled = true;
-            
             }
+        }
+
+        private void reloadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            checkedListBoxT.Items.Clear();
+            checkedListBoxS.Items.Clear();
+            checkedListBoxP.Items.Clear();
+            checkedListBoxZ.Items.Clear();
+            checkedListBoxС.Items.Clear();
+            checkedListBoxW.Items.Clear();
+            checkedListBoxF.Items.Clear();
+            checkedListBoxO.Items.Clear();
+            checkedListBoxG.Items.Clear();
+            summary.Items.Clear();
+            listBox1.Items.Clear();
+            textBox2.Text = "";
+            load();
         } 
     }
 }
