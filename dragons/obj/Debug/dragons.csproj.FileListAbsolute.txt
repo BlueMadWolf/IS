@@ -1,2 +1,0 @@
-D:\Документы\OneDrive\Документы\IS\dragons\bin\Debug\dragons.exe.config
-C:\Users\akulishova\Downloads\IS\dragons\bin\Debug\dragons.exe.config

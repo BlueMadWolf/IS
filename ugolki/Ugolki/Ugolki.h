@@ -548,12 +548,12 @@ long long heuristic2(vector<bool> curr_board, checkers * curr_player)
 		else
 		{
 			cur = (manhattan_dist(curr_player->position[i],
-				closest_to_goal_free_position(curr_board, curr_player->num_player, curr_player->position[i])) + 10);
+				closest_to_goal_free_position(curr_board, curr_player->num_player, curr_player->position[i])) + 7);
 		}
 		sum_cost *= cur;//pow(cur, 0.5);
 	}
 
-	return -sum_cost - pow(cnt + 1, 6); //* (cnt+1);
+	return -sum_cost - pow(cnt + 1, 4); //* (cnt+1);
 }
 
 
