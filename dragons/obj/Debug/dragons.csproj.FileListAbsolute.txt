@@ -1,0 +1,9 @@
+C:\Users\tatarova\Documents\GitHub\IS\dragons\bin\Debug\dragons.exe.config
+C:\Users\tatarova\Documents\GitHub\IS\dragons\bin\Debug\dragons.exe
+C:\Users\tatarova\Documents\GitHub\IS\dragons\bin\Debug\dragons.pdb
+C:\Users\tatarova\Documents\GitHub\IS\dragons\obj\Debug\dragons.csprojResolveAssemblyReference.cache
+C:\Users\tatarova\Documents\GitHub\IS\dragons\obj\Debug\dragons.Form1.resources
+C:\Users\tatarova\Documents\GitHub\IS\dragons\obj\Debug\dragons.Properties.Resources.resources
+C:\Users\tatarova\Documents\GitHub\IS\dragons\obj\Debug\dragons.csproj.GenerateResource.Cache
+C:\Users\tatarova\Documents\GitHub\IS\dragons\obj\Debug\dragons.exe
+C:\Users\tatarova\Documents\GitHub\IS\dragons\obj\Debug\dragons.pdb
