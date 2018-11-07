@@ -13,8 +13,78 @@ namespace dragons
 {
     public partial class Form1 : Form
     {
+
         public SortedDictionary<string, string> facts = new SortedDictionary<string, string>();
-        Dictionary<string, Rule> rules = new Dictionary<string, Rule>();
+        public static Dictionary<string, Rule> rules = new Dictionary<string, Rule>();
+
+        public static List<string> findRules(string id)
+        {
+            return new List<string>();
+        }
+
+        struct OrAndTree
+        {
+            List<OrAndTree> childs;
+            bool truth;
+            string id;
+
+            public OrAndTree(string name, List<string> pred)
+            {
+                truth = false;
+                id = name;
+                childs = new List<OrAndTree>();
+
+                foreach (var p in pred)
+                    if (id[0] == 'R')
+                    {
+                        List<string> ch = rules[id].preconditions;
+                        foreach (string c in ch)
+                        {
+                            List<string> grandChild = findRules(c); 
+                            childs.Add(new OrAndTree(c, grandChild));
+                        }
+                    }
+                    else
+                    {
+                        if (pred.Count() != 0)
+                        {
+                            List<string> ch = findRules(id);
+                            foreach (var c in ch)
+                            {
+                                List<string> grandChild = rules[c].preconditions;
+                                childs.Add(new OrAndTree(c, grandChild));
+                            }
+                        }
+                    }
+            }
+
+            private Tuple<bool, OrAndTree> checkChild(List<string> l)
+            {
+                var res = false;
+                OrAndTree branch = this;
+                foreach (var c in childs)
+                {
+                    res = c.findTruth(l);
+                    if (res)
+                    {
+                        branch = c;
+                        break;
+                    }
+                }
+
+                return Tuple.Create(res, branch);
+            }
+
+            public bool findTruth(List<string> l)
+            {
+                if (childs.Count() != 0)
+                {
+                    Tuple<bool, OrAndTree> ans = checkChild(l);
+                    if
+                }
+            }
+        }
+
         public Form1()
         {
             InitializeComponent();

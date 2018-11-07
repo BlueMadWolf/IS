@@ -7,3 +7,5 @@ C:\Users\tatarova\Documents\GitHub\IS\dragons\obj\Debug\dragons.Properties.Resou
 C:\Users\tatarova\Documents\GitHub\IS\dragons\obj\Debug\dragons.csproj.GenerateResource.Cache
 C:\Users\tatarova\Documents\GitHub\IS\dragons\obj\Debug\dragons.exe
 C:\Users\tatarova\Documents\GitHub\IS\dragons\obj\Debug\dragons.pdb
+C:\Users\akulishova\Downloads\IS\dragons\bin\Debug\dragons.exe.config
+C:\Users\akulishova\Downloads\IS\dragons\obj\Debug\dragons.pdb
