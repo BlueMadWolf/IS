@@ -9,3 +9,5 @@ C:\Users\tatarova\Documents\GitHub\IS\dragons\obj\Debug\dragons.exe
 C:\Users\tatarova\Documents\GitHub\IS\dragons\obj\Debug\dragons.pdb
 C:\Users\akulishova\Downloads\IS\dragons\bin\Debug\dragons.exe.config
 C:\Users\akulishova\Downloads\IS\dragons\obj\Debug\dragons.pdb
+D:\Документы\OneDrive\Документы\IS\dragons\bin\Debug\dragons.exe.config
+D:\Документы\OneDrive\Документы\IS\dragons\obj\Debug\dragons.pdb

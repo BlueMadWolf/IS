@@ -24,9 +24,10 @@ namespace dragons
 
         struct OrAndTree
         {
-            List<OrAndTree> childs;
-            bool truth;
-            string id;
+            public List<OrAndTree> childs;
+            public bool truth;
+            public string id;
+            public int ind_True;
 
             public OrAndTree(string name, List<string> pred)
             {
@@ -56,15 +57,17 @@ namespace dragons
                             }
                         }
                     }
+
+                ind_True = -1;
             }
 
-            private Tuple<bool, OrAndTree> checkChild(List<string> l)
+            private Tuple<bool, int> checkChild(List<string> l, List<String> right_facts)
             {
                 var res = false;
-                OrAndTree branch = this;
-                foreach (var c in childs)
+                int branch = -1;
+                for (int c = 0; c < childs.Count(); ++c)
                 {
-                    res = c.findTruth(l);
+                    res = childs[c].findTruth(l, right_facts);
                     if (res)
                     {
                         branch = c;
@@ -75,13 +78,32 @@ namespace dragons
                 return Tuple.Create(res, branch);
             }
 
-            public bool findTruth(List<string> l)
+            public bool findTruth(List<string> l, List<String> right_facts)
             {
+                int c = 0;
                 if (childs.Count() != 0)
                 {
-                    Tuple<bool, OrAndTree> ans = checkChild(l);
-                    if
+                    Tuple<bool, int> ans = checkChild(l, right_facts);
+                    if (id[0] == 'R')
+                        c = ans.Item1 == true ? c + 1 : c;
+                    else
+                        if (ans.Item1 == true)
+                    {
+                        ind_True = ans.Item2;
+                        return true;
+                    }
+
+                    if (c < childs.Count())
+                        return false;
                 }
+                else
+                {
+                    string our_facts = id;
+                    if (right_facts.Find(s =>s == our_facts) != default(string))
+                        return true;
+                }
+
+                return false;
             }
         }
 
