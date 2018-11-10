@@ -61,13 +61,13 @@ namespace dragons
                 ind_True = -1;
             }
 
-            private Tuple<bool, int> checkChild(List<string> l, List<String> right_facts)
+            private Tuple<bool, int> checkChild(List<String> right_facts)
             {
                 var res = false;
                 int branch = -1;
                 for (int c = 0; c < childs.Count(); ++c)
                 {
-                    res = childs[c].findTruth(l, right_facts);
+                    res = childs[c].findTruth(right_facts);
                     if (res)
                     {
                         branch = c;
@@ -78,12 +78,12 @@ namespace dragons
                 return Tuple.Create(res, branch);
             }
 
-            public bool findTruth(List<string> l, List<String> right_facts)
+            public bool findTruth(List<String> right_facts)
             {
                 int c = 0;
                 if (childs.Count() != 0)
                 {
-                    Tuple<bool, int> ans = checkChild(l, right_facts);
+                    Tuple<bool, int> ans = checkChild(right_facts);
                     if (id[0] == 'R')
                         c = ans.Item1 == true ? c + 1 : c;
                     else
