@@ -13,13 +13,19 @@ namespace dragons
 {
     public partial class Form1 : Form
     {
-
         public SortedDictionary<string, string> facts = new SortedDictionary<string, string>();
         public static Dictionary<string, Rule> rules = new Dictionary<string, Rule>();
 
-        public static List<string> findRules(string id)
+        public static List<string> findRules(string id, ref Dictionary<string, Rule> rls)
         {
-            return new List<string>();
+            List<string> result = new List<string>();
+            foreach (var i in rls){
+                if (i.Value.consequence == id)
+                    result.Add(i.Key);
+            }
+            foreach (var i in result)
+                rls.Remove(i);
+            return result;
         }
 
         struct OrAndTree
@@ -28,12 +34,14 @@ namespace dragons
             public bool truth;
             public string id;
             public int ind_True;
+            public Dictionary<string, Rule> available_rules;
 
-            public OrAndTree(string name, List<string> pred)
+            public OrAndTree(string name, List<string> pred, Dictionary<string, Rule> dict)
             {
                 truth = false;
                 id = name;
                 childs = new List<OrAndTree>();
+                available_rules = dict;
 
                 foreach (var p in pred)
                     if (id[0] == 'R')
@@ -41,19 +49,19 @@ namespace dragons
                         List<string> ch = rules[id].preconditions;
                         foreach (string c in ch)
                         {
-                            List<string> grandChild = findRules(c); 
-                            childs.Add(new OrAndTree(c, grandChild));
+                            List<string> grandChild = findRules(c, ref available_rules); 
+                            childs.Add(new OrAndTree(c, grandChild, available_rules));
                         }
                     }
                     else
                     {
                         if (pred.Count() != 0)
                         {
-                            List<string> ch = findRules(id);
+                            List<string> ch = findRules(id, ref available_rules);
                             foreach (var c in ch)
                             {
                                 List<string> grandChild = rules[c].preconditions;
-                                childs.Add(new OrAndTree(c, grandChild));
+                                childs.Add(new OrAndTree(c, grandChild, available_rules));
                             }
                         }
                     }
@@ -131,14 +139,15 @@ namespace dragons
                     checkedListBoxС.Items.Add("" + item + ": " + facts[item]);
                 if (item.First() == 'W')
                     checkedListBoxW.Items.Add("" + item + ": " + facts[item]);
-                if (item.First() == 'F')
+                if (item.First() == 'F'){
                     checkedListBoxF.Items.Add("" + item + ": " + facts[item]);
+                    comboBox1.Items.Add("" + item + ": " + facts[item]);
+                }
                 if (item.First() == 'O')
                     checkedListBoxO.Items.Add("" + item + ": " + facts[item]);
                 if (item.First() == 'G')
                     checkedListBoxG.Items.Add("" + item + ": " + facts[item]);
             }
-        
         }
 
         private SortedDictionary<string, string> get_dictionary(string fname)
@@ -341,7 +350,7 @@ namespace dragons
         private bool ret_agenda(ref Dictionary<string, Rule> w, ref List<string> f, ref List<string> rep)
         {
             bool res = false;
-            foreach (var i in w)
+           /* foreach (var i in w)
                 if (f.Contains(i.Value.consequence) && !rep.Contains(i.Key)){
                     res = true;
                     rep.Add(i.Key);
@@ -349,7 +358,11 @@ namespace dragons
                         if (!f.Contains(j)) 
                             f.Add(j);
                     textBox2.Text += i.Value.return_print() + Environment.NewLine;
-                }
+                }*/
+
+            //OrAndTree answer = new OrAndTree(comboBox1.SelectedValue.ToString().Split(':')[0].Trim(' '),
+             //   );
+
             return res;
         }
 
@@ -362,42 +375,26 @@ namespace dragons
             if (!checkBox1.Checked)
                 while (agenda(ref rules, ref in_fact)) { }
             else{
-                List<string> repeat = new List<string>();
-                while (ret_agenda(ref rules, ref in_fact, ref repeat)) { }
+                //List<string> repeat = new List<string>();
+                //while (ret_agenda(ref rules, ref in_fact, ref repeat)) { }
             }
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            /*foreach (var t in summary.Items.ToString()) {
-                var rem = t.ToString()[0];
-                return_facts(rem);
-            }*/
             summary.Items.Clear();
             textBox2.Text = "";
             if (checkBox1.Checked){
-                label4.Visible = false;
+                label4.Text = "Выберите финальный факт";
                 listBox1.Visible = false;
-                checkedListBoxT.Enabled = false;
-                checkedListBoxS.Enabled = false;
-                checkedListBoxP.Enabled = false;
-                checkedListBoxZ.Enabled = false;
-                checkedListBoxС.Enabled = false;
-                checkedListBoxW.Enabled = false;
-                checkedListBoxO.Enabled = false;
-                checkedListBoxG.Enabled = false;
+                comboBox1.Visible = true;
+                checkedListBoxF.Enabled = false;
             }
             else{
-                label4.Visible = true;
+                label4.Text = "Выведенные драконы";
                 listBox1.Visible = true;
-                checkedListBoxT.Enabled = true;
-                checkedListBoxS.Enabled = true;
-                checkedListBoxP.Enabled = true;
-                checkedListBoxZ.Enabled = true;
-                checkedListBoxС.Enabled = true;
-                checkedListBoxW.Enabled = true;
-                checkedListBoxO.Enabled = true;
-                checkedListBoxG.Enabled = true;
+                comboBox1.Visible = false;
+                checkedListBoxF.Enabled = true;
             }
         }
 
