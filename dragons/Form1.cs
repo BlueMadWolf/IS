@@ -66,7 +66,7 @@ namespace dragons
                 ind_True = -1;
             }
 
-            private Tuple<bool, int> checkChild(List<String> right_facts)
+            private Tuple<bool, int> checkChild(List<string> right_facts)
             {
                 var res = false;
                 int branch = -1;
@@ -83,7 +83,7 @@ namespace dragons
                 return Tuple.Create(res, branch);
             }
 
-            public bool findTruth(List<String> right_facts)
+            public bool findTruth(List<string> right_facts)
             {
                 int c = 0;
                 if (childs.Count() != 0)
@@ -115,7 +115,6 @@ namespace dragons
         public Form1()
         {
             InitializeComponent();
-
             load();
         }
 
@@ -344,21 +343,17 @@ namespace dragons
             return res;
         }
 
-        private bool ret_agenda(ref Dictionary<string, Rule> w, ref List<string> f, ref List<string> rep)
+        private bool ret_agenda(Dictionary<string, Rule> w)
         {
             bool res = false;
-           /* foreach (var i in w)
-                if (f.Contains(i.Value.consequence) && !rep.Contains(i.Key)){
-                    res = true;
-                    rep.Add(i.Key);
-                    foreach (var j in i.Value.preconditions) 
-                        if (!f.Contains(j)) 
-                            f.Add(j);
-                    textBox2.Text += i.Value.return_print() + Environment.NewLine;
-                }*/
-
-            //OrAndTree answer = new OrAndTree(comboBox1.SelectedValue.ToString().Split(':')[0].Trim(' '),
-             //   );
+            string s = comboBox1.SelectedItem.ToString();
+            OrAndTree answer = new OrAndTree(comboBox1.SelectedItem.ToString().Split(':')[0].Trim(' '),
+             w);
+            
+            List<string> first_facts = new List<string>();
+            foreach (var i in summary.Items)
+                first_facts.Add(i.ToString().Split(':')[0].Trim(' '));
+            res = answer.findTruth(first_facts);
 
             return res;
         }
@@ -372,8 +367,7 @@ namespace dragons
             if (!checkBox1.Checked)
                 while (agenda(ref rules, ref in_fact)) { }
             else{
-                //List<string> repeat = new List<string>();
-                //while (ret_agenda(ref rules, ref in_fact, ref repeat)) { }
+                ret_agenda(rules);
             }
         }
 
