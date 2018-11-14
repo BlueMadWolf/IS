@@ -36,35 +36,32 @@ namespace dragons
             public int ind_True;
             public Dictionary<string, Rule> available_rules;
 
-            public OrAndTree(string name, List<string> pred, Dictionary<string, Rule> dict)
+            public OrAndTree(string name, Dictionary<string, Rule> dict)
             {
                 truth = false;
                 id = name;
                 childs = new List<OrAndTree>();
                 available_rules = dict;
 
-                foreach (var p in pred)
-                    if (id[0] == 'R')
+                if (id[0] == 'R')
+                {
+                    List<string> ch = rules[id].preconditions;
+                    foreach (string c in ch)
                     {
-                        List<string> ch = rules[id].preconditions;
-                        foreach (string c in ch)
-                        {
-                            List<string> grandChild = findRules(c, ref available_rules); 
-                            childs.Add(new OrAndTree(c, grandChild, available_rules));
-                        }
+                        childs.Add(new OrAndTree(c, available_rules));
                     }
-                    else
+                }
+                else
+                {
+                    List<string> ch = findRules(id, ref available_rules);
+                    if (ch.Count() > 0)
                     {
-                        if (pred.Count() != 0)
+                        foreach (var c in ch)
                         {
-                            List<string> ch = findRules(id, ref available_rules);
-                            foreach (var c in ch)
-                            {
-                                List<string> grandChild = rules[c].preconditions;
-                                childs.Add(new OrAndTree(c, grandChild, available_rules));
-                            }
+                            childs.Add(new OrAndTree(c, available_rules));
                         }
-                    }
+                    }  
+                }
 
                 ind_True = -1;
             }
