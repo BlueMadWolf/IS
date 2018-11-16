@@ -16,15 +16,13 @@ namespace dragons
         public SortedDictionary<string, string> facts = new SortedDictionary<string, string>();
         public static Dictionary<string, Rule> rules = new Dictionary<string, Rule>();
 
-        public static List<string> findRules(string id, ref Dictionary<string, Rule> rls)
+        public static List<string> findRules(string id, List<string> rep)
         {
             List<string> result = new List<string>();
-            foreach (var i in rls){
-                if (i.Value.consequence == id)
+            foreach (var i in rules){
+                if (i.Value.consequence == id && !rep.Contains(i.Key))
                     result.Add(i.Key);
             }
-            foreach (var i in result)
-                rls.Remove(i);
             return result;
         }
 
@@ -34,33 +32,37 @@ namespace dragons
             public bool truth;
             public string id;
             public int ind_True;
-            public Dictionary<string, Rule> available_rules;
+            public List<string> not_available_rules;
 
-            public OrAndTree(string name, Dictionary<string, Rule> dict)
+           /* public List<string> returnList(List<string> l ) {
+                List<string> update = l;
+                updat
+            
+            }
+            */
+            public OrAndTree(string name, List<string> lst)
             {
                 truth = false;
                 id = name;
                 childs = new List<OrAndTree>();
-                available_rules = dict;
-
+                not_available_rules = new List<string>(lst);
+                
                 if (id[0] == 'R')
                 {
                     List<string> ch = rules[id].preconditions;
-                    foreach (string c in ch)
-                    {
-                        childs.Add(new OrAndTree(c, available_rules));
-                    }
+                    if (ch.Count > 0)
+                        foreach (string c in ch)
+                            childs.Add(new OrAndTree(c, not_available_rules));
                 }
                 else
                 {
-                    List<string> ch = findRules(id, ref available_rules);
+                    List<string> ch = findRules(id, not_available_rules);
                     if (ch.Count() > 0)
-                    {
-                        foreach (var c in ch)
-                        {
-                            childs.Add(new OrAndTree(c, available_rules));
+                        foreach (var c in ch){
+                            not_available_rules.Add(c);
+                            childs.Add(new OrAndTree(c, not_available_rules));
+                            not_available_rules.RemoveAt(not_available_rules.Count - 1);
                         }
-                    }  
                 }
 
                 ind_True = -1;
@@ -93,10 +95,10 @@ namespace dragons
                         c = ans.Item1 == true ? c + 1 : c;
                     else
                         if (ans.Item1 == true)
-                    {
-                        ind_True = ans.Item2;
-                        return true;
-                    }
+                        {
+                            ind_True = ans.Item2;
+                            return true;
+                        }
 
                     if (c < childs.Count())
                         return false;
@@ -107,7 +109,6 @@ namespace dragons
                     if (right_facts.Find(s =>s == our_facts) != default(string))
                         return true;
                 }
-
                 return false;
             }
         }
@@ -230,6 +231,87 @@ namespace dragons
             return d;
         }
 
+        private bool agenda(ref Dictionary<string, Rule> w, ref List<string> f)
+        {
+            bool res = false;
+            foreach (var i in w)
+                if (i.Value.compare(f)) {
+                    var ft = i.Value.consequence;
+                    if (!f.Contains(ft)) {
+                        f.Add(i.Value.consequence);
+                        res = true;
+                        textBox2.Text += i.Value.forward_print() + Environment.NewLine;
+                        string dr = i.Value.isDragon();
+                        if (dr != "")
+                            listBox1.Items.Add(dr);
+                    }
+                }
+            return res;
+        }
+
+        private bool ret_agenda(Dictionary<string, Rule> w)
+        {
+            bool res = false;
+            string s = comboBox1.SelectedItem.ToString();
+            List<string> list = new List<string>();
+            OrAndTree answer = new OrAndTree(comboBox1.SelectedItem.ToString().Split(':')[0].Trim(' '), list);
+            
+            List<string> first_facts = new List<string>();
+            foreach (var i in summary.Items)
+                first_facts.Add(i.ToString().Split(':')[0].Trim(' '));
+            res = answer.findTruth(first_facts);
+
+            return res;
+        }
+
+        private void start_Click(object sender, EventArgs e)
+        {
+            textBox2.Text = "";
+            List<string> in_fact = new List<string>();
+            foreach (var i in summary.Items)
+                in_fact.Add(i.ToString().Split(':')[0].Trim(' '));
+            if (!checkBox1.Checked)
+                while (agenda(ref rules, ref in_fact)) { }
+            else{
+                textBox2.Text = ret_agenda(rules).ToString();
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            summary.Items.Clear();
+            textBox2.Text = "";
+            if (checkBox1.Checked){
+                label4.Text = "Выберите финальный факт";
+                listBox1.Visible = false;
+                comboBox1.Visible = true;
+                checkedListBoxF.Enabled = false;
+            }
+            else{
+                label4.Text = "Выведенные драконы";
+                listBox1.Visible = true;
+                comboBox1.Visible = false;
+                checkedListBoxF.Enabled = true;
+            }
+        }
+
+        private void reloadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            checkedListBoxT.Items.Clear();
+            checkedListBoxS.Items.Clear();
+            checkedListBoxP.Items.Clear();
+            checkedListBoxZ.Items.Clear();
+            checkedListBoxС.Items.Clear();
+            checkedListBoxW.Items.Clear();
+            checkedListBoxF.Items.Clear();
+            checkedListBoxO.Items.Clear();
+            checkedListBoxG.Items.Clear();
+            summary.Items.Clear();
+            listBox1.Items.Clear();
+            textBox2.Text = "";
+            load();
+        }
+
         private void checkedListBoxT_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             summary.Items.Add(checkedListBoxT.SelectedItem);
@@ -276,7 +358,8 @@ namespace dragons
             checkedListBoxG.Items.Remove(checkedListBoxG.SelectedItem);
         }
 
-        private void return_facts(char rem) {
+        private void return_facts(char rem)
+        {
             switch (rem)
             {
                 case 'T':
@@ -320,90 +403,10 @@ namespace dragons
             }
         }
 
-        private void summary_MouseDoubleClick(object sender, MouseEventArgs e){
+        private void summary_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
             var rem = summary.SelectedItem.ToString()[0];
             return_facts(rem);
         }
-
-        private bool agenda(ref Dictionary<string, Rule> w, ref List<string> f)
-        {
-            bool res = false;
-            foreach (var i in w)
-                if (i.Value.compare(f)) {
-                    var ft = i.Value.consequence;
-                    if (!f.Contains(ft)) {
-                        f.Add(i.Value.consequence);
-                        res = true;
-                        textBox2.Text += i.Value.forward_print() + Environment.NewLine;
-                        string dr = i.Value.isDragon();
-                        if (dr != "")
-                            listBox1.Items.Add(dr);
-                    }
-                }
-            return res;
-        }
-
-        private bool ret_agenda(Dictionary<string, Rule> w)
-        {
-            bool res = false;
-            string s = comboBox1.SelectedItem.ToString();
-            OrAndTree answer = new OrAndTree(comboBox1.SelectedItem.ToString().Split(':')[0].Trim(' '),
-             w);
-            
-            List<string> first_facts = new List<string>();
-            foreach (var i in summary.Items)
-                first_facts.Add(i.ToString().Split(':')[0].Trim(' '));
-            res = answer.findTruth(first_facts);
-
-            return res;
-        }
-
-        private void start_Click(object sender, EventArgs e)
-        {
-            textBox2.Text = "";
-            List<string> in_fact = new List<string>();
-            foreach (var i in summary.Items)
-                in_fact.Add(i.ToString().Split(':')[0].Trim(' '));
-            if (!checkBox1.Checked)
-                while (agenda(ref rules, ref in_fact)) { }
-            else{
-                ret_agenda(rules);
-            }
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            summary.Items.Clear();
-            textBox2.Text = "";
-            if (checkBox1.Checked){
-                label4.Text = "Выберите финальный факт";
-                listBox1.Visible = false;
-                comboBox1.Visible = true;
-                checkedListBoxF.Enabled = false;
-            }
-            else{
-                label4.Text = "Выведенные драконы";
-                listBox1.Visible = true;
-                comboBox1.Visible = false;
-                checkedListBoxF.Enabled = true;
-            }
-        }
-
-        private void reloadToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            checkedListBoxT.Items.Clear();
-            checkedListBoxS.Items.Clear();
-            checkedListBoxP.Items.Clear();
-            checkedListBoxZ.Items.Clear();
-            checkedListBoxС.Items.Clear();
-            checkedListBoxW.Items.Clear();
-            checkedListBoxF.Items.Clear();
-            checkedListBoxO.Items.Clear();
-            checkedListBoxG.Items.Clear();
-            summary.Items.Clear();
-            listBox1.Items.Clear();
-            textBox2.Text = "";
-            load();
-        } 
     }
 }
