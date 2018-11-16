@@ -26,90 +26,32 @@ namespace dragons
             return result;
         }
 
-        struct OrAndTree
+        class Node
         {
-            public List<OrAndTree> childs;
-            public bool truth;
-            public string id;
-            public int ind_True;
-            public List<string> not_available_rules;
+            public string name;
+            public List<Node> parents = new List<Node>();
+            public List<Node> children = new List<Node>();
+            public bool flag = false;
+            public Node() { }
+        }
 
-           /* public List<string> returnList(List<string> l ) {
-                List<string> update = l;
-                updat
-            
-            }
-            */
-            public OrAndTree(string name, List<string> lst)
+        class AndNode : Node
+        {
+            public string name;
+            public AndNode() { }
+            public AndNode(string rule)
             {
-                truth = false;
-                id = name;
-                childs = new List<OrAndTree>();
-                not_available_rules = new List<string>(lst);
-                
-                if (id[0] == 'R')
-                {
-                    List<string> ch = rules[id].preconditions;
-                    if (ch.Count > 0)
-                        foreach (string c in ch)
-                            childs.Add(new OrAndTree(c, not_available_rules));
-                }
-                else
-                {
-                    List<string> ch = findRules(id, not_available_rules);
-                    if (ch.Count() > 0)
-                        foreach (var c in ch){
-                            not_available_rules.Add(c);
-                            childs.Add(new OrAndTree(c, not_available_rules));
-                            not_available_rules.RemoveAt(not_available_rules.Count - 1);
-                        }
-                }
-
-                ind_True = -1;
+                name = rule;
             }
+        }
 
-            private Tuple<bool, int> checkChild(List<string> right_facts)
+        class OrNode : Node
+        {
+            public string name;
+            public OrNode() { }
+            public OrNode(string fact)
             {
-                var res = false;
-                int branch = -1;
-                for (int c = 0; c < childs.Count(); ++c)
-                {
-                    res = childs[c].findTruth(right_facts);
-                    if (res)
-                    {
-                        branch = c;
-                        break;
-                    }
-                }
-
-                return Tuple.Create(res, branch);
-            }
-
-            public bool findTruth(List<string> right_facts)
-            {
-                int c = 0;
-                if (childs.Count() != 0)
-                {
-                    Tuple<bool, int> ans = checkChild(right_facts);
-                    if (id[0] == 'R')
-                        c = ans.Item1 == true ? c + 1 : c;
-                    else
-                        if (ans.Item1 == true)
-                        {
-                            ind_True = ans.Item2;
-                            return true;
-                        }
-
-                    if (c < childs.Count())
-                        return false;
-                }
-                else
-                {
-                    string our_facts = id;
-                    if (right_facts.Find(s =>s == our_facts) != default(string))
-                        return true;
-                }
-                return false;
+                name = fact;
             }
         }
 
@@ -117,6 +59,108 @@ namespace dragons
         {
             InitializeComponent();
             load();
+        }
+
+        private void resolve(Node n)
+        {
+            if (n.flag)
+                return;
+            if (n is AndNode)
+                n.flag = n.children.All(c => c.flag == true);
+
+            if (n is OrNode)
+                n.flag = n.children.Any(c => c.flag == true);
+
+            if (n.flag)
+            {
+                foreach (Node p in n.parents)
+                    resolve(p);
+            }
+        }
+
+        public bool backward_reasoning(List<string> Facts, string need_right)
+        {
+            Dictionary<string, int> res = new Dictionary<string, int>();
+            List<string> known_facts = new List<string>();
+
+            foreach (var fact in Facts)
+            {
+                known_facts.Add(fact);
+            }
+
+            List<string> targets = new List<string>();
+            foreach (var term in facts.Keys)
+                {
+                    Dictionary<string, AndNode> and_dict = new Dictionary<string, AndNode>();
+                    Dictionary<string, OrNode> or_dict = new Dictionary<string, OrNode>();
+                    OrNode root = new OrNode(term);
+                    or_dict.Add(term, root);
+
+                    Stack<Node> tree = new Stack<Node>();
+                    tree.Push(root);
+
+                    while (tree.Count != 0)
+                    {
+                        Node current = tree.Pop();
+                        if (current is AndNode)
+                        {
+                            AndNode and_node = current as AndNode;
+                            foreach (var f in rules[and_node.name].preconditions)
+                            {
+                                if (or_dict.ContainsKey(f))
+                                {
+                                    current.children.Add(or_dict[f]);
+                                    or_dict[f].parents.Add(current);
+                                }
+                                else
+                                {
+                                    or_dict.Add(f, new OrNode(f));
+                                    and_node.children.Add(or_dict[f]);
+                                    or_dict[f].parents.Add(and_node);
+                                    tree.Push(or_dict[f]);
+                                }
+                            }
+                        }
+                        else // current is OrNode
+                        {
+                            OrNode or_node = current as OrNode;
+                            foreach (var rule in findRules(or_node.name, facts.Keys.ToList()))
+                                if (and_dict.ContainsKey(rule))
+                                {
+                                    current.children.Add(and_dict[rule]);
+                                    and_dict[rule].parents.Add(current);
+                                }
+                                else
+                                {
+                                    and_dict.Add(rule, new AndNode(rule));
+                                    or_node.children.Add(and_dict[rule]);
+                                    and_dict[rule].parents.Add(or_node);
+                                    tree.Push(and_dict[rule]);
+                                }
+                        }
+                    }
+
+                    int cnt = 0;
+                    foreach (var f in or_dict)
+                    {
+                        if (known_facts.Contains(f.Key))
+                            ++cnt;
+                    }
+
+                    foreach (var val in or_dict)
+                        if (known_facts.Contains(val.Key))
+                        {
+                            val.Value.flag = true;
+                            foreach (Node p in val.Value.parents)
+                                resolve(p);
+                            if (root.flag == true && root.name == need_right)
+                            {
+                                return true;
+                            }
+                        }
+                }
+
+            return false;
         }
 
         private void load() {
@@ -254,12 +298,12 @@ namespace dragons
             bool res = false;
             string s = comboBox1.SelectedItem.ToString();
             List<string> list = new List<string>();
-            OrAndTree answer = new OrAndTree(comboBox1.SelectedItem.ToString().Split(':')[0].Trim(' '), list);
+            string need_f = comboBox1.SelectedItem.ToString().Split(':')[0].Trim(' ');
             
             List<string> first_facts = new List<string>();
             foreach (var i in summary.Items)
                 first_facts.Add(i.ToString().Split(':')[0].Trim(' '));
-            res = answer.findTruth(first_facts);
+            res = backward_reasoning(first_facts, need_f);
 
             return res;
         }

@@ -11,3 +11,10 @@ C:\Users\akulishova\Downloads\IS\dragons\bin\Debug\dragons.exe.config
 C:\Users\akulishova\Downloads\IS\dragons\obj\Debug\dragons.pdb
 D:\Документы\OneDrive\Документы\IS\dragons\bin\Debug\dragons.exe.config
 D:\Документы\OneDrive\Документы\IS\dragons\obj\Debug\dragons.pdb
+D:\Документы\OneDrive\Документы\IS\dragons\bin\Debug\dragons.exe
+D:\Документы\OneDrive\Документы\IS\dragons\bin\Debug\dragons.pdb
+D:\Документы\OneDrive\Документы\IS\dragons\obj\Debug\dragons.csprojResolveAssemblyReference.cache
+D:\Документы\OneDrive\Документы\IS\dragons\obj\Debug\dragons.Form1.resources
+D:\Документы\OneDrive\Документы\IS\dragons\obj\Debug\dragons.Properties.Resources.resources
+D:\Документы\OneDrive\Документы\IS\dragons\obj\Debug\dragons.csproj.GenerateResource.Cache
+D:\Документы\OneDrive\Документы\IS\dragons\obj\Debug\dragons.exe
