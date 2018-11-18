@@ -72,25 +72,17 @@ namespace dragons
                 n.flag = n.children.Any(c => c.flag == true);
 
             if (n.flag)
-            {
                 foreach (Node p in n.parents)
                     resolve(p);
-            }
         }
 
         public bool backward_reasoning(List<string> Facts, string need_right)
         {
             Dictionary<string, int> res = new Dictionary<string, int>();
-            List<string> known_facts = new List<string>();
-
-            foreach (var fact in Facts)
-            {
-                known_facts.Add(fact);
-            }
+            List<string> known_facts = new List<string>(Facts);
 
             List<string> targets = new List<string>();
-            foreach (var term in facts.Keys)
-                {
+            foreach (var term in facts.Keys){
                     Dictionary<string, AndNode> and_dict = new Dictionary<string, AndNode>();
                     Dictionary<string, OrNode> or_dict = new Dictionary<string, OrNode>();
                     OrNode root = new OrNode(term);
@@ -106,7 +98,6 @@ namespace dragons
                         {
                             AndNode and_node = current as AndNode;
                             foreach (var f in rules[and_node.name].preconditions)
-                            {
                                 if (or_dict.ContainsKey(f))
                                 {
                                     current.children.Add(or_dict[f]);
@@ -119,7 +110,6 @@ namespace dragons
                                     or_dict[f].parents.Add(and_node);
                                     tree.Push(or_dict[f]);
                                 }
-                            }
                         }
                         else // current is OrNode
                         {
@@ -142,10 +132,8 @@ namespace dragons
 
                     int cnt = 0;
                     foreach (var f in or_dict)
-                    {
                         if (known_facts.Contains(f.Key))
                             ++cnt;
-                    }
 
                     foreach (var val in or_dict)
                         if (known_facts.Contains(val.Key))
@@ -317,7 +305,7 @@ namespace dragons
             if (!checkBox1.Checked)
                 while (agenda(ref rules, ref in_fact)) { }
             else{
-                textBox2.Text = ret_agenda(rules).ToString();
+                textBox2.Text = "Можно вывести дракона? " + (ret_agenda(rules) ? "Да" : "Нет");
             }
         }
 
