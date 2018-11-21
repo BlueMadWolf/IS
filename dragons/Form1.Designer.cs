@@ -58,6 +58,8 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.reloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сменитьРежимToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mode = new System.Windows.Forms.ToolStripComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -365,7 +367,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.reloadToolStripMenuItem});
+            this.reloadToolStripMenuItem,
+            this.сменитьРежимToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1169, 24);
@@ -378,6 +381,23 @@
             this.reloadToolStripMenuItem.Size = new System.Drawing.Size(93, 20);
             this.reloadToolStripMenuItem.Text = "Перезагрузка";
             this.reloadToolStripMenuItem.Click += new System.EventHandler(this.reloadToolStripMenuItem_Click);
+            // 
+            // сменитьРежимToolStripMenuItem
+            // 
+            this.сменитьРежимToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mode});
+            this.сменитьРежимToolStripMenuItem.Name = "сменитьРежимToolStripMenuItem";
+            this.сменитьРежимToolStripMenuItem.Size = new System.Drawing.Size(108, 20);
+            this.сменитьРежимToolStripMenuItem.Text = "Сменить режим";
+            // 
+            // mode
+            // 
+            this.mode.Items.AddRange(new object[] {
+            "Без коэффициентов уверенности",
+            "С коэффициентами уверенности"});
+            this.mode.Name = "mode";
+            this.mode.Size = new System.Drawing.Size(121, 23);
+            this.mode.Text = "Без коэффициентов уверенности";
             // 
             // Form1
             // 
@@ -434,6 +454,8 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem reloadToolStripMenuItem;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ToolStripMenuItem сменитьРежимToolStripMenuItem;
+        private System.Windows.Forms.ToolStripComboBox mode;
     }
 }
 

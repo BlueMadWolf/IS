@@ -55,9 +55,14 @@ namespace dragons
             }
         }
 
+        Certainty_factor factor;
+
         public Form1()
         {
             InitializeComponent();
+            factor = new Certainty_factor();
+            facts = get_dictionary("..//..//facts.txt");
+            rules = get_rules("..//..//rules.txt");
             load();
         }
 
@@ -145,20 +150,16 @@ namespace dragons
                         if (root.flag == true)
                         {
                             resId.Add(root.name);
-                            if ( root.name == need_right)
-                            {
+                            if (root.name == need_right)
                                 return Tuple.Create(true, resId);
-                            }
                         }
-                        }
+                    }
                 }
 
             return Tuple.Create(false, resId);
         }
 
         private void load() {
-            facts = get_dictionary("..//..//facts.txt");
-            rules = get_rules("..//..//rules.txt");
             foreach (var item in facts.Keys)
             {
                 if (item.First() == 'T')
@@ -199,58 +200,6 @@ namespace dragons
             return d;
         }
 
-        public class Rule {
-            public List<string> preconditions;
-            public string consequence;
-            
-            public Rule(string r) {
-                preconditions = new List<string>();
-                var temp = r.Split('-');
-                consequence = temp[1].Trim(' ');
-                var lst = temp[0].Split(',');
-                foreach (var i in lst)
-                    preconditions.Add(i.Trim(' '));
-            }
-
-            public bool compare(List<string> f) {
-                bool res = true;
-                foreach (var i in preconditions)
-                    res = res && f.Contains(i);
-                return res;
-            }
-
-           public string forward_print() {
-                Form1 _form = new Form1();
-                string res = "";
-                foreach (var i in preconditions) {
-                    res += _form.facts[i];
-                    if (i != preconditions.Last())
-                        res += " , ";
-                }
-                res += "->" + _form.facts[consequence];
-                return res;
-            }
-
-           public string return_print(){
-               Form1 _form = new Form1();
-               string res = "" + _form.facts[consequence] + " -> ";
-               foreach (var t in preconditions)
-                   if (t != preconditions.Last())
-                       res += _form.facts[t] + ", ";
-                   else
-                       res += _form.facts[t];
-               return res;
-           } 
-
-           public string isDragon() {
-               Form1 _form = new Form1();
-               string res = "";
-               if(consequence[0] == 'F')
-                   res = _form.facts[consequence]; 
-               return res;
-           }
-        }
-
         //Словарь правил, ключ - идентификатор правила, значение - правило, 
         //в котором посылки и следствие - идентификаторы фактов
         private Dictionary<string, Rule> get_rules(string fname)
@@ -288,7 +237,6 @@ namespace dragons
 
         private Tuple<bool, List<string>> ret_agenda(Dictionary<string, Rule> w)
         {
-            //bool res = false;
             string s = comboBox1.SelectedItem.ToString();
             List<string> list = new List<string>();
             string need_f = comboBox1.SelectedItem.ToString().Split(':')[0].Trim(' ');
@@ -297,8 +245,6 @@ namespace dragons
             foreach (var i in summary.Items)
                 first_facts.Add(i.ToString().Split(':')[0].Trim(' '));
             var res = backward_reasoning(first_facts, need_f);
-            
-
             return res;
         }
 
