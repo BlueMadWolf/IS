@@ -76,11 +76,12 @@ namespace dragons
                     resolve(p);
         }
 
-        public bool backward_reasoning(List<string> Facts, string need_right)
+        public Tuple<bool, List<string>> backward_reasoning(List<string> Facts, string need_right)
         {
             Dictionary<string, int> res = new Dictionary<string, int>();
             List<string> known_facts = new List<string>(Facts);
 
+            List<string> resId = new List<string>();
             List<string> targets = new List<string>();
             foreach (var term in facts.Keys){
                     Dictionary<string, AndNode> and_dict = new Dictionary<string, AndNode>();
@@ -141,14 +142,18 @@ namespace dragons
                             val.Value.flag = true;
                             foreach (Node p in val.Value.parents)
                                 resolve(p);
-                            if (root.flag == true && root.name == need_right)
+                        if (root.flag == true)
+                        {
+                            resId.Add(root.name);
+                            if ( root.name == need_right)
                             {
-                                return true;
+                                return Tuple.Create(true, resId);
                             }
+                        }
                         }
                 }
 
-            return false;
+            return Tuple.Create(false, resId);
         }
 
         private void load() {
@@ -281,9 +286,9 @@ namespace dragons
             return res;
         }
 
-        private bool ret_agenda(Dictionary<string, Rule> w)
+        private Tuple<bool, List<string>> ret_agenda(Dictionary<string, Rule> w)
         {
-            bool res = false;
+            //bool res = false;
             string s = comboBox1.SelectedItem.ToString();
             List<string> list = new List<string>();
             string need_f = comboBox1.SelectedItem.ToString().Split(':')[0].Trim(' ');
@@ -291,7 +296,8 @@ namespace dragons
             List<string> first_facts = new List<string>();
             foreach (var i in summary.Items)
                 first_facts.Add(i.ToString().Split(':')[0].Trim(' '));
-            res = backward_reasoning(first_facts, need_f);
+            var res = backward_reasoning(first_facts, need_f);
+            
 
             return res;
         }
@@ -305,7 +311,12 @@ namespace dragons
             if (!checkBox1.Checked)
                 while (agenda(ref rules, ref in_fact)) { }
             else{
-                textBox2.Text = "Можно вывести дракона? " + (ret_agenda(rules) ? "Да" : "Нет");
+                var r = ret_agenda(rules);
+                textBox2.Text = "Можно вывести дракона? " + (r.Item1 ? "Да" : "Нет");
+
+                if (r.Item1)
+                foreach (var id in r.Item2.Distinct().OrderByDescending(s => s).ToList())
+                    textBox2.Text += Environment.NewLine + facts[id];
             }
         }
 

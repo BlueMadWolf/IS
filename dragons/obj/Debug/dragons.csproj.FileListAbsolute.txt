@@ -18,3 +18,13 @@ D:\Документы\OneDrive\Документы\IS\dragons\obj\Debug\dragons.F
 D:\Документы\OneDrive\Документы\IS\dragons\obj\Debug\dragons.Properties.Resources.resources
 D:\Документы\OneDrive\Документы\IS\dragons\obj\Debug\dragons.csproj.GenerateResource.Cache
 D:\Документы\OneDrive\Документы\IS\dragons\obj\Debug\dragons.exe
+C:\flash\PortableGit\IS\dragons\bin\Debug\dragons.exe.config
+C:\flash\PortableGit\IS\dragons\bin\Debug\dragons.exe
+C:\flash\PortableGit\IS\dragons\bin\Debug\dragons.pdb
+C:\flash\PortableGit\IS\dragons\obj\Debug\dragons.csprojResolveAssemblyReference.cache
+C:\flash\PortableGit\IS\dragons\obj\Debug\dragons.Form1.resources
+C:\flash\PortableGit\IS\dragons\obj\Debug\dragons.Properties.Resources.resources
+C:\flash\PortableGit\IS\dragons\obj\Debug\dragons.csproj.GenerateResource.Cache
+C:\flash\PortableGit\IS\dragons\obj\Debug\dragons.csproj.CoreCompileInputs.cache
+C:\flash\PortableGit\IS\dragons\obj\Debug\dragons.exe
+C:\flash\PortableGit\IS\dragons\obj\Debug\dragons.pdb
