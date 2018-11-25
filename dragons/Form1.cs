@@ -284,8 +284,7 @@ namespace dragons
             }
         }
 
-        private void reloadToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+        private void reload() {
             checkedListBoxT.Items.Clear();
             checkedListBoxS.Items.Clear();
             checkedListBoxP.Items.Clear();
@@ -299,6 +298,11 @@ namespace dragons
             listBox1.Items.Clear();
             textBox2.Text = "";
             load();
+        }
+
+        private void reloadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            reload();
         }
 
         private void checkedListBoxT_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -396,6 +400,11 @@ namespace dragons
         {
             var rem = summary.SelectedItem.ToString()[0];
             return_facts(rem);
+        }
+
+        private void mode_TextChanged(object sender, EventArgs e)
+        {
+            reload();
         }
     }
 }

@@ -398,6 +398,7 @@
             this.mode.Name = "mode";
             this.mode.Size = new System.Drawing.Size(121, 23);
             this.mode.Text = "Без коэффициентов уверенности";
+            this.mode.TextChanged += new System.EventHandler(this.mode_TextChanged);
             // 
             // Form1
             // 
