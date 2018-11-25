@@ -1,0 +1,12 @@
+C:\Users\Alex\Documents\Git Portable\IS\dragons_clips\obj\Debug\dragons_clips.csprojAssemblyReference.cache
+C:\Users\Alex\Documents\Git Portable\IS\dragons_clips\obj\Debug\dragons.Form1.resources
+C:\Users\Alex\Documents\Git Portable\IS\dragons_clips\obj\Debug\dragons.Properties.Resources.resources
+C:\Users\Alex\Documents\Git Portable\IS\dragons_clips\obj\Debug\dragons_clips.csproj.GenerateResource.cache
+C:\Users\Alex\Documents\Git Portable\IS\dragons_clips\obj\Debug\dragons_clips.csproj.CoreCompileInputs.cache
+C:\Users\Alex\Documents\Git Portable\IS\dragons_clips\obj\Debug\dragons.pdb
+C:\Users\Alex\Documents\Git Portable\IS\dragons_clips\bin\Debug\dragons.exe.config
+C:\Users\Alex\Documents\Git Portable\IS\dragons_clips\bin\Debug\dragons.exe
+C:\Users\Alex\Documents\Git Portable\IS\dragons_clips\bin\Debug\dragons.pdb
+C:\Users\Alex\Documents\Git Portable\IS\dragons_clips\bin\Debug\CLIPSCLRWrapper.dll
+C:\Users\Alex\Documents\Git Portable\IS\dragons_clips\obj\Debug\dragons_clips.csproj.CopyComplete
+C:\Users\Alex\Documents\Git Portable\IS\dragons_clips\obj\Debug\dragons.exe
