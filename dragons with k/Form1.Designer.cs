@@ -47,10 +47,8 @@
             this.checkedListBoxT = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.labelO = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.summary = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.start = new System.Windows.Forms.Button();
@@ -58,6 +56,8 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.reloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сменитьРежимToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mode = new System.Windows.Forms.ToolStripComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -165,10 +165,8 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.comboBox1);
             this.splitContainer1.Panel2.Controls.Add(this.listBox1);
             this.splitContainer1.Panel2.Controls.Add(this.label4);
-            this.splitContainer1.Panel2.Controls.Add(this.checkBox1);
             this.splitContainer1.Panel2.Controls.Add(this.summary);
             this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Panel2.Controls.Add(this.start);
@@ -278,15 +276,6 @@
             this.labelO.TabIndex = 16;
             this.labelO.Text = "Особенности драконов";
             // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(470, 59);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(180, 21);
-            this.comboBox1.TabIndex = 11;
-            this.comboBox1.Visible = false;
-            // 
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
@@ -303,17 +292,6 @@
             this.label4.Size = new System.Drawing.Size(119, 13);
             this.label4.TabIndex = 9;
             this.label4.Text = "Выведенные драконы";
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(299, 63);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(112, 17);
-            this.checkBox1.TabIndex = 8;
-            this.checkBox1.Text = "Обратный вывод";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // summary
             // 
@@ -365,7 +343,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.reloadToolStripMenuItem});
+            this.reloadToolStripMenuItem,
+            this.сменитьРежимToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1169, 24);
@@ -428,12 +407,12 @@
         private System.Windows.Forms.ListBox checkedListBoxS;
         private System.Windows.Forms.ListBox checkedListBoxZ;
         private System.Windows.Forms.ListBox summary;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem reloadToolStripMenuItem;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ToolStripMenuItem сменитьРежимToolStripMenuItem;
+        private System.Windows.Forms.ToolStripComboBox mode;
     }
 }
 

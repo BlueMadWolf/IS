@@ -55,12 +55,9 @@ namespace dragons
             }
         }
 
-        Certainty_factor factor;
-
         public Form1()
         {
             InitializeComponent();
-            factor = new Certainty_factor();
             facts = get_dictionary("..//..//facts.txt");
             rules = get_rules("..//..//rules.txt");
             load();
@@ -400,11 +397,6 @@ namespace dragons
         {
             var rem = summary.SelectedItem.ToString()[0];
             return_facts(rem);
-        }
-
-        private void mode_TextChanged(object sender, EventArgs e)
-        {
-            reload();
         }
     }
 }

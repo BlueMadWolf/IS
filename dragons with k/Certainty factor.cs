@@ -7,12 +7,12 @@ using System.IO;
 
 namespace dragons
 {
-    class Certainty_factor
+    public class Certainty_factor
     {
-        Dictionary<string, string> facts = new Dictionary<string, string>();
-        Dictionary<string, Rule> rules = new Dictionary<string, Rule>();
-        Dictionary<string, double> cert_facts = new Dictionary<string, double>();
-        Dictionary<string, double> cert_rules = new Dictionary<string, double>();
+        public Dictionary<string, string> facts = new Dictionary<string, string>();
+        public Dictionary<string, Rule> rules = new Dictionary<string, Rule>();
+        public Dictionary<string, double> cert_facts = new Dictionary<string, double>();
+        public Dictionary<string, double> cert_rules = new Dictionary<string, double>();
 
         public Certainty_factor() {
             get_facts("..//..//facts_with_k.txt");
@@ -48,8 +48,30 @@ namespace dragons
             }
         }
 
-        public string check_work() {
-            return "" + facts.First().Key + ':' + facts.First().Value + ':' + cert_facts[facts.First().Key]; 
+        private List<string> agenda(ref List<string> f)
+        {
+            List<string> res = new List<string>();
+            foreach (var i in rules)
+                if (i.Value.compare(f) && !f.Contains(i.Key))
+                    res.Add(i.Key);
+            return res;
         }
+
+        public bool application(ref List<string> f) {
+            bool res = false;
+            List<string> ag = new List<string>();
+            do{
+                ag = agenda(ref f).OrderByDescending(x=>cert_rules[x]).ToList();
+                if (ag.Count > 0){
+                    string current_rule = ag.First();
+                    res = true;
+
+                }
+
+            } while (ag.Count > 0);
+
+            return res;
+        }
+
     }
 }
