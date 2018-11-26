@@ -454,6 +454,44 @@ namespace dragons
             clips.Eval("(assert (clearmessage))");
         }
 
+        private string add_rule(string source, int num_rule, 
+            List<string> preconditions, string consequence)
+        {
+            string rule = "";
+            rule += "(defrule r" + num_rule.ToString() + System.Environment.NewLine;
+            rule += "   (declare(salience 30))" + System.Environment.NewLine;
+            rule += "   ?p1 <-	(dragon" + System.Environment.NewLine;
+
+            string conclusion;
+
+            foreach (var precond in preconditions)
+            {
+                string value;
+                switch (precond.First())
+                {
+                    case 'T':
+                        value = facts[precond].Replace(' ', '_');
+                        rule += "       (category ?category1&" + value + ')' + 
+                            System.Environment.NewLine;
+                        conclusion += 
+                        break;
+                    case 'C':
+                        value = facts[precond].Replace(' ', '_');
+                        rule += "       (color ?color1&" + value + ')' + 
+                            System.Environment.NewLine;
+                        break;
+                    case 'S':
+                        value = facts[precond].Replace(' ', '_');
+                        rule += "       (location ?location1&" + value + ')' +
+                            System.Environment.NewLine;
+                        break;
+                }
+            }
+
+
+            return source + rule;
+        }
+
         private void start_click_new()
         {
             clips.Run();

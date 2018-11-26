@@ -88,7 +88,7 @@
 	(multislot name) 
 	(slot category)
 	(slot color)
-	(slot task)
+	(slot location)
 )
 
 (defrule greeting
@@ -102,12 +102,12 @@
 	?p1 <-	(dragon (name ?name1) 
 		(category ?category1) 
 		(color ?color1)
-		(task ?task1)
+		(location ?location1)
 	)
-	;(test (< (abs (- ?color1 ?color1)) 50))
+	(test (> (abs (str-length ?name1)) 1))
 	;(test (< (fact-index ?p1) (fact-index ?p2)))
 	=> 
-	(assert (appendmessagehalt (str-cat "У нас есть Дракон! Имя = " ?name1 " | Цвет = " ?color1 " | Категория = " ?category1 " | Задача = " ?task1)))
+	(assert (appendmessagehalt (str-cat "У нас есть Дракон! Имя = " ?name1 " | Цвет = " ?color1 " | Категория = " ?category1 " | Локация = " ?location1)))
 )
 
 (defrule match-dragon-for-user 
@@ -116,21 +116,48 @@
 	(assert (sendmessagehalt "Дракон не нашёлся, но вы там держитесь!"))
 ) 
 
+; скрилл
 (defrule r10
 	(declare (salience 30))
-	?p1 <-	(dragon (name ?name1) 
+	?p1 <-	(dragon 
 		(category ?category1&Разящие) 
 		(color ?color1&Черный)
-		(task ?task1)
+		(location ?location1&Горы_блабла)
 	)
-	;(test (< (abs (- ?color1 ?color1)) 50))
-	;(test (< (fact-index ?p1) (fact-index ?p2)))
 	=> 
-	(assert (dragon (name "Скрилл") (category ?category1) (color ?color1)))
+	(assert (dragon (name "Скрилл") (category ?category1) (color ?color1) (location ?location1)))
+	;(assert (appendmessagehalt (str-cat "Cat = " ?category1)))
+)
+
+; ночная фурия
+(defrule r3
+	(declare (salience 30))
+	?p1 <-	(dragon 
+		(category ?category1&Разящие) 
+		(color ?color1&Черный)
+		(location ?location1&Неизвестно)
+	)
+	=> 
+	(assert (dragon (name "Ночная фурия") (category ?category1) (color ?color1) (location ?location1)))
+	;(assert (appendmessagehalt (str-cat "Cat = " ?category1)))
+)
+
+; неизвестно -> горы
+(defrule r0
+	(declare (salience 30))
+	?p1 <-	(dragon (name ?name1)
+		(category ?category1) 
+		(color ?color1)
+		(location ?location1&Неизвестно)		
+	)
+	=> 
+	(assert (dragon (name ?name1) (category ?category1) (color ?color1) (location Горы_блабла)))
+	;(assert (appendmessagehalt (str-cat "Cat = " ?category1)))
 )
 
 (defrule add-fact 
-	(declare (salience 30))
+	(declare (salience 35))
 	=> 
-	(assert (dragon (name "Скрилл") (category Разящие) (color Черный)))
+	(assert (dragon (category Разящие) (color Черный) (location Неизвестно)))
+	;(assert (appendmessagehalt (str-cat "Color = " "black")))
 ) 
