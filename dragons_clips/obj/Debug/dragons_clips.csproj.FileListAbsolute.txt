@@ -22,3 +22,14 @@ C:\flash\PortableGit\IS\dragons_clips\bin\Debug\dragons.pdb
 C:\flash\PortableGit\IS\dragons_clips\bin\Debug\CLIPSCLRWrapper.dll
 C:\flash\PortableGit\IS\dragons_clips\bin\Debug\CLIPSCLRWrapper.pdb
 C:\flash\PortableGit\IS\dragons_clips\obj\Debug\dragons.exe
+D:\Документы\OneDrive\Документы\IS\dragons_clips\bin\Debug\dragons.exe.config
+D:\Документы\OneDrive\Документы\IS\dragons_clips\obj\Debug\dragons.pdb
+D:\Документы\OneDrive\Документы\IS\dragons_clips\obj\Debug\dragons_clips.csprojResolveAssemblyReference.cache
+D:\Документы\OneDrive\Документы\IS\dragons_clips\obj\Debug\dragons.Form1.resources
+D:\Документы\OneDrive\Документы\IS\dragons_clips\obj\Debug\dragons.Properties.Resources.resources
+D:\Документы\OneDrive\Документы\IS\dragons_clips\obj\Debug\dragons_clips.csproj.GenerateResource.Cache
+D:\Документы\OneDrive\Документы\IS\dragons_clips\bin\Debug\dragons.exe
+D:\Документы\OneDrive\Документы\IS\dragons_clips\bin\Debug\dragons.pdb
+D:\Документы\OneDrive\Документы\IS\dragons_clips\bin\Debug\CLIPSCLRWrapper.dll
+D:\Документы\OneDrive\Документы\IS\dragons_clips\bin\Debug\CLIPSCLRWrapper.pdb
+D:\Документы\OneDrive\Документы\IS\dragons_clips\obj\Debug\dragons.exe
