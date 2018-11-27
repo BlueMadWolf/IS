@@ -121,7 +121,7 @@
 	(declare (salience 30))
 	?p1 <-	(dragon 
 		(category ?category1&Разящие) 
-		(color ?color1&Черный)
+		(color ?color1)
 		(location ?location1&Горы_блабла)
 	)
 	=> 
@@ -133,7 +133,7 @@
 (defrule r3
 	(declare (salience 30))
 	?p1 <-	(dragon 
-		(category ?category1&Разящие) 
+		(category ?category1) 
 		(color ?color1&Черный)
 		(location ?location1&Неизвестно)
 	)
@@ -158,6 +158,6 @@
 (defrule add-fact 
 	(declare (salience 35))
 	=> 
-	(assert (dragon (category Разящие) (color Черный) (location Неизвестно)))
+	(assert (dragon (color Черный) (location Неизвестно)))
 	;(assert (appendmessagehalt (str-cat "Color = " "black")))
 ) 

@@ -170,8 +170,6 @@ namespace dragons
                     checkedListBoxS.Items.Add("" + item + ": " + facts[item]);
                 if (item.First() == 'P')
                     checkedListBoxP.Items.Add("" + item + ": " + facts[item]);
-                if (item.First() == 'Z')
-                    checkedListBoxZ.Items.Add("" + item + ": " + facts[item]);
                 if (item.First() == 'C')
                     checkedListBoxС.Items.Add("" + item + ": " + facts[item]);
                 if (item.First() == 'W')
@@ -297,7 +295,6 @@ namespace dragons
             checkedListBoxT.Items.Clear();
             checkedListBoxS.Items.Clear();
             checkedListBoxP.Items.Clear();
-            checkedListBoxZ.Items.Clear();
             checkedListBoxС.Items.Clear();
             checkedListBoxW.Items.Clear();
             checkedListBoxF.Items.Clear();
@@ -329,11 +326,6 @@ namespace dragons
         {
             summary.Items.Add(checkedListBoxP.SelectedItem);
             checkedListBoxP.Items.Remove(checkedListBoxP.SelectedItem);
-        }
-        private void checkedListBoxZ_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            summary.Items.Add(checkedListBoxZ.SelectedItem);
-            checkedListBoxZ.Items.Remove(checkedListBoxZ.SelectedItem);
         }
         private void checkedListBoxC_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -375,10 +367,6 @@ namespace dragons
                     break;
                 case 'P':
                     checkedListBoxP.Items.Add(summary.SelectedItem);
-                    summary.Items.Remove(summary.SelectedItem);
-                    break;
-                case 'Z':
-                    checkedListBoxZ.Items.Add(summary.SelectedItem);
                     summary.Items.Remove(summary.SelectedItem);
                     break;
                 case 'C':
@@ -473,7 +461,6 @@ namespace dragons
                         value = facts[precond].Replace(' ', '_');
                         rule += "       (category ?category1&" + value + ')' + 
                             System.Environment.NewLine;
-                        conclusion += 
                         break;
                     case 'C':
                         value = facts[precond].Replace(' ', '_');
