@@ -33,14 +33,12 @@
             this.labelP = new System.Windows.Forms.Label();
             this.labelW = new System.Windows.Forms.Label();
             this.labelC = new System.Windows.Forms.Label();
-            this.labelF = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.checkedListBoxG = new System.Windows.Forms.ListBox();
             this.checkedListBoxW = new System.Windows.Forms.ListBox();
             this.checkedListBoxO = new System.Windows.Forms.ListBox();
             this.checkedListBoxС = new System.Windows.Forms.ListBox();
             this.checkedListBoxP = new System.Windows.Forms.ListBox();
-            this.checkedListBoxF = new System.Windows.Forms.ListBox();
             this.checkedListBoxS = new System.Windows.Forms.ListBox();
             this.checkedListBoxT = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -111,15 +109,6 @@
             this.labelC.TabIndex = 12;
             this.labelC.Text = "Цвет";
             // 
-            // labelF
-            // 
-            this.labelF.AutoSize = true;
-            this.labelF.Location = new System.Drawing.Point(245, 278);
-            this.labelF.Name = "labelF";
-            this.labelF.Size = new System.Drawing.Size(109, 17);
-            this.labelF.TabIndex = 14;
-            this.labelF.Text = "Виды драконов";
-            // 
             // splitContainer1
             // 
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -135,12 +124,10 @@
             this.splitContainer1.Panel1.Controls.Add(this.checkedListBoxO);
             this.splitContainer1.Panel1.Controls.Add(this.checkedListBoxС);
             this.splitContainer1.Panel1.Controls.Add(this.checkedListBoxP);
-            this.splitContainer1.Panel1.Controls.Add(this.checkedListBoxF);
             this.splitContainer1.Panel1.Controls.Add(this.checkedListBoxS);
             this.splitContainer1.Panel1.Controls.Add(this.checkedListBoxT);
             this.splitContainer1.Panel1.Controls.Add(this.label3);
             this.splitContainer1.Panel1.Controls.Add(this.labelO);
-            this.splitContainer1.Panel1.Controls.Add(this.labelF);
             this.splitContainer1.Panel1.Controls.Add(this.labelT);
             this.splitContainer1.Panel1.Controls.Add(this.labelW);
             this.splitContainer1.Panel1.Controls.Add(this.labelS);
@@ -217,18 +204,8 @@
             this.checkedListBoxP.Name = "checkedListBoxP";
             this.checkedListBoxP.Size = new System.Drawing.Size(219, 116);
             this.checkedListBoxP.TabIndex = 8;
+            this.checkedListBoxP.SelectedIndexChanged += new System.EventHandler(this.checkedListBoxP_SelectedIndexChanged);
             this.checkedListBoxP.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.checkedListBoxP_MouseDoubleClick);
-            // 
-            // checkedListBoxF
-            // 
-            this.checkedListBoxF.FormattingEnabled = true;
-            this.checkedListBoxF.ItemHeight = 16;
-            this.checkedListBoxF.Location = new System.Drawing.Point(244, 298);
-            this.checkedListBoxF.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.checkedListBoxF.Name = "checkedListBoxF";
-            this.checkedListBoxF.Size = new System.Drawing.Size(384, 116);
-            this.checkedListBoxF.TabIndex = 10;
-            this.checkedListBoxF.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.checkedListBoxF_MouseDoubleClick);
             // 
             // checkedListBoxS
             // 
@@ -447,7 +424,6 @@
         private System.Windows.Forms.Label labelP;
         private System.Windows.Forms.Label labelW;
         private System.Windows.Forms.Label labelC;
-        private System.Windows.Forms.Label labelF;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox2;
@@ -461,7 +437,6 @@
         private System.Windows.Forms.ListBox checkedListBoxO;
         private System.Windows.Forms.ListBox checkedListBoxС;
         private System.Windows.Forms.ListBox checkedListBoxP;
-        private System.Windows.Forms.ListBox checkedListBoxF;
         private System.Windows.Forms.ListBox checkedListBoxS;
         private System.Windows.Forms.ListBox summary;
         private System.Windows.Forms.CheckBox checkBox1;

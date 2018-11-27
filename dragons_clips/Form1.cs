@@ -174,10 +174,6 @@ namespace dragons
                     checkedListBoxС.Items.Add("" + item + ": " + facts[item]);
                 if (item.First() == 'W')
                     checkedListBoxW.Items.Add("" + item + ": " + facts[item]);
-                if (item.First() == 'F'){
-                    checkedListBoxF.Items.Add("" + item + ": " + facts[item]);
-                    comboBox1.Items.Add("" + item + ": " + facts[item]);
-                }
                 if (item.First() == 'O')
                     checkedListBoxO.Items.Add("" + item + ": " + facts[item]);
                 if (item.First() == 'G')
@@ -281,13 +277,13 @@ namespace dragons
                 label4.Text = "Выберите финальный факт";
                 listBox1.Visible = false;
                 comboBox1.Visible = true;
-                checkedListBoxF.Enabled = false;
+                //checkedListBoxF.Enabled = false;
             }
             else{
                 label4.Text = "Выведенные драконы";
                 listBox1.Visible = true;
                 comboBox1.Visible = false;
-                checkedListBoxF.Enabled = true;
+                //checkedListBoxF.Enabled = true;
             }
         }
 
@@ -297,7 +293,7 @@ namespace dragons
             checkedListBoxP.Items.Clear();
             checkedListBoxС.Items.Clear();
             checkedListBoxW.Items.Clear();
-            checkedListBoxF.Items.Clear();
+            //checkedListBoxF.Items.Clear();
             checkedListBoxO.Items.Clear();
             checkedListBoxG.Items.Clear();
             summary.Items.Clear();
@@ -332,11 +328,11 @@ namespace dragons
             summary.Items.Add(checkedListBoxС.SelectedItem);
             checkedListBoxС.Items.Remove(checkedListBoxС.SelectedItem);
         }
-        private void checkedListBoxF_MouseDoubleClick(object sender, MouseEventArgs e)
+        /*private void checkedListBoxF_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             summary.Items.Add(checkedListBoxF.SelectedItem);
             checkedListBoxF.Items.Remove(checkedListBoxF.SelectedItem);
-        }
+        }*/
         private void checkedListBoxW_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             summary.Items.Add(checkedListBoxW.SelectedItem);
@@ -373,10 +369,10 @@ namespace dragons
                     checkedListBoxС.Items.Add(summary.SelectedItem);
                     summary.Items.Remove(summary.SelectedItem);
                     break;
-                case 'F':
+                /*case 'F':
                     checkedListBoxF.Items.Add(summary.SelectedItem);
                     summary.Items.Remove(summary.SelectedItem);
-                    break;
+                    break;*/
                 case 'W':
                     checkedListBoxW.Items.Add(summary.SelectedItem);
                     summary.Items.Remove(summary.SelectedItem);
@@ -442,41 +438,188 @@ namespace dragons
             clips.Eval("(assert (clearmessage))");
         }
 
-        private string add_rule(string source, int num_rule, 
-            List<string> preconditions, string consequence)
+        private string add_rule(int num_rule,
+            List<string> precond_properties, 
+            string property)
         {
             string rule = "";
             rule += "(defrule r" + num_rule.ToString() + System.Environment.NewLine;
             rule += "   (declare(salience 30))" + System.Environment.NewLine;
-            rule += "   ?p1 <-	(dragon" + System.Environment.NewLine;
+            rule += "   ?p1 <- (dragon (name ?name1)" + System.Environment.NewLine;
 
-            string conclusion;
+            List<string> pr_values = new List<string>();
+            pr_values.Add("(category ?category1");
+            pr_values.Add("(color ?color1");
+            pr_values.Add("(location ?location1");
+            pr_values.Add("(feature ?feature1");
+            pr_values.Add("(goal ?goal1");
+            pr_values.Add("(weather ?weather1");
+            pr_values.Add("(fire ?fire1");
 
-            foreach (var precond in preconditions)
+            for (int i = 0; i < precond_properties.Count(); ++i)
             {
-                string value;
-                switch (precond.First())
+                if (precond_properties[i] != "")
                 {
-                    case 'T':
-                        value = facts[precond].Replace(' ', '_');
-                        rule += "       (category ?category1&" + value + ')' + 
-                            System.Environment.NewLine;
-                        break;
-                    case 'C':
-                        value = facts[precond].Replace(' ', '_');
-                        rule += "       (color ?color1&" + value + ')' + 
-                            System.Environment.NewLine;
-                        break;
-                    case 'S':
-                        value = facts[precond].Replace(' ', '_');
-                        rule += "       (location ?location1&" + value + ')' +
-                            System.Environment.NewLine;
-                        break;
+                    string precond_value =
+                        facts[precond_properties[i]].Split('\"')[1].Replace(' ', '_');
+                    switch (precond_properties[i].First())
+                    {
+                        case 'T':
+                            pr_values[0] += "&" + precond_value;
+                            break;
+                        case 'C':
+                            pr_values[1] += "&" + precond_value;
+                            break;
+                        case 'S':
+                            pr_values[2] += "&" + precond_value;
+                            break;
+                        case 'O':
+                            pr_values[3] += "&" + precond_value;
+                            break;
+                        case 'G':
+                            pr_values[4] += "&" + precond_value;
+                            break;
+                        case 'W':
+                            pr_values[5] += "&" + precond_value;
+                            break;
+                        case 'P':
+                            pr_values[6] += "&" + precond_value;
+                            break;
+                    }
                 }
             }
 
+            for(int i = 0; i < pr_values.Count(); ++i)
+            {
+                pr_values[i] = "        " + pr_values[i] + ")"
+                    + System.Environment.NewLine;
+                rule += pr_values[i];
+            }
 
-            return source + rule;
+            rule += "   )" + System.Environment.NewLine;
+            rule += "   =>" + System.Environment.NewLine;
+            rule += "   (assert (dragon" + System.Environment.NewLine;
+            
+            pr_values.Clear();
+            pr_values.Add("     (category ?category1)" + System.Environment.NewLine);
+            pr_values.Add("     (color ?color1)" + System.Environment.NewLine);
+            pr_values.Add("     (location ?location1)" + System.Environment.NewLine);
+            pr_values.Add("     (feature ?feature1)" + System.Environment.NewLine);
+            pr_values.Add("     (goal ?goal1)" + System.Environment.NewLine);
+            pr_values.Add("     (weather ?weather1)" + System.Environment.NewLine);
+            pr_values.Add("     (fire ?fire1)" + System.Environment.NewLine);
+
+            string value = facts[property].Split('\"')[1].Replace(' ', '_');
+            switch (property.First())
+            {
+                case 'F':
+                    rule += "       (name " + value + ")))" 
+                        + System.Environment.NewLine;
+                    rule += ")" + System.Environment.NewLine;
+                    return rule;
+                case 'T':
+                    pr_values[0] = "     (category " + value + ")"
+                        + System.Environment.NewLine;
+                    break;
+                case 'C':
+                    pr_values[1] = "     (color " + value + ")"
+                        + System.Environment.NewLine;
+                    break;
+                case 'S':
+                    pr_values[2] = "     (location " + value + ")"
+                        + System.Environment.NewLine;
+                    break;
+                case 'O':
+                    pr_values[3] = "     (feature " + value + ")"
+                        + System.Environment.NewLine;
+                    break;
+                case 'G':
+                    pr_values[4] = "     (goal " + value + ")"
+                        + System.Environment.NewLine;
+                    break;
+                case 'W':
+                    pr_values[5] = "     (weather " + value + ")"
+                        + System.Environment.NewLine;
+                    break;
+                case 'P':
+                    pr_values[6] = "     (fire " + value + ")"
+                        + System.Environment.NewLine;
+                    break;
+            }
+
+            string end = pr_values.Aggregate((s1, s2) => s1 + s2);
+            rule += end;
+            rule += "   ))" + System.Environment.NewLine;
+            rule += ")" + System.Environment.NewLine;
+
+            return rule;
+        }
+
+        private string add_start_values_of_properties(List<string> property)
+        {
+            string fact = "(defrule add-fact " + System.Environment.NewLine;
+            fact += "   (declare (salience 35)) " + System.Environment.NewLine;
+            fact += "   => " + System.Environment.NewLine;
+            fact += "   (assert (dragon";
+            for (int i = 0; i < property.Count(); ++i)
+            {
+                string value = facts[property[i]];
+                value = value.Split('\"')[1].Replace(' ', '_');
+                switch (property[i].First())
+                {
+                    case 'T':
+                        fact += " (category " + value + ")";
+                        break;
+                    case 'C':
+                        fact += " (color " + value + ")";
+                        break;
+                    case 'S':
+                        fact += " (location " + value + ")";
+                        break;
+                    case 'O':
+                        fact += " (feature " + value + ")";
+                        break;
+                    case 'G':
+                        fact += " (goal " + value + ")";
+                        break;
+                    case 'W':
+                        fact += " (weather " + value + ")";
+                        break;
+                    case 'P':
+                        fact += " (fire " + value + ")";
+                        break;
+                }
+            }
+            fact += ")) " + System.Environment.NewLine;
+            fact += ") " + System.Environment.NewLine;
+            return fact;
+        }
+
+        private string text_to_add()
+        {
+            string text = "";
+
+            List<string> in_fact_property = new List<string>();
+            //List<string> in_fact_value = new List<string>();
+            foreach (var i in summary.Items)
+            {
+                in_fact_property.Add(i.ToString().Split(':')[0].Trim(' '));
+                //in_fact_value.Add(i.ToString().Split('\"')[1].Replace(' ', '_'));
+            }
+
+            string fact = add_start_values_of_properties(in_fact_property);
+
+            //text += add_rule(1, new List<string>() { "W2", "P4" }, "F1");
+            //text += add_rule(2, new List<string>() { "T2", "S4" }, "P4");
+            int num_rule = 1;
+            foreach (var rule in rules.Values)
+            {
+                text += add_rule(num_rule, rule.preconditions, rule.consequence);
+                ++num_rule;
+            }
+
+            text += fact;
+            return text;
         }
 
         private void start_click_new()
@@ -485,13 +628,19 @@ namespace dragons
             HandleResponse();
         }
 
+        
+
         private void reload_new()
         {
+            
+
             textBox2.Text = "Выполнены команды Clear и Reset." + System.Environment.NewLine;
             //  Здесь сохранение в файл, и потом инициализация через него
             clips.Clear();
 
             string stroka = System.IO.File.ReadAllText("..//..//dragons.clp");
+            string text = text_to_add();
+            stroka += text;
             //= codeBox.Text;
             //System.IO.File.WriteAllText("tmp.clp", codeBox.Text);
             //clips.Load("dragons.clp");
@@ -505,6 +654,11 @@ namespace dragons
         private void button1_Click(object sender, EventArgs e)
         {
             reload_new();
+        }
+
+        private void checkedListBoxP_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
