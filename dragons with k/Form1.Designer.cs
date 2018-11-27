@@ -279,9 +279,9 @@
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(470, 51);
+            this.listBox1.Location = new System.Drawing.Point(414, 51);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(181, 134);
+            this.listBox1.Size = new System.Drawing.Size(237, 134);
             this.listBox1.TabIndex = 10;
             // 
             // label4
@@ -357,6 +357,16 @@
             this.reloadToolStripMenuItem.Size = new System.Drawing.Size(93, 20);
             this.reloadToolStripMenuItem.Text = "Перезагрузка";
             this.reloadToolStripMenuItem.Click += new System.EventHandler(this.reloadToolStripMenuItem_Click);
+            // 
+            // сменитьРежимToolStripMenuItem
+            // 
+            this.сменитьРежимToolStripMenuItem.Name = "сменитьРежимToolStripMenuItem";
+            this.сменитьРежимToolStripMenuItem.Size = new System.Drawing.Size(12, 20);
+            // 
+            // mode
+            // 
+            this.mode.Name = "mode";
+            this.mode.Size = new System.Drawing.Size(121, 23);
             // 
             // Form1
             // 

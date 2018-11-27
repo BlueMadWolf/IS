@@ -18,42 +18,48 @@ namespace dragons
         public Form1()
         {
             InitializeComponent();
-            factor = new Certainty_factor();
             load();
         }
         private void start_Click(object sender, EventArgs e)
         {
             textBox2.Text = "";
+            listBox1.Items.Clear();
             List<string> in_fact = new List<string>();
             foreach (var i in summary.Items){
                 in_fact.Add(i.ToString().Split(':')[0].Trim(' '));
                 factor.cert_facts[in_fact.Last()] = 1;
             }
             List<string> repeat = new List<string>();
+            factor.application(ref in_fact, ref repeat);
+            textBox2.Text = factor.conc;
+
+            foreach (var i in factor.dragons)
+                listBox1.Items.Add(factor.facts[i] + " : P = " + factor.cert_facts[i].ToString());
         }
 
         private void load()
         {
+            factor = new Certainty_factor();
             foreach (var item in factor.facts.Keys)
             {
                 if (item.First() == 'T')
-                    checkedListBoxT.Items.Add("" + item + ": " + factor.facts[item] + ": " + factor.cert_facts[item]);
+                    checkedListBoxT.Items.Add("" + item + ": " + factor.facts[item]);
                 if (item.First() == 'S')
-                    checkedListBoxS.Items.Add("" + item + ": " + factor.facts[item] + ": " + factor.cert_facts[item]);
+                    checkedListBoxS.Items.Add("" + item + ": " + factor.facts[item]);
                 if (item.First() == 'P')
-                    checkedListBoxP.Items.Add("" + item + ": " + factor.facts[item] + ": " + factor.cert_facts[item]);
+                    checkedListBoxP.Items.Add("" + item + ": " + factor.facts[item]);
                 if (item.First() == 'Z')
-                    checkedListBoxZ.Items.Add("" + item + ": " + factor.facts[item] + ": " + factor.cert_facts[item]);
+                    checkedListBoxZ.Items.Add("" + item + ": " + factor.facts[item]);
                 if (item.First() == 'C')
-                    checkedListBoxС.Items.Add("" + item + ": " + factor.facts[item] + ": " + factor.cert_facts[item]);
+                    checkedListBoxС.Items.Add("" + item + ": " + factor.facts[item]);
                 if (item.First() == 'W')
-                    checkedListBoxW.Items.Add("" + item + ": " + factor.facts[item] + ": " + factor.cert_facts[item]);
+                    checkedListBoxW.Items.Add("" + item + ": " + factor.facts[item]);
                 if (item.First() == 'F')
-                    checkedListBoxF.Items.Add("" + item + ": " + factor.facts[item] + ": " + factor.cert_facts[item]);
+                    checkedListBoxF.Items.Add("" + item + ": " + factor.facts[item]);
                 if (item.First() == 'O')
-                    checkedListBoxO.Items.Add("" + item + ": " + factor.facts[item] + ": " + factor.cert_facts[item]);
+                    checkedListBoxO.Items.Add("" + item + ": " + factor.facts[item]);
                 if (item.First() == 'G')
-                    checkedListBoxG.Items.Add("" + item + ": " + factor.facts[item] + ": " + factor.cert_facts[item]);
+                    checkedListBoxG.Items.Add("" + item + ": " + factor.facts[item]);
             }
         }
 

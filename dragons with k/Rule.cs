@@ -28,28 +28,5 @@ namespace dragons
                     res = res && f.Contains(i);
                 return res;
             }
-
-           /* public string forward_print()
-            {
-                Form1 _form = new Form1();
-                string res = "";
-                foreach (var i in preconditions)
-                {
-                    res += _form.facts[i];
-                    if (i != preconditions.Last())
-                        res += " , ";
-                }
-                res += "->" + _form.facts[consequence];
-                return res;
-            }
-
-            public string isDragon()
-            {
-                Form1 _form = new Form1();
-                string res = "";
-                if (consequence[0] == 'F')
-                    res = _form.facts[consequence];
-                return res;
-            }*/
-        }
+    }
 }

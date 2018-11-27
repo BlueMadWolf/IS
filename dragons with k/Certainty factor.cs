@@ -14,8 +14,13 @@ namespace dragons
         public Dictionary<string, double> cert_facts = new Dictionary<string, double>();
         public Dictionary<string, double> cert_rules = new Dictionary<string, double>();
 
+        public string conc = "";
+        public List<string> dragons = new List<string>();
+
+        private double limit = 0.2;
+
         public Certainty_factor() {
-            get_facts("..//..//facts_with_k.txt");
+            get_facts("..//..//facts.txt");
             get_rules("..//..//rules_with_k.txt");
         }
 
@@ -28,7 +33,6 @@ namespace dragons
                     if (line == null) break;
                     var temp = line.Split(':');
                     facts[temp[0].Trim(' ').ToString()] = temp[1].Trim(' ');
-                    cert_facts[facts.Last().Key] = Convert.ToDouble(temp[2].Trim(' '));
                 }
         }
 
@@ -48,30 +52,62 @@ namespace dragons
             }
         }
 
-        private List<string> agenda(ref List<string> f)
+        private List<string> agenda(ref List<string> in_f, ref List<string> f)
         {
             List<string> res = new List<string>();
             foreach (var i in rules)
-                if (i.Value.compare(f) && !f.Contains(i.Key))
+                if (i.Value.compare(in_f) && !f.Contains(i.Key))
                     res.Add(i.Key);
             return res;
         }
 
-        public bool application(ref List<string> f) {
+        public bool application(ref List<string> in_f, ref List<string> f)
+        {
             bool res = false;
             List<string> ag = new List<string>();
-            do{
-                ag = agenda(ref f).OrderByDescending(x=>cert_rules[x]).ToList();
-                if (ag.Count > 0){
+            do
+            {
+                ag = agenda(ref in_f, ref f).OrderByDescending(x => cert_rules[x]).ToList();
+                if (ag.Count > 0)
+                {
                     string current_rule = ag.First();
                     res = true;
+                    f.Add(current_rule);
+                    
+                    double A = Double.MaxValue;
+                    foreach (var i in rules[current_rule].preconditions)
+                        A = Math.Min(A, cert_facts[i]);
 
+                    double B = A * cert_rules[current_rule];
+
+                    if (!cert_facts.ContainsKey(rules[current_rule].consequence))
+                        cert_facts[rules[current_rule].consequence] = B;
+                    else
+                        cert_facts[rules[current_rule].consequence] = cert_facts[rules[current_rule].consequence] +
+                            B - cert_facts[rules[current_rule].consequence] * B;
+
+                    if (cert_facts[rules[current_rule].consequence] < limit) continue;
+
+                    in_f.Add(rules[current_rule].consequence);
+
+                    foreach (var i in rules[current_rule].preconditions)
+                    {
+                        conc += facts[i];
+                        if (i != rules[current_rule].preconditions.Last())
+                            conc += ", ";
+                    }
+                    conc += " -> " + facts[rules[current_rule].consequence] + " : P = " + 
+                        cert_facts[rules[current_rule].consequence] + Environment.NewLine;
+
+                    if (rules[current_rule].consequence[0] == 'F')
+                        dragons.Add(rules[current_rule].consequence);
                 }
 
             } while (ag.Count > 0);
 
+            dragons = dragons.Distinct().OrderByDescending(x => cert_facts[x]).Take(5).ToList();
+
             return res;
         }
-
     }
 }
