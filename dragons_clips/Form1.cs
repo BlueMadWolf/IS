@@ -296,6 +296,15 @@ namespace dragons
             //checkedListBoxF.Items.Clear();
             checkedListBoxO.Items.Clear();
             checkedListBoxG.Items.Clear();
+
+            checkedListBoxT.Visible = true;
+            checkedListBoxS.Visible = true;
+            checkedListBoxP.Visible = true;
+            checkedListBoxС.Visible = true;
+            checkedListBoxW.Visible = true;
+            checkedListBoxO.Visible = true;
+            checkedListBoxG.Visible = true;
+
             summary.Items.Clear();
             listBox1.Items.Clear();
             textBox2.Text = "";
@@ -312,21 +321,25 @@ namespace dragons
         {
             summary.Items.Add(checkedListBoxT.SelectedItem);
             checkedListBoxT.Items.Remove(checkedListBoxT.SelectedItem);
+            checkedListBoxT.Visible = false;
         }
         private void checkedListBoxS_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             summary.Items.Add(checkedListBoxS.SelectedItem);
             checkedListBoxS.Items.Remove(checkedListBoxS.SelectedItem);
+            checkedListBoxS.Visible = false;
         }
         private void checkedListBoxP_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             summary.Items.Add(checkedListBoxP.SelectedItem);
             checkedListBoxP.Items.Remove(checkedListBoxP.SelectedItem);
+            checkedListBoxP.Visible = false;
         }
         private void checkedListBoxC_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             summary.Items.Add(checkedListBoxС.SelectedItem);
             checkedListBoxС.Items.Remove(checkedListBoxС.SelectedItem);
+            checkedListBoxС.Visible = false;
         }
         /*private void checkedListBoxF_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -337,16 +350,19 @@ namespace dragons
         {
             summary.Items.Add(checkedListBoxW.SelectedItem);
             checkedListBoxW.Items.Remove(checkedListBoxW.SelectedItem);
+            checkedListBoxW.Visible = false;
         }
         private void checkedListBoxO_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             summary.Items.Add(checkedListBoxO.SelectedItem);
             checkedListBoxO.Items.Remove(checkedListBoxO.SelectedItem);
+            checkedListBoxO.Visible = false;
         }
         private void checkedListBoxG_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             summary.Items.Add(checkedListBoxG.SelectedItem);
             checkedListBoxG.Items.Remove(checkedListBoxG.SelectedItem);
+            checkedListBoxG.Visible = false;
         }
 
         private void return_facts(char rem)
@@ -356,18 +372,22 @@ namespace dragons
                 case 'T':
                     checkedListBoxT.Items.Add(summary.SelectedItem);
                     summary.Items.Remove(summary.SelectedItem);
+                    checkedListBoxT.Visible = true;
                     break;
                 case 'S':
                     checkedListBoxS.Items.Add(summary.SelectedItem);
                     summary.Items.Remove(summary.SelectedItem);
+                    checkedListBoxS.Visible = true;
                     break;
                 case 'P':
                     checkedListBoxP.Items.Add(summary.SelectedItem);
                     summary.Items.Remove(summary.SelectedItem);
+                    checkedListBoxP.Visible = true;
                     break;
                 case 'C':
                     checkedListBoxС.Items.Add(summary.SelectedItem);
                     summary.Items.Remove(summary.SelectedItem);
+                    checkedListBoxС.Visible = true;
                     break;
                 /*case 'F':
                     checkedListBoxF.Items.Add(summary.SelectedItem);
@@ -376,14 +396,17 @@ namespace dragons
                 case 'W':
                     checkedListBoxW.Items.Add(summary.SelectedItem);
                     summary.Items.Remove(summary.SelectedItem);
+                    checkedListBoxW.Visible = true;
                     break;
                 case 'O':
                     checkedListBoxO.Items.Add(summary.SelectedItem);
                     summary.Items.Remove(summary.SelectedItem);
+                    checkedListBoxO.Visible = true;
                     break;
                 case 'G':
                     checkedListBoxG.Items.Add(summary.SelectedItem);
                     summary.Items.Remove(summary.SelectedItem);
+                    checkedListBoxG.Visible = true;
                     break;
                 default:
                     break;
@@ -458,6 +481,7 @@ namespace dragons
 
             for (int i = 0; i < precond_properties.Count(); ++i)
             {
+                int num_property = -1;
                 if (precond_properties[i] != "")
                 {
                     string precond_value =
@@ -465,26 +489,39 @@ namespace dragons
                     switch (precond_properties[i].First())
                     {
                         case 'T':
-                            pr_values[0] += "&" + precond_value;
+                            num_property = 0;
+                            //pr_values[0] += "&" + precond_value;
                             break;
                         case 'C':
-                            pr_values[1] += "&" + precond_value;
+                            num_property = 1;
+                            //pr_values[1] += "&" + precond_value;
                             break;
                         case 'S':
-                            pr_values[2] += "&" + precond_value;
+                            num_property = 2;
+                            //pr_values[2] += "&" + precond_value;
                             break;
                         case 'O':
-                            pr_values[3] += "&" + precond_value;
+                            num_property = 3;
+                            //pr_values[3] += "&" + precond_value;
                             break;
                         case 'G':
-                            pr_values[4] += "&" + precond_value;
+                            num_property = 4;
+                            //pr_values[4] += "&" + precond_value;
                             break;
                         case 'W':
-                            pr_values[5] += "&" + precond_value;
+                            num_property = 5;
+                            //pr_values[5] += "&" + precond_value;
                             break;
                         case 'P':
-                            pr_values[6] += "&" + precond_value;
+                            num_property = 6;
+                            //pr_values[6] += "&" + precond_value;
                             break;
+                    }
+                    if (num_property != -1)
+                    {
+                        pr_values[num_property] +=
+                            ((pr_values[num_property].Last() == '1') ? "&" : "|") +
+                            precond_value;
                     }
                 }
             }
@@ -645,6 +682,8 @@ namespace dragons
             //System.IO.File.WriteAllText("tmp.clp", codeBox.Text);
             //clips.Load("dragons.clp");
 
+            System.IO.File.WriteAllText("..//..//rules_clips.txt", stroka);
+
             //  Так тоже можно - без промежуточного вывода в файл
             clips.LoadFromString(stroka);
 
@@ -659,6 +698,11 @@ namespace dragons
         private void checkedListBoxP_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            reload_old();
         }
     }
 }

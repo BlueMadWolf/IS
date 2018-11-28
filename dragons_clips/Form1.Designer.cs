@@ -57,6 +57,7 @@
             this.reloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сменитьРежимToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mode = new System.Windows.Forms.ToolStripComboBox();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -114,7 +115,7 @@
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.splitContainer1.IsSplitterFixed = true;
             this.splitContainer1.Location = new System.Drawing.Point(4, 38);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -136,6 +137,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.button2);
             this.splitContainer1.Panel2.Controls.Add(this.button1);
             this.splitContainer1.Panel2.Controls.Add(this.comboBox1);
             this.splitContainer1.Panel2.Controls.Add(this.listBox1);
@@ -155,8 +157,8 @@
             // 
             this.checkedListBoxG.FormattingEnabled = true;
             this.checkedListBoxG.ItemHeight = 16;
-            this.checkedListBoxG.Location = new System.Drawing.Point(4, 642);
-            this.checkedListBoxG.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkedListBoxG.Location = new System.Drawing.Point(250, 297);
+            this.checkedListBoxG.Margin = new System.Windows.Forms.Padding(4);
             this.checkedListBoxG.Name = "checkedListBoxG";
             this.checkedListBoxG.Size = new System.Drawing.Size(257, 116);
             this.checkedListBoxG.TabIndex = 7;
@@ -167,7 +169,7 @@
             this.checkedListBoxW.FormattingEnabled = true;
             this.checkedListBoxW.ItemHeight = 16;
             this.checkedListBoxW.Location = new System.Drawing.Point(4, 468);
-            this.checkedListBoxW.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkedListBoxW.Margin = new System.Windows.Forms.Padding(4);
             this.checkedListBoxW.Name = "checkedListBoxW";
             this.checkedListBoxW.Size = new System.Drawing.Size(219, 116);
             this.checkedListBoxW.TabIndex = 9;
@@ -178,7 +180,7 @@
             this.checkedListBoxO.FormattingEnabled = true;
             this.checkedListBoxO.ItemHeight = 16;
             this.checkedListBoxO.Location = new System.Drawing.Point(244, 468);
-            this.checkedListBoxO.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkedListBoxO.Margin = new System.Windows.Forms.Padding(4);
             this.checkedListBoxO.Name = "checkedListBoxO";
             this.checkedListBoxO.Size = new System.Drawing.Size(384, 116);
             this.checkedListBoxO.TabIndex = 9;
@@ -189,7 +191,7 @@
             this.checkedListBoxС.FormattingEnabled = true;
             this.checkedListBoxС.ItemHeight = 16;
             this.checkedListBoxС.Location = new System.Drawing.Point(4, 298);
-            this.checkedListBoxС.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkedListBoxС.Margin = new System.Windows.Forms.Padding(4);
             this.checkedListBoxС.Name = "checkedListBoxС";
             this.checkedListBoxС.Size = new System.Drawing.Size(219, 116);
             this.checkedListBoxС.TabIndex = 7;
@@ -200,7 +202,7 @@
             this.checkedListBoxP.FormattingEnabled = true;
             this.checkedListBoxP.ItemHeight = 16;
             this.checkedListBoxP.Location = new System.Drawing.Point(4, 158);
-            this.checkedListBoxP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkedListBoxP.Margin = new System.Windows.Forms.Padding(4);
             this.checkedListBoxP.Name = "checkedListBoxP";
             this.checkedListBoxP.Size = new System.Drawing.Size(219, 116);
             this.checkedListBoxP.TabIndex = 8;
@@ -212,7 +214,7 @@
             this.checkedListBoxS.FormattingEnabled = true;
             this.checkedListBoxS.ItemHeight = 16;
             this.checkedListBoxS.Location = new System.Drawing.Point(244, 21);
-            this.checkedListBoxS.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkedListBoxS.Margin = new System.Windows.Forms.Padding(4);
             this.checkedListBoxS.Name = "checkedListBoxS";
             this.checkedListBoxS.Size = new System.Drawing.Size(384, 116);
             this.checkedListBoxS.TabIndex = 7;
@@ -223,7 +225,7 @@
             this.checkedListBoxT.FormattingEnabled = true;
             this.checkedListBoxT.ItemHeight = 16;
             this.checkedListBoxT.Location = new System.Drawing.Point(4, 18);
-            this.checkedListBoxT.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkedListBoxT.Margin = new System.Windows.Forms.Padding(4);
             this.checkedListBoxT.Name = "checkedListBoxT";
             this.checkedListBoxT.Size = new System.Drawing.Size(219, 116);
             this.checkedListBoxT.TabIndex = 5;
@@ -232,7 +234,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(4, 608);
+            this.label3.Location = new System.Drawing.Point(250, 263);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(154, 17);
@@ -251,8 +253,8 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(604, 245);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Location = new System.Drawing.Point(263, 245);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(281, 52);
             this.button1.TabIndex = 12;
@@ -264,7 +266,7 @@
             // 
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(627, 73);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(239, 24);
             this.comboBox1.TabIndex = 11;
@@ -275,10 +277,11 @@
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 16;
             this.listBox1.Location = new System.Drawing.Point(627, 63);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(4);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(240, 164);
             this.listBox1.TabIndex = 10;
+            this.listBox1.Visible = false;
             // 
             // label4
             // 
@@ -289,17 +292,19 @@
             this.label4.Size = new System.Drawing.Size(153, 17);
             this.label4.TabIndex = 9;
             this.label4.Text = "Выведенные драконы";
+            this.label4.Visible = false;
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(399, 78);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBox1.Location = new System.Drawing.Point(548, 44);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(142, 21);
             this.checkBox1.TabIndex = 8;
             this.checkBox1.Text = "Обратный вывод";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.Visible = false;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // summary
@@ -307,7 +312,7 @@
             this.summary.FormattingEnabled = true;
             this.summary.ItemHeight = 16;
             this.summary.Location = new System.Drawing.Point(28, 18);
-            this.summary.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.summary.Margin = new System.Windows.Forms.Padding(4);
             this.summary.Name = "summary";
             this.summary.Size = new System.Drawing.Size(361, 212);
             this.summary.TabIndex = 7;
@@ -326,7 +331,7 @@
             // start
             // 
             this.start.Location = new System.Drawing.Point(399, 171);
-            this.start.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.start.Margin = new System.Windows.Forms.Padding(4);
             this.start.Name = "start";
             this.start.Size = new System.Drawing.Size(145, 60);
             this.start.TabIndex = 4;
@@ -348,11 +353,11 @@
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(4, 311);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox2.Size = new System.Drawing.Size(880, 452);
+            this.textBox2.Size = new System.Drawing.Size(567, 452);
             this.textBox2.TabIndex = 2;
             // 
             // menuStrip1
@@ -364,7 +369,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1559, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1298, 28);
             this.menuStrip1.TabIndex = 16;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -393,15 +398,26 @@
             this.mode.Text = "Без коэффициентов уверенности";
             this.mode.TextChanged += new System.EventHandler(this.mode_TextChanged);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(395, 23);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(145, 60);
+            this.button2.TabIndex = 13;
+            this.button2.Text = "Очистить";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1559, 815);
+            this.ClientSize = new System.Drawing.Size(1298, 815);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Книга драконов";
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -448,6 +464,7 @@
         private System.Windows.Forms.ToolStripMenuItem сменитьРежимToolStripMenuItem;
         private System.Windows.Forms.ToolStripComboBox mode;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
 
