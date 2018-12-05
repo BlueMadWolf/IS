@@ -57,15 +57,49 @@ namespace neural_network
             g.DrawEllipse(new Pen(Color.Black), x, y, w, w);
         }
 
-        private void drawSin()
+        private double sin(int x)
+        {
+            return Math.Sin(x * Math.PI / 20);
+        }
+
+        private void drawSinVert()
+        {
+            int w = pictureBox1.Width;
+            int h = pictureBox1.Height;
+
+            int width = rand.Next(radius_from, radius_to);
+            int height = rand.Next(radius_from, radius_to) * 2;
+            int x = w / 2 + rand.Next(-dist_to_center_to, dist_to_center_to) - width / 2;
+            int y = h / 2 + rand.Next(-dist_to_center_to, dist_to_center_to) - height / 2;
+
+            Point[] points = new Point[height];
+            for (int i = 0; i < height; ++i)
+            {
+                double k = sin(i) + 1;
+                points[i] = new Point(x + (int)(k * width) / 2, y + i);
+            }
+
+            g.DrawCurve(new Pen(Color.Black), points);
+        }
+
+        private void drawSinHor()
         {
             int w = pictureBox1.Width;
             int h = pictureBox1.Height;
 
             int width = rand.Next(radius_from, radius_to) * 2;
-            int height = rand.Next(radius_from, radius_to) * 2;
+            int height = rand.Next(radius_from, radius_to);
             int x = w / 2 + rand.Next(-dist_to_center_to, dist_to_center_to) - width / 2;
             int y = h / 2 + rand.Next(-dist_to_center_to, dist_to_center_to) - height / 2;
+
+            Point[] points = new Point[width];
+            for (int i = 0; i < width; ++i)
+            {
+                double k = sin(i) + 1;
+                points[i] = new Point(x + i, y + (int)(k * height) / 2);
+            }
+
+            g.DrawCurve(new Pen(Color.Black), points);
         }
 
         private void drawRectangle()
@@ -119,11 +153,60 @@ namespace neural_network
             writer.Flush();
         }
 
+        //---------------------------------------------------------------------------------------------
+        //Возвращает список из 400 параметров
+        private List<int> getSensors()
+        {
+            //bmp.Dispose();
+            bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height, g);
+            
+
+            List<int> l = new List<int>(400);
+
+            int sum = 0;
+            for (int x = 0; x < 200; ++x)
+            {
+                sum = 0;
+                for (int y = 0; y < 200; ++y)
+                {
+                    Color c = bmp.GetPixel(x, y);
+                    if ((c.R + c.G + c.B) > 127*3)
+                    {
+                        ++sum;
+                    }
+                }
+                l.Add(sum);
+                textBoxOutput.Text += sum.ToString() + " | ";
+            }
+
+            for (int y = 0; y < 200; ++y)
+            {
+                sum = 0;
+                for (int x = 0; x < 200; ++x)
+                {
+                    Color c = bmp.GetPixel(x, y);
+                    if ((c.R + c.G + c.B) > 127 * 3)
+                    {
+                        ++sum;
+                    }
+                }
+                l.Add(sum);
+                textBoxOutput.Text += sum.ToString() + " | ";
+            }
+
+            return l;
+        }
+
+
+
         private void buttonRectangle_Click(object sender, EventArgs e)
         {
             clear();
             drawRectangle();
             pictureBox1.Image = pictureBox1.Image;
+
+            textBoxOutput.Text = "";
+            getSensors();
         }
 
         private void buttonTriangle_Click(object sender, EventArgs e)
@@ -131,6 +214,9 @@ namespace neural_network
             clear();
             drawTriangle();
             pictureBox1.Image = pictureBox1.Image;
+
+            textBoxOutput.Text = "";
+            getSensors();
         }
 
         private void buttonCircle_Click(object sender, EventArgs e)
@@ -138,13 +224,29 @@ namespace neural_network
             clear();
             drawCircle();
             pictureBox1.Image = pictureBox1.Image;
+
+            textBoxOutput.Text = "";
+            getSensors();
         }
 
-        private void buttonSin_Click(object sender, EventArgs e)
+        private void buttonSinVert_Click(object sender, EventArgs e)
         {
             clear();
-            drawSin();
+            drawSinVert();
             pictureBox1.Image = pictureBox1.Image;
+
+            textBoxOutput.Text = "";
+            getSensors();
+        }
+
+        private void buttonSinHor_Click(object sender, EventArgs e)
+        {
+            clear();
+            drawSinHor();
+            pictureBox1.Image = pictureBox1.Image;
+
+            textBoxOutput.Text = "";
+            getSensors();
         }
     }
 }
