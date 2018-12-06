@@ -12,18 +12,23 @@ namespace neural_network
 {
     public partial class Form1 : Form
     {
+        int Width = 200;
+        int Height = 200;
+
         public Form1()
         {
             InitializeComponent();
 
-            pictureBox1.Width = 200;
-            pictureBox1.Height = 200;
+            pictureBox1.Width = Width;
+            pictureBox1.Height = Height;
 
             dist_to_center_to = 20;
             radius_from = 35;
             radius_to = 50;
 
             rand = new Random();
+
+            bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
         }
 
         private static Graphics g;
@@ -38,7 +43,9 @@ namespace neural_network
         {
             pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
             g = Graphics.FromImage(pictureBox1.Image);
-            bmp = (Bitmap)pictureBox1.Image;
+            //if (!(bmp is null))
+            //    bmp.Dispose();
+            
         }
 
         private void drawLine(Point p1, Point p2)
@@ -154,49 +161,148 @@ namespace neural_network
         }
 
         //---------------------------------------------------------------------------------------------
-        //Возвращает список из 400 параметров
+        //Возвращает список из 392 параметров
         private List<int> getSensors()
         {
             //bmp.Dispose();
-            bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height, g);
-            
 
-            List<int> l = new List<int>(400);
+            //bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            pictureBox1.DrawToBitmap(bmp, pictureBox1.ClientRectangle);
+
+            //bmp.Save("img.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+
+         
+            int dist_to_borders = 2;
+
+            List<int> l = new List<int>(Width + Height - dist_to_borders * 4);
 
             int sum = 0;
-            for (int x = 0; x < 200; ++x)
+            for (int x = dist_to_borders; x < Width - dist_to_borders; ++x)
             {
                 sum = 0;
-                for (int y = 0; y < 200; ++y)
+                for (int y = dist_to_borders; y < Height - dist_to_borders; ++y)
                 {
                     Color c = bmp.GetPixel(x, y);
-                    if ((c.R + c.G + c.B) > 127*3)
+                    if ((c.R + c.G + c.B) < 127*3)
                     {
                         ++sum;
                     }
                 }
                 l.Add(sum);
-                textBoxOutput.Text += sum.ToString() + " | ";
+                //if (x % 10 == 0)
+                    //textBoxOutput.Text += "x = " + x.ToString() + 
+                        //", sum = " + sum.ToString() + " | " + System.Environment.NewLine;
             }
 
-            for (int y = 0; y < 200; ++y)
+            for (int y = dist_to_borders; y < Height - dist_to_borders; ++y)
             {
                 sum = 0;
-                for (int x = 0; x < 200; ++x)
+                for (int x = dist_to_borders; x < Width - dist_to_borders; ++x)
                 {
                     Color c = bmp.GetPixel(x, y);
-                    if ((c.R + c.G + c.B) > 127 * 3)
+                    if ((c.R + c.G + c.B) < 127 * 3)
                     {
                         ++sum;
                     }
                 }
                 l.Add(sum);
-                textBoxOutput.Text += sum.ToString() + " | ";
+
+                //if (y % 10 == 0)
+                    //textBoxOutput.Text += "y = " + y.ToString() + 
+                      //  ", sum = " + sum.ToString() + " | " + System.Environment.NewLine;
             }
 
             return l;
         }
 
+
+        private void predict()
+        {
+            List<int> sensors = getSensors();
+            foreach (var item in sensors)
+            {
+                textBoxOutput.Text += item.ToString() + System.Environment.NewLine;
+            }
+            itIsCircle(10);
+            itIsRectangle(0.25);
+            itIsSin(50);
+            itIsTriangle(0.75);
+        }
+
+
+
+
+        private void itIsRectangle(double lessThan1)
+        {
+            if (lessThan1 <= 1)
+            {
+                progressBarRectangle.Value = (int)Math.Round(lessThan1 * 100);
+                labelRectangle.Text = progressBarRectangle.Value.ToString() + "%";
+            }
+        }
+
+        private void itIsRectangle(int lessThan100)
+        {
+            if (lessThan100 <= 100)
+            {
+                progressBarRectangle.Value = lessThan100;
+                labelRectangle.Text = progressBarRectangle.Value.ToString() + "%";
+            }
+        }
+
+        private void itIsTriangle(double lessThan1)
+        {
+            if (lessThan1 <= 1)
+            {
+                progressBarTriangle.Value = (int)Math.Round(lessThan1 * 100);
+                labelTriangle.Text = progressBarTriangle.Value.ToString() + "%";
+            }
+        }
+
+        private void itIsTriangle(int lessThan100)
+        {
+            if (lessThan100 <= 100)
+            {
+                progressBarTriangle.Value = lessThan100;
+                labelTriangle.Text = progressBarTriangle.Value.ToString() + "%";
+            }
+        }
+
+        private void itIsCircle(double lessThan1)
+        {
+            if (lessThan1 <= 1)
+            {
+                progressBarCircle.Value = (int)Math.Round(lessThan1 * 100);
+                labelCircle.Text = progressBarCircle.Value.ToString() + "%";
+            }
+        }
+
+        private void itIsCircle(int lessThan100)
+        {
+            if (lessThan100 <= 100)
+            {
+                progressBarCircle.Value = lessThan100;
+                labelCircle.Text = progressBarCircle.Value.ToString() + "%";
+            }
+        }
+
+        private void itIsSin(double lessThan1)
+        {
+            if (lessThan1 <= 1)
+            {
+                progressBarSin.Value = (int)Math.Round(lessThan1 * 100);
+                labelSin.Text = progressBarSin.Value.ToString() + "%";
+            }
+        }
+
+        private void itIsSin(int lessThan100)
+        {
+            if (lessThan100 <= 100)
+            {
+                progressBarSin.Value = lessThan100;
+                labelSin.Text = progressBarSin.Value.ToString() + "%";
+            }
+        }
 
 
         private void buttonRectangle_Click(object sender, EventArgs e)
@@ -206,7 +312,7 @@ namespace neural_network
             pictureBox1.Image = pictureBox1.Image;
 
             textBoxOutput.Text = "";
-            getSensors();
+            predict();
         }
 
         private void buttonTriangle_Click(object sender, EventArgs e)
@@ -216,7 +322,7 @@ namespace neural_network
             pictureBox1.Image = pictureBox1.Image;
 
             textBoxOutput.Text = "";
-            getSensors();
+            predict();
         }
 
         private void buttonCircle_Click(object sender, EventArgs e)
@@ -226,7 +332,7 @@ namespace neural_network
             pictureBox1.Image = pictureBox1.Image;
 
             textBoxOutput.Text = "";
-            getSensors();
+            predict();
         }
 
         private void buttonSinVert_Click(object sender, EventArgs e)
@@ -236,7 +342,7 @@ namespace neural_network
             pictureBox1.Image = pictureBox1.Image;
 
             textBoxOutput.Text = "";
-            getSensors();
+            predict();
         }
 
         private void buttonSinHor_Click(object sender, EventArgs e)
@@ -246,7 +352,7 @@ namespace neural_network
             pictureBox1.Image = pictureBox1.Image;
 
             textBoxOutput.Text = "";
-            getSensors();
+            predict();
         }
     }
 }
