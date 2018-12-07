@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace neural_network
 {
+
     public partial class Form1 : Form
     {
         static int Width = 200;
@@ -224,11 +225,11 @@ namespace neural_network
                 textBoxOutput.Text += item.ToString() + System.Environment.NewLine;
             }
 
-            itIsCircle(0.10);
-            itIsRectangle(0.25);
-            itIsSinVert(0.50);
-            itIsTriangle(0.75);
-            itIsSinHor(0.2885);
+            itIsCircle(0);
+            itIsRectangle(0);
+            itIsSinVert(0);
+            itIsTriangle(0);
+            itIsSinHor(0);
         }
 
 
@@ -373,4 +374,71 @@ namespace neural_network
             predict();
         }
     }
+
+    //======================== Работа с нейронной сетью ============================
+    public class NeuralNet
+    {
+        List<double> input = new List<double>(400);
+        List<double> layer1 = new List<double>(800);
+        List<double> layer2 = new List<double>(80);
+        List<double> output = new List<double>(5);
+
+        Dictionary<int, List<int>> inputlink = new Dictionary<int, List<int>>();
+        List<List<double>> matr1 = new List<List<double>>();
+        List<List<double>> matr2 = new List<List<double>>();
+
+        public NeuralNet(List<double> sensors)
+        {
+            for (int i = 0; i < 400; ++i)
+                input.Add(0); 
+            for (int i = 0; i < 800; ++i) 
+                layer1.Add(0);
+            for (int i = 0; i < 80; ++i)
+                layer2.Add(0);
+            for (int i = 0; i < 5; ++i)
+                output.Add(0);
+        }
+
+        //создание рандомных связей между сенсорами и первым скрытым слоем (веса всегда == 1)
+        private void randomFLink()
+        {
+            for (int i = 0; i < 400; ++i)
+            {
+                Random rnd = new Random();
+                int cntLinks = rnd.Next(1, 20); //кол-во связей для данного сенсора
+
+                for (int j = 0; j < cntLinks; ++j)
+                {
+                    int neighbour = rnd.Next(0, 799);
+                    while (inputlink.ContainsKey(i) && inputlink[i].Contains(neighbour))
+                        neighbour = rnd.Next(0, 799);
+
+                    if (!inputlink.ContainsKey(i))
+                        inputlink.Add(i, new List<int>());
+
+                    inputlink[i].Add(neighbour);
+                    
+                }
+            }
+        }
+
+
+
+        //создаем изначально связи (рандомные)
+        private void createConnections()
+        {
+            randomFLink();
+        }
+
+        //выводим значение наружу
+        public List<double> returnResult()
+        {
+            List<double> res = new List<double>();
+            foreach (var c in output)
+                res.Add(c);
+
+            return res;
+        }
+    }
+    
 }
