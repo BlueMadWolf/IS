@@ -12,8 +12,8 @@ namespace neural_network
 {
     public partial class Form1 : Form
     {
-        int Width = 200;
-        int Height = 200;
+        static int Width = 200;
+        static int Height = Width;
 
         public Form1()
         {
@@ -34,6 +34,8 @@ namespace neural_network
         private static Graphics g;
         private static Bitmap bmp;
         private Random rand;
+        bool drawing_now = false;
+        List<Point> drawed_points = new List<Point>();
 
         int dist_to_center_to, radius_from, radius_to;
 
@@ -45,7 +47,6 @@ namespace neural_network
             g = Graphics.FromImage(pictureBox1.Image);
             //if (!(bmp is null))
             //    bmp.Dispose();
-            
         }
 
         private void drawLine(Point p1, Point p2)
@@ -161,8 +162,8 @@ namespace neural_network
         }
 
         //---------------------------------------------------------------------------------------------
-        //Возвращает список из 392 параметров
-        private List<int> getSensors()
+        //Возвращает список из 400 параметров
+        private List<double> getSensors()
         {
             //bmp.Dispose();
 
@@ -172,11 +173,13 @@ namespace neural_network
             //bmp.Save("img.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
 
          
-            int dist_to_borders = 2;
+            int dist_to_borders = 0;
 
-            List<int> l = new List<int>(Width + Height - dist_to_borders * 4);
+            List<double> l = new List<double>(Width + Height - dist_to_borders * 4);
 
             int sum = 0;
+
+            //Добавление сенсоров по оси X
             for (int x = dist_to_borders; x < Width - dist_to_borders; ++x)
             {
                 sum = 0;
@@ -188,12 +191,10 @@ namespace neural_network
                         ++sum;
                     }
                 }
-                l.Add(sum);
-                //if (x % 10 == 0)
-                    //textBoxOutput.Text += "x = " + x.ToString() + 
-                        //", sum = " + sum.ToString() + " | " + System.Environment.NewLine;
+                l.Add(sum / (double)Width);
             }
 
+            //Добавление сенсоров по оси Y
             for (int y = dist_to_borders; y < Height - dist_to_borders; ++y)
             {
                 sum = 0;
@@ -205,105 +206,122 @@ namespace neural_network
                         ++sum;
                     }
                 }
-                l.Add(sum);
-
-                //if (y % 10 == 0)
-                    //textBoxOutput.Text += "y = " + y.ToString() + 
-                      //  ", sum = " + sum.ToString() + " | " + System.Environment.NewLine;
+                l.Add(sum / (double)Width);
             }
 
             return l;
         }
 
-
+        //Выводит на форму вероятность принадлежности нарисованной фигуры к каждому классу
         private void predict()
         {
-            List<int> sensors = getSensors();
+            List<double> sensors = getSensors();
+
+            textBoxOutput.Text += sensors.Count() + System.Environment.NewLine;
+
             foreach (var item in sensors)
             {
                 textBoxOutput.Text += item.ToString() + System.Environment.NewLine;
             }
-            itIsCircle(10);
+
+            itIsCircle(0.10);
             itIsRectangle(0.25);
-            itIsSin(50);
+            itIsSinVert(0.50);
             itIsTriangle(0.75);
+            itIsSinHor(0.2885);
         }
 
 
 
-
-        private void itIsRectangle(double lessThan1)
+        //Выводит на форму вероятность того, что фигура принадлежит к классу Прямоугольник
+        private void itIsRectangle(double probability)
         {
-            if (lessThan1 <= 1)
+            if (probability <= 1)
             {
-                progressBarRectangle.Value = (int)Math.Round(lessThan1 * 100);
+                progressBarRectangle.Value = (int)Math.Round(probability * 100);
                 labelRectangle.Text = progressBarRectangle.Value.ToString() + "%";
             }
         }
 
-        private void itIsRectangle(int lessThan100)
+        //Выводит на форму вероятность того, что фигура принадлежит к классу Треугольник
+        private void itIsTriangle(double probability)
         {
-            if (lessThan100 <= 100)
+            if (probability <= 1)
             {
-                progressBarRectangle.Value = lessThan100;
-                labelRectangle.Text = progressBarRectangle.Value.ToString() + "%";
-            }
-        }
-
-        private void itIsTriangle(double lessThan1)
-        {
-            if (lessThan1 <= 1)
-            {
-                progressBarTriangle.Value = (int)Math.Round(lessThan1 * 100);
+                progressBarTriangle.Value = (int)Math.Round(probability * 100);
                 labelTriangle.Text = progressBarTriangle.Value.ToString() + "%";
             }
         }
 
-        private void itIsTriangle(int lessThan100)
+        //Выводит на форму вероятность того, что фигура принадлежит к классу Круг
+        private void itIsCircle(double probability)
         {
-            if (lessThan100 <= 100)
+            if (probability <= 1)
             {
-                progressBarTriangle.Value = lessThan100;
-                labelTriangle.Text = progressBarTriangle.Value.ToString() + "%";
-            }
-        }
-
-        private void itIsCircle(double lessThan1)
-        {
-            if (lessThan1 <= 1)
-            {
-                progressBarCircle.Value = (int)Math.Round(lessThan1 * 100);
+                progressBarCircle.Value = (int)Math.Round(probability * 100);
                 labelCircle.Text = progressBarCircle.Value.ToString() + "%";
             }
         }
 
-        private void itIsCircle(int lessThan100)
+        //Выводит на форму вероятность того, что фигура принадлежит к классу Синусоида Горизонтальная
+        private void itIsSinHor(double probability)
         {
-            if (lessThan100 <= 100)
+            if (probability <= 1)
             {
-                progressBarCircle.Value = lessThan100;
-                labelCircle.Text = progressBarCircle.Value.ToString() + "%";
+                progressBarSinHor.Value = (int)Math.Round(probability * 100);
+                labelSinHor.Text = progressBarSinHor.Value.ToString() + "%";
             }
         }
 
-        private void itIsSin(double lessThan1)
+        //Выводит на форму вероятность того, что фигура принадлежит к классу Синусоида Вертикальная
+        private void itIsSinVert(double probability)
         {
-            if (lessThan1 <= 1)
+            if (probability <= 1)
             {
-                progressBarSin.Value = (int)Math.Round(lessThan1 * 100);
-                labelSin.Text = progressBarSin.Value.ToString() + "%";
+                progressBarSinVert.Value = (int)Math.Round(probability * 100);
+                labelSinVert.Text = progressBarSinVert.Value.ToString() + "%";
             }
         }
 
-        private void itIsSin(int lessThan100)
+        private void drawPoints()
         {
-            if (lessThan100 <= 100)
+            Point[] lp = new Point[drawed_points.Count()];
+            
+            for (int i = 0; i < drawed_points.Count(); ++i)
             {
-                progressBarSin.Value = lessThan100;
-                labelSin.Text = progressBarSin.Value.ToString() + "%";
+                lp[i] = drawed_points[i];
             }
+
+            g.DrawCurve(new Pen(Color.Black), lp);
         }
 
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            drawed_points.Clear();
+            drawing_now = true;
+            drawed_points.Add(new Point(e.X, e.Y));
+        }
+
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            drawed_points.Add(new Point(e.X, e.Y));
+            drawing_now = false;
+
+            clear();
+            drawPoints();
+            predict();
+        }
+
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (drawing_now)
+            {
+                drawed_points.Add(new Point(e.X, e.Y));
+
+                clear();
+                drawPoints();
+            }
+        }
 
         private void buttonRectangle_Click(object sender, EventArgs e)
         {

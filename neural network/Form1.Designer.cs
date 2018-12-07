@@ -36,18 +36,21 @@
             this.buttonSinHor = new System.Windows.Forms.Button();
             this.textBoxOutput = new System.Windows.Forms.TextBox();
             this.groupBoxItIs = new System.Windows.Forms.GroupBox();
-            this.progressBarRectangle = new System.Windows.Forms.ProgressBar();
-            this.labelRectangle = new System.Windows.Forms.Label();
-            this.labelCircle = new System.Windows.Forms.Label();
-            this.progressBarCircle = new System.Windows.Forms.ProgressBar();
-            this.labelSin = new System.Windows.Forms.Label();
-            this.progressBarSin = new System.Windows.Forms.ProgressBar();
-            this.labelTriangle = new System.Windows.Forms.Label();
-            this.progressBarTriangle = new System.Windows.Forms.ProgressBar();
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.labelTriangle = new System.Windows.Forms.Label();
+            this.progressBarTriangle = new System.Windows.Forms.ProgressBar();
+            this.labelSinHor = new System.Windows.Forms.Label();
+            this.progressBarSinHor = new System.Windows.Forms.ProgressBar();
+            this.labelCircle = new System.Windows.Forms.Label();
+            this.progressBarCircle = new System.Windows.Forms.ProgressBar();
+            this.labelRectangle = new System.Windows.Forms.Label();
+            this.progressBarRectangle = new System.Windows.Forms.ProgressBar();
+            this.label1 = new System.Windows.Forms.Label();
+            this.labelSinVert = new System.Windows.Forms.Label();
+            this.progressBarSinVert = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBoxItIs.SuspendLayout();
             this.SuspendLayout();
@@ -55,13 +58,15 @@
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.White;
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Location = new System.Drawing.Point(235, 15);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(200, 200);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
+            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
+            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
             // 
             // buttonRectangle
             // 
@@ -124,97 +129,32 @@
             // 
             // groupBoxItIs
             // 
+            this.groupBoxItIs.Controls.Add(this.label1);
+            this.groupBoxItIs.Controls.Add(this.labelSinVert);
+            this.groupBoxItIs.Controls.Add(this.progressBarSinVert);
             this.groupBoxItIs.Controls.Add(this.label2);
             this.groupBoxItIs.Controls.Add(this.label5);
             this.groupBoxItIs.Controls.Add(this.label6);
             this.groupBoxItIs.Controls.Add(this.label7);
             this.groupBoxItIs.Controls.Add(this.labelTriangle);
             this.groupBoxItIs.Controls.Add(this.progressBarTriangle);
-            this.groupBoxItIs.Controls.Add(this.labelSin);
-            this.groupBoxItIs.Controls.Add(this.progressBarSin);
+            this.groupBoxItIs.Controls.Add(this.labelSinHor);
+            this.groupBoxItIs.Controls.Add(this.progressBarSinHor);
             this.groupBoxItIs.Controls.Add(this.labelCircle);
             this.groupBoxItIs.Controls.Add(this.progressBarCircle);
             this.groupBoxItIs.Controls.Add(this.labelRectangle);
             this.groupBoxItIs.Controls.Add(this.progressBarRectangle);
             this.groupBoxItIs.Location = new System.Drawing.Point(528, 12);
             this.groupBoxItIs.Name = "groupBoxItIs";
-            this.groupBoxItIs.Size = new System.Drawing.Size(263, 244);
+            this.groupBoxItIs.Size = new System.Drawing.Size(263, 184);
             this.groupBoxItIs.TabIndex = 7;
             this.groupBoxItIs.TabStop = false;
             this.groupBoxItIs.Text = "It is ...";
             // 
-            // progressBarRectangle
-            // 
-            this.progressBarRectangle.Location = new System.Drawing.Point(88, 36);
-            this.progressBarRectangle.Name = "progressBarRectangle";
-            this.progressBarRectangle.Size = new System.Drawing.Size(100, 23);
-            this.progressBarRectangle.Step = 5;
-            this.progressBarRectangle.TabIndex = 0;
-            // 
-            // labelRectangle
-            // 
-            this.labelRectangle.AutoSize = true;
-            this.labelRectangle.Location = new System.Drawing.Point(192, 36);
-            this.labelRectangle.Name = "labelRectangle";
-            this.labelRectangle.Size = new System.Drawing.Size(72, 17);
-            this.labelRectangle.TabIndex = 1;
-            this.labelRectangle.Text = "Rectangle";
-            // 
-            // labelCircle
-            // 
-            this.labelCircle.AutoSize = true;
-            this.labelCircle.Location = new System.Drawing.Point(192, 134);
-            this.labelCircle.Name = "labelCircle";
-            this.labelCircle.Size = new System.Drawing.Size(43, 17);
-            this.labelCircle.TabIndex = 3;
-            this.labelCircle.Text = "Circle";
-            // 
-            // progressBarCircle
-            // 
-            this.progressBarCircle.Location = new System.Drawing.Point(88, 134);
-            this.progressBarCircle.Name = "progressBarCircle";
-            this.progressBarCircle.Size = new System.Drawing.Size(100, 23);
-            this.progressBarCircle.Step = 5;
-            this.progressBarCircle.TabIndex = 2;
-            // 
-            // labelSin
-            // 
-            this.labelSin.AutoSize = true;
-            this.labelSin.Location = new System.Drawing.Point(192, 183);
-            this.labelSin.Name = "labelSin";
-            this.labelSin.Size = new System.Drawing.Size(28, 17);
-            this.labelSin.TabIndex = 7;
-            this.labelSin.Text = "Sin";
-            // 
-            // progressBarSin
-            // 
-            this.progressBarSin.Location = new System.Drawing.Point(88, 183);
-            this.progressBarSin.Name = "progressBarSin";
-            this.progressBarSin.Size = new System.Drawing.Size(100, 23);
-            this.progressBarSin.Step = 5;
-            this.progressBarSin.TabIndex = 6;
-            // 
-            // labelTriangle
-            // 
-            this.labelTriangle.AutoSize = true;
-            this.labelTriangle.Location = new System.Drawing.Point(192, 84);
-            this.labelTriangle.Name = "labelTriangle";
-            this.labelTriangle.Size = new System.Drawing.Size(60, 17);
-            this.labelTriangle.TabIndex = 9;
-            this.labelTriangle.Text = "Triangle";
-            // 
-            // progressBarTriangle
-            // 
-            this.progressBarTriangle.Location = new System.Drawing.Point(88, 84);
-            this.progressBarTriangle.Name = "progressBarTriangle";
-            this.progressBarTriangle.Size = new System.Drawing.Size(100, 23);
-            this.progressBarTriangle.Step = 5;
-            this.progressBarTriangle.TabIndex = 8;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 84);
+            this.label2.Location = new System.Drawing.Point(6, 65);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(60, 17);
             this.label2.TabIndex = 13;
@@ -223,16 +163,16 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 183);
+            this.label5.Location = new System.Drawing.Point(6, 123);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(28, 17);
+            this.label5.Size = new System.Drawing.Size(51, 17);
             this.label5.TabIndex = 12;
-            this.label5.Text = "Sin";
+            this.label5.Text = "SinHor";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 134);
+            this.label6.Location = new System.Drawing.Point(6, 94);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(43, 17);
             this.label6.TabIndex = 11;
@@ -246,6 +186,100 @@
             this.label7.Size = new System.Drawing.Size(72, 17);
             this.label7.TabIndex = 10;
             this.label7.Text = "Rectangle";
+            // 
+            // labelTriangle
+            // 
+            this.labelTriangle.AutoSize = true;
+            this.labelTriangle.Location = new System.Drawing.Point(192, 65);
+            this.labelTriangle.Name = "labelTriangle";
+            this.labelTriangle.Size = new System.Drawing.Size(60, 17);
+            this.labelTriangle.TabIndex = 9;
+            this.labelTriangle.Text = "Triangle";
+            // 
+            // progressBarTriangle
+            // 
+            this.progressBarTriangle.Location = new System.Drawing.Point(88, 65);
+            this.progressBarTriangle.Name = "progressBarTriangle";
+            this.progressBarTriangle.Size = new System.Drawing.Size(100, 23);
+            this.progressBarTriangle.Step = 5;
+            this.progressBarTriangle.TabIndex = 8;
+            // 
+            // labelSinHor
+            // 
+            this.labelSinHor.AutoSize = true;
+            this.labelSinHor.Location = new System.Drawing.Point(192, 123);
+            this.labelSinHor.Name = "labelSinHor";
+            this.labelSinHor.Size = new System.Drawing.Size(51, 17);
+            this.labelSinHor.TabIndex = 7;
+            this.labelSinHor.Text = "SinHor";
+            // 
+            // progressBarSinHor
+            // 
+            this.progressBarSinHor.Location = new System.Drawing.Point(88, 123);
+            this.progressBarSinHor.Name = "progressBarSinHor";
+            this.progressBarSinHor.Size = new System.Drawing.Size(100, 23);
+            this.progressBarSinHor.Step = 5;
+            this.progressBarSinHor.TabIndex = 6;
+            // 
+            // labelCircle
+            // 
+            this.labelCircle.AutoSize = true;
+            this.labelCircle.Location = new System.Drawing.Point(192, 94);
+            this.labelCircle.Name = "labelCircle";
+            this.labelCircle.Size = new System.Drawing.Size(43, 17);
+            this.labelCircle.TabIndex = 3;
+            this.labelCircle.Text = "Circle";
+            // 
+            // progressBarCircle
+            // 
+            this.progressBarCircle.Location = new System.Drawing.Point(88, 94);
+            this.progressBarCircle.Name = "progressBarCircle";
+            this.progressBarCircle.Size = new System.Drawing.Size(100, 23);
+            this.progressBarCircle.Step = 5;
+            this.progressBarCircle.TabIndex = 2;
+            // 
+            // labelRectangle
+            // 
+            this.labelRectangle.AutoSize = true;
+            this.labelRectangle.Location = new System.Drawing.Point(192, 36);
+            this.labelRectangle.Name = "labelRectangle";
+            this.labelRectangle.Size = new System.Drawing.Size(72, 17);
+            this.labelRectangle.TabIndex = 1;
+            this.labelRectangle.Text = "Rectangle";
+            // 
+            // progressBarRectangle
+            // 
+            this.progressBarRectangle.Location = new System.Drawing.Point(88, 36);
+            this.progressBarRectangle.Name = "progressBarRectangle";
+            this.progressBarRectangle.Size = new System.Drawing.Size(100, 23);
+            this.progressBarRectangle.Step = 5;
+            this.progressBarRectangle.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 153);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(54, 17);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "SinVert";
+            // 
+            // labelSinVert
+            // 
+            this.labelSinVert.AutoSize = true;
+            this.labelSinVert.Location = new System.Drawing.Point(192, 153);
+            this.labelSinVert.Name = "labelSinVert";
+            this.labelSinVert.Size = new System.Drawing.Size(54, 17);
+            this.labelSinVert.TabIndex = 15;
+            this.labelSinVert.Text = "SinVert";
+            // 
+            // progressBarSinVert
+            // 
+            this.progressBarSinVert.Location = new System.Drawing.Point(88, 153);
+            this.progressBarSinVert.Name = "progressBarSinVert";
+            this.progressBarSinVert.Size = new System.Drawing.Size(100, 23);
+            this.progressBarSinVert.Step = 5;
+            this.progressBarSinVert.TabIndex = 14;
             // 
             // Form1
             // 
@@ -285,14 +319,17 @@
         private System.Windows.Forms.Label labelRectangle;
         private System.Windows.Forms.Label labelTriangle;
         private System.Windows.Forms.ProgressBar progressBarTriangle;
-        private System.Windows.Forms.Label labelSin;
-        private System.Windows.Forms.ProgressBar progressBarSin;
+        private System.Windows.Forms.Label labelSinHor;
+        private System.Windows.Forms.ProgressBar progressBarSinHor;
         private System.Windows.Forms.Label labelCircle;
         private System.Windows.Forms.ProgressBar progressBarCircle;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelSinVert;
+        private System.Windows.Forms.ProgressBar progressBarSinVert;
     }
 }
 
