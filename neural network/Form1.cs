@@ -502,7 +502,8 @@ namespace neural_network
 
             createConnections();
 
-            f = (x) => 1.0 / (1 + Math.Exp(-x));
+            //f = (x) => 1.0 / (1 + Math.Exp(-x));
+            f = (x) => x;
         }
 
         //создание рандомных связей между сенсорами и первым скрытым слоем (веса всегда == 1)
@@ -590,8 +591,9 @@ namespace neural_network
             }
 
             max = output.Max();
+            double min = output.Min();
             for (int j = 0; j < outCnt; ++j)
-                output[j] = f(output[j] / max);
+                output[j] = f((output[j] - min) / (max - min));
 
             if (fl)
                 show();
@@ -620,7 +622,7 @@ namespace neural_network
             return s;
         }
 
-        public void backpropagation(List<double> d, double n = 1)
+        public void backpropagation(List<double> d, double n = 100)
         {
             List<double> eps0 = new List<double>();
             for (int i = 0; i < outCnt; ++i)
