@@ -16,13 +16,14 @@ namespace neural_network
         static int Width = 200;
         static int Height = Width;
 
+        double n;
         NeuralNet net;
         int last_picture = 0;
 
         public Form1()
         {
             InitializeComponent();
-
+            n = 0.5;
             Invalidate();
 
             pictureBox1.Width = Width;
@@ -388,7 +389,7 @@ namespace neural_network
                 }
                 else
                     res.Add(inL[i]);
-            res[c] = inL[c] + max;
+            res[c] = inL[c] + max + 0.000001;
 
             return res;
         }
@@ -403,12 +404,13 @@ namespace neural_network
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int cnt_images = 0;
+            n = Double.Parse(textBox1.Text);
+            int cnt_images = 1000;
             progressBar1.Maximum = cnt_images;
             for (int i = 0; i < cnt_images; ++i)
             {
-                if (i % 1 == 0)
-                    progress(i);
+               // if (i % 1 == 0)
+                progress(i);
 
                 int c = 4 - i % 4 - 1;
                 switch (c)
@@ -422,21 +424,17 @@ namespace neural_network
                     case 2:
                         drawCircle();
                         break;
-                   /* case 3:
-                        drawSinVert();
-                        break;*/
                     case 3:
                         drawSinHor();
                         break;
                 }
                 List<double> p = predict();
 
-              int cnt = 0;
-
-                //while (Math.Abs(p[c] - p.Max()) > 0.1)// && cnt < 1000)
+                int cnt = 0;
+                List<double> d = createD(p, c);
+                while (Math.Abs(p[c] - p.Max()) > 0.0001)// && cnt < 1000)
                {
-                    List<double> d = createD(p, c);
-                    net.backpropagation(d, 0.05);
+                    net.backpropagation(d, n);
                     p = predict();
                    // cnt++;
                }
@@ -461,9 +459,6 @@ namespace neural_network
 
             show_res(net.s);
             predictVisible(p);
-
-            List<double> d = createD(p, last_picture);
-            net.backpropagation(d, 0.001);
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -497,7 +492,14 @@ namespace neural_network
 
             if (e.KeyCode == Keys.P)
             {
-                button2_Click(this, new EventArgs());
+                List<double> p = predict(true);
+
+                show_res(net.s);
+                predictVisible(p);
+
+                List<double> d = createD(p, last_picture);
+                n = Double.Parse(textBox1.Text);
+                net.backpropagation(d, n);
             }
         }
 
@@ -549,8 +551,8 @@ namespace neural_network
 
             createConnections();
 
-            f = (x) => 1.0 / (1 + Math.Exp(-x));
-            //f = (x) => (x == 0) ? 0 : (x);
+           // f = (x) => 1.0 / (1 + Math.Exp(-x));
+            f = (x) => (x == 0) ? 0 : (x);
 
         }
 
@@ -561,7 +563,7 @@ namespace neural_network
 
             for (int i = 0; i < start_cnt; ++i)
             {
-                int cntLinks = rnd.Next(20, (int)Math.Floor(0.7 * firstLayer)); //кол-во связей для данного сенсора
+                int cntLinks = rnd.Next(100, (int)Math.Floor(0.7 * firstLayer)); //кол-во связей для данного сенсора
 
                 for (int j = 0; j < cntLinks; ++j)
                 {
@@ -625,7 +627,7 @@ namespace neural_network
             double min = layer1.Min();
 
             for (int i = 0; i < firstLayer; ++i) //применяем сигмоид ко всем (?)
-                layer1[i] = f((layer1[i]-min)/(max-min));
+                layer1[i] = f((max - min) == 0 ? 0 : (layer1[i]-min)/(max-min));
 
             //вычисляем второй скрытый слой
             for (int j = 0; j < secondLayer; ++j)
@@ -640,7 +642,7 @@ namespace neural_network
             min = layer2.Min();
 
             for (int j = 0; j < secondLayer; ++j)
-                layer2[j] = f((layer2[j] - min) / (max - min));
+                layer2[j] = f((max - min) == 0 ? 0 :(layer2[j] - min) / (max - min));
 
             //значение выходного слоя просчитываем
             for (int j = 0; j < outCnt; ++j)
@@ -654,7 +656,7 @@ namespace neural_network
             max = output.Max();
             min = output.Min();
             for (int j = 0; j < outCnt; ++j)
-                output[j] = (output[j] - min) / (max - min);
+                output[j] = (max - min) == 0 ? 0 : (output[j] - min) / (max - min);
 
             if (fl)
                 show();

@@ -27,3 +27,4 @@ C:\Users\Alex\Documents\Git Portable\IS\neural network\obj\Debug\neural network.
 C:\Users\Alex\Documents\Git Portable\IS\neural network\obj\Debug\neural network.exe
 C:\Users\Alex\Documents\Git Portable\IS\neural network\obj\Debug\neural network.pdb
 C:\flash\PortableGit\IS\neural network\obj\Debug\neural network.csprojResolveAssemblyReference.cache
+D:\Документы\OneDrive\Документы\7 семестр\IS\IS\neural network\obj\Debug\neural network.csprojResolveAssemblyReference.cache
