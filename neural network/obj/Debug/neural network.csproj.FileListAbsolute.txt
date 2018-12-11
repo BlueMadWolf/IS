@@ -2,7 +2,6 @@ D:\Документы\OneDrive\Документы\IS\neural network\bin\Debug\ne
 C:\flash\PortableGit\IS\neural network\bin\Debug\neural network.exe.config
 C:\flash\PortableGit\IS\neural network\bin\Debug\neural network.exe
 C:\flash\PortableGit\IS\neural network\bin\Debug\neural network.pdb
-C:\flash\PortableGit\IS\neural network\obj\Debug\neural network.csprojResolveAssemblyReference.cache
 C:\flash\PortableGit\IS\neural network\obj\Debug\neural_network.Form1.resources
 C:\flash\PortableGit\IS\neural network\obj\Debug\neural_network.Properties.Resources.resources
 C:\flash\PortableGit\IS\neural network\obj\Debug\neural network.csproj.GenerateResource.Cache
@@ -27,3 +26,4 @@ C:\Users\Alex\Documents\Git Portable\IS\neural network\obj\Debug\neural network.
 C:\Users\Alex\Documents\Git Portable\IS\neural network\obj\Debug\neural network.csproj.CoreCompileInputs.cache
 C:\Users\Alex\Documents\Git Portable\IS\neural network\obj\Debug\neural network.exe
 C:\Users\Alex\Documents\Git Portable\IS\neural network\obj\Debug\neural network.pdb
+C:\flash\PortableGit\IS\neural network\obj\Debug\neural network.csprojResolveAssemblyReference.cache

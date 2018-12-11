@@ -57,9 +57,10 @@
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.White;
-            this.pictureBox1.Location = new System.Drawing.Point(147, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(220, 18);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(200, 200);
+            this.pictureBox1.Size = new System.Drawing.Size(300, 308);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
@@ -68,10 +69,9 @@
             // 
             // buttonRectangle
             // 
-            this.buttonRectangle.Location = new System.Drawing.Point(29, 28);
-            this.buttonRectangle.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonRectangle.Location = new System.Drawing.Point(44, 43);
             this.buttonRectangle.Name = "buttonRectangle";
-            this.buttonRectangle.Size = new System.Drawing.Size(94, 24);
+            this.buttonRectangle.Size = new System.Drawing.Size(141, 37);
             this.buttonRectangle.TabIndex = 1;
             this.buttonRectangle.Text = "drawRectangle";
             this.buttonRectangle.UseVisualStyleBackColor = true;
@@ -79,10 +79,9 @@
             // 
             // buttonTriangle
             // 
-            this.buttonTriangle.Location = new System.Drawing.Point(29, 66);
-            this.buttonTriangle.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonTriangle.Location = new System.Drawing.Point(44, 102);
             this.buttonTriangle.Name = "buttonTriangle";
-            this.buttonTriangle.Size = new System.Drawing.Size(94, 24);
+            this.buttonTriangle.Size = new System.Drawing.Size(141, 37);
             this.buttonTriangle.TabIndex = 2;
             this.buttonTriangle.Text = "drawTriangle";
             this.buttonTriangle.UseVisualStyleBackColor = true;
@@ -90,10 +89,9 @@
             // 
             // buttonCircle
             // 
-            this.buttonCircle.Location = new System.Drawing.Point(29, 105);
-            this.buttonCircle.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonCircle.Location = new System.Drawing.Point(44, 162);
             this.buttonCircle.Name = "buttonCircle";
-            this.buttonCircle.Size = new System.Drawing.Size(94, 24);
+            this.buttonCircle.Size = new System.Drawing.Size(141, 37);
             this.buttonCircle.TabIndex = 3;
             this.buttonCircle.Text = "drawCircle";
             this.buttonCircle.UseVisualStyleBackColor = true;
@@ -101,10 +99,9 @@
             // 
             // buttonSinHor
             // 
-            this.buttonSinHor.Location = new System.Drawing.Point(29, 144);
-            this.buttonSinHor.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonSinHor.Location = new System.Drawing.Point(44, 222);
             this.buttonSinHor.Name = "buttonSinHor";
-            this.buttonSinHor.Size = new System.Drawing.Size(94, 24);
+            this.buttonSinHor.Size = new System.Drawing.Size(141, 37);
             this.buttonSinHor.TabIndex = 5;
             this.buttonSinHor.Text = "drawSin";
             this.buttonSinHor.UseVisualStyleBackColor = true;
@@ -112,12 +109,11 @@
             // 
             // textBoxOutput
             // 
-            this.textBoxOutput.Location = new System.Drawing.Point(29, 220);
-            this.textBoxOutput.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxOutput.Location = new System.Drawing.Point(44, 338);
             this.textBoxOutput.Multiline = true;
             this.textBoxOutput.Name = "textBoxOutput";
             this.textBoxOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxOutput.Size = new System.Drawing.Size(545, 197);
+            this.textBoxOutput.Size = new System.Drawing.Size(816, 301);
             this.textBoxOutput.TabIndex = 6;
             // 
             // groupBoxItIs
@@ -134,11 +130,9 @@
             this.groupBoxItIs.Controls.Add(this.labelRectangle);
             this.groupBoxItIs.Controls.Add(this.progressBarRectangle);
             this.groupBoxItIs.Controls.Add(this.progressBarSinHor);
-            this.groupBoxItIs.Location = new System.Drawing.Point(377, 31);
-            this.groupBoxItIs.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBoxItIs.Location = new System.Drawing.Point(566, 48);
             this.groupBoxItIs.Name = "groupBoxItIs";
-            this.groupBoxItIs.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBoxItIs.Size = new System.Drawing.Size(197, 137);
+            this.groupBoxItIs.Size = new System.Drawing.Size(296, 211);
             this.groupBoxItIs.TabIndex = 7;
             this.groupBoxItIs.TabStop = false;
             this.groupBoxItIs.Text = "It is ...";
@@ -146,124 +140,113 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(4, 53);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(6, 82);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(45, 13);
+            this.label2.Size = new System.Drawing.Size(65, 20);
             this.label2.TabIndex = 13;
             this.label2.Text = "Triangle";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(4, 100);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Location = new System.Drawing.Point(6, 154);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(22, 13);
+            this.label5.Size = new System.Drawing.Size(32, 20);
             this.label5.TabIndex = 12;
             this.label5.Text = "Sin";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(4, 76);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Location = new System.Drawing.Point(6, 117);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(33, 13);
+            this.label6.Size = new System.Drawing.Size(48, 20);
             this.label6.TabIndex = 11;
             this.label6.Text = "Circle";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(4, 29);
-            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Location = new System.Drawing.Point(6, 45);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(56, 13);
+            this.label7.Size = new System.Drawing.Size(82, 20);
             this.label7.TabIndex = 10;
             this.label7.Text = "Rectangle";
             // 
             // labelTriangle
             // 
             this.labelTriangle.AutoSize = true;
-            this.labelTriangle.Location = new System.Drawing.Point(144, 53);
-            this.labelTriangle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelTriangle.Location = new System.Drawing.Point(216, 82);
             this.labelTriangle.Name = "labelTriangle";
-            this.labelTriangle.Size = new System.Drawing.Size(45, 13);
+            this.labelTriangle.Size = new System.Drawing.Size(65, 20);
             this.labelTriangle.TabIndex = 9;
             this.labelTriangle.Text = "Triangle";
             // 
             // progressBarTriangle
             // 
-            this.progressBarTriangle.Location = new System.Drawing.Point(66, 53);
-            this.progressBarTriangle.Margin = new System.Windows.Forms.Padding(2);
+            this.progressBarTriangle.Location = new System.Drawing.Point(99, 82);
             this.progressBarTriangle.Name = "progressBarTriangle";
-            this.progressBarTriangle.Size = new System.Drawing.Size(75, 19);
+            this.progressBarTriangle.Size = new System.Drawing.Size(112, 29);
             this.progressBarTriangle.Step = 5;
             this.progressBarTriangle.TabIndex = 8;
             // 
             // labelCircle
             // 
             this.labelCircle.AutoSize = true;
-            this.labelCircle.Location = new System.Drawing.Point(144, 76);
-            this.labelCircle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelCircle.Location = new System.Drawing.Point(216, 117);
             this.labelCircle.Name = "labelCircle";
-            this.labelCircle.Size = new System.Drawing.Size(33, 13);
+            this.labelCircle.Size = new System.Drawing.Size(48, 20);
             this.labelCircle.TabIndex = 3;
             this.labelCircle.Text = "Circle";
             // 
             // progressBarCircle
             // 
-            this.progressBarCircle.Location = new System.Drawing.Point(66, 76);
-            this.progressBarCircle.Margin = new System.Windows.Forms.Padding(2);
+            this.progressBarCircle.Location = new System.Drawing.Point(99, 117);
             this.progressBarCircle.Name = "progressBarCircle";
-            this.progressBarCircle.Size = new System.Drawing.Size(75, 19);
+            this.progressBarCircle.Size = new System.Drawing.Size(112, 29);
             this.progressBarCircle.Step = 5;
             this.progressBarCircle.TabIndex = 2;
             // 
             // labelSinHor
             // 
             this.labelSinHor.AutoSize = true;
-            this.labelSinHor.Location = new System.Drawing.Point(144, 100);
-            this.labelSinHor.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelSinHor.Location = new System.Drawing.Point(216, 154);
             this.labelSinHor.Name = "labelSinHor";
-            this.labelSinHor.Size = new System.Drawing.Size(22, 13);
+            this.labelSinHor.Size = new System.Drawing.Size(32, 20);
             this.labelSinHor.TabIndex = 7;
             this.labelSinHor.Text = "Sin";
             // 
             // labelRectangle
             // 
             this.labelRectangle.AutoSize = true;
-            this.labelRectangle.Location = new System.Drawing.Point(144, 29);
-            this.labelRectangle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelRectangle.Location = new System.Drawing.Point(216, 45);
             this.labelRectangle.Name = "labelRectangle";
-            this.labelRectangle.Size = new System.Drawing.Size(56, 13);
+            this.labelRectangle.Size = new System.Drawing.Size(82, 20);
             this.labelRectangle.TabIndex = 1;
             this.labelRectangle.Text = "Rectangle";
             // 
             // progressBarRectangle
             // 
-            this.progressBarRectangle.Location = new System.Drawing.Point(66, 29);
-            this.progressBarRectangle.Margin = new System.Windows.Forms.Padding(2);
+            this.progressBarRectangle.Location = new System.Drawing.Point(99, 45);
             this.progressBarRectangle.Name = "progressBarRectangle";
-            this.progressBarRectangle.Size = new System.Drawing.Size(75, 19);
+            this.progressBarRectangle.Size = new System.Drawing.Size(112, 29);
             this.progressBarRectangle.Step = 5;
             this.progressBarRectangle.TabIndex = 0;
             // 
             // progressBarSinHor
             // 
-            this.progressBarSinHor.Location = new System.Drawing.Point(66, 100);
-            this.progressBarSinHor.Margin = new System.Windows.Forms.Padding(2);
+            this.progressBarSinHor.Location = new System.Drawing.Point(99, 154);
             this.progressBarSinHor.Name = "progressBarSinHor";
-            this.progressBarSinHor.Size = new System.Drawing.Size(75, 19);
+            this.progressBarSinHor.Size = new System.Drawing.Size(112, 29);
             this.progressBarSinHor.Step = 5;
             this.progressBarSinHor.TabIndex = 6;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(605, 79);
+            this.button1.Location = new System.Drawing.Point(908, 122);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(123, 29);
+            this.button1.Size = new System.Drawing.Size(184, 45);
             this.button1.TabIndex = 8;
             this.button1.Text = "train";
             this.button1.UseVisualStyleBackColor = true;
@@ -271,9 +254,10 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(605, 122);
+            this.button2.Location = new System.Drawing.Point(908, 188);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(123, 31);
+            this.button2.Size = new System.Drawing.Size(184, 48);
             this.button2.TabIndex = 9;
             this.button2.Text = "predict";
             this.button2.UseVisualStyleBackColor = true;
@@ -281,18 +265,17 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(605, 54);
-            this.progressBar1.Margin = new System.Windows.Forms.Padding(2);
+            this.progressBar1.Location = new System.Drawing.Point(908, 83);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(123, 19);
+            this.progressBar1.Size = new System.Drawing.Size(184, 29);
             this.progressBar1.Step = 5;
             this.progressBar1.TabIndex = 10;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(762, 432);
+            this.ClientSize = new System.Drawing.Size(1143, 665);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -303,8 +286,13 @@
             this.Controls.Add(this.buttonTriangle);
             this.Controls.Add(this.buttonRectangle);
             this.Controls.Add(this.pictureBox1);
+            this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Form1";
             this.Text = "Form1";
+            
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
+            
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBoxItIs.ResumeLayout(false);
             this.groupBoxItIs.PerformLayout();

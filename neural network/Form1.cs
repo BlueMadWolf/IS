@@ -17,6 +17,7 @@ namespace neural_network
         static int Height = Width;
 
         NeuralNet net;
+        int last_picture = 0;
 
         public Form1()
         {
@@ -103,6 +104,8 @@ namespace neural_network
 
             g.DrawCurve(new Pen(Color.Black), points);
             pictureBox1.Image = pictureBox1.Image;
+
+            
         }
 
         private void drawSinHor()
@@ -125,6 +128,8 @@ namespace neural_network
 
             g.DrawCurve(new Pen(Color.Black), points);
             pictureBox1.Image = pictureBox1.Image;
+
+            last_picture = 3;
         }
 
         private void drawRectangle()
@@ -145,6 +150,8 @@ namespace neural_network
             writer.Flush();
 
             pictureBox1.Image = pictureBox1.Image;
+
+            last_picture = 0;
         }
 
         private void drawTriangle()
@@ -168,6 +175,8 @@ namespace neural_network
             drawLine(x3, y3, x1, y1);
 
             pictureBox1.Image = pictureBox1.Image;
+
+            last_picture = 1;
         }
 
         private void drawCircle()
@@ -186,6 +195,8 @@ namespace neural_network
             writer.Flush();
 
             pictureBox1.Image = pictureBox1.Image;
+
+            last_picture = 2;
         }
 
         //---------------------------------------------------------------------------------------------
@@ -392,10 +403,11 @@ namespace neural_network
 
         private void button1_Click(object sender, EventArgs e)
         {
-            progressBar1.Maximum = 2000;
-            for (int i = 0; i < 2000; ++i)
+            int cnt_images = 0;
+            progressBar1.Maximum = cnt_images;
+            for (int i = 0; i < cnt_images; ++i)
             {
-                if (i % 10 == 0)
+                if (i % 1 == 0)
                     progress(i);
 
                 int c = 4 - i % 4 - 1;
@@ -421,10 +433,10 @@ namespace neural_network
 
               int cnt = 0;
 
-                while (Math.Abs(p[c] - p.Max()) > 0.01)// && cnt < 1000)
+                //while (Math.Abs(p[c] - p.Max()) > 0.1)// && cnt < 1000)
                {
                     List<double> d = createD(p, c);
-                    net.backpropagation(d, 0.01);
+                    net.backpropagation(d, 0.05);
                     p = predict();
                    // cnt++;
                }
@@ -449,6 +461,44 @@ namespace neural_network
 
             show_res(net.s);
             predictVisible(p);
+
+            List<double> d = createD(p, last_picture);
+            net.backpropagation(d, 0.001);
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            textBoxOutput.Text += e.KeyCode.ToString() + " | ";
+
+            if (e.KeyCode == Keys.D1)
+            {
+                drawRectangle();
+            }
+
+            if (e.KeyCode == Keys.D2)
+            {
+                drawTriangle();
+            }
+
+            if (e.KeyCode == Keys.D3)
+            {
+                drawCircle();
+            }
+
+            if (e.KeyCode == Keys.D4)
+            {
+                drawSinHor();
+            }
+
+            if (e.KeyCode == Keys.N)
+            {
+                button1_Click(this, new EventArgs());
+            }
+
+            if (e.KeyCode == Keys.P)
+            {
+                button2_Click(this, new EventArgs());
+            }
         }
 
         private void buttonSinVert_Click(object sender, EventArgs e)
@@ -500,7 +550,7 @@ namespace neural_network
             createConnections();
 
             f = (x) => 1.0 / (1 + Math.Exp(-x));
-           // f = (x) => x;
+            //f = (x) => (x == 0) ? 0 : (x);
 
         }
 

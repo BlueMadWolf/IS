@@ -7,3 +7,13 @@ D:\Документы\OneDrive\Документы\7 семестр\IS\IS\neural 
 D:\Документы\OneDrive\Документы\7 семестр\IS\IS\neural network\obj\Release\neural network.csproj.GenerateResource.Cache
 D:\Документы\OneDrive\Документы\7 семестр\IS\IS\neural network\obj\Release\neural network.exe
 D:\Документы\OneDrive\Документы\7 семестр\IS\IS\neural network\obj\Release\neural network.pdb
+C:\flash\PortableGit\IS\neural network\bin\Release\neural network.exe.config
+C:\flash\PortableGit\IS\neural network\bin\Release\neural network.exe
+C:\flash\PortableGit\IS\neural network\bin\Release\neural network.pdb
+C:\flash\PortableGit\IS\neural network\obj\Release\neural network.csprojResolveAssemblyReference.cache
+C:\flash\PortableGit\IS\neural network\obj\Release\neural_network.Form1.resources
+C:\flash\PortableGit\IS\neural network\obj\Release\neural_network.Properties.Resources.resources
+C:\flash\PortableGit\IS\neural network\obj\Release\neural network.csproj.GenerateResource.Cache
+C:\flash\PortableGit\IS\neural network\obj\Release\neural network.csproj.CoreCompileInputs.cache
+C:\flash\PortableGit\IS\neural network\obj\Release\neural network.exe
+C:\flash\PortableGit\IS\neural network\obj\Release\neural network.pdb
