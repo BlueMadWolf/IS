@@ -405,7 +405,7 @@ namespace neural_network
         private void button1_Click(object sender, EventArgs e)
         {
             n = Double.Parse(textBox1.Text);
-            int cnt_images = 5000;
+            int cnt_images = 100, cnt_right = 0;
             progressBar1.Maximum = cnt_images;
             for (int i = 0; i < cnt_images; ++i)
             {
@@ -439,8 +439,16 @@ namespace neural_network
                     p = predict();
                     // cnt++;
                 }
+                else
+                {
+                    ++cnt_right;
+                }
               
             }
+            int cnt_right_old = Int32.Parse(labelCountOfRightPredictedPictures.Text);
+            labelCountOfRightPredictedPictures.Text = (cnt_right_old + cnt_right).ToString();
+            int cnt_old = Int32.Parse(labelCountOfTrainPictures.Text);
+            labelCountOfTrainPictures.Text = (cnt_old + cnt_images).ToString();
         }
 
         public List<double> predict(bool f = false)
