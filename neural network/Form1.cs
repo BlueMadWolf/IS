@@ -37,7 +37,7 @@ namespace neural_network
 
             bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
 
-            net = new NeuralNet(400, 800, 80, 4);
+            net = new NeuralNet(400, 600, 60, 3);
 
         }
 
@@ -167,7 +167,7 @@ namespace neural_network
             int x2 = w / 2 + rand.Next(-dist_to_center_to, dist_to_center_to) + r;
             //int x3 = rand.Next(x1, x2);
             int x3 = (x2 + x1) / 2;
-            int y1 = h / 2 + rand.Next(-dist_to_center_to, dist_to_center_to) + r;
+            int y1 = h / 2 + rand.Next(-dist_to_center_to, dist_to_center_to) + r + 10;
             int y2 = y1;
             int y3 = h / 2 + rand.Next(-dist_to_center_to, dist_to_center_to) - r;
 
@@ -190,7 +190,7 @@ namespace neural_network
             int x = w / 2 + rand.Next(-dist_to_center_to, dist_to_center_to) - r;
             int y = h / 2 + rand.Next(-dist_to_center_to, dist_to_center_to) - r;
 
-            drawCircle(x, y, r*2);
+            drawCircle(x, y, r);
 
             writer.WriteLine("x = " + x.ToString() + " | y = " + y.ToString() + " | w = " + (r * 2).ToString());
             writer.Flush();
@@ -259,7 +259,7 @@ namespace neural_network
             itIsRectangle(l[0] / sum);
             itIsTriangle(l[1] / sum);
             itIsCircle(l[2] / sum);
-            itIsSinHor(l[3] / sum);
+           // itIsSinHor(l[3] / sum);
         }
 
 
@@ -388,8 +388,8 @@ namespace neural_network
                         max = inL[i] - realize_max;
                 }
                 else
-                    res.Add(inL[i]);
-            res[c] = inL[c] + max + 0.000001;
+                    res.Add(0);
+            res[c] = inL[c] + max; // + 0.000001;
 
             return res;
         }
@@ -405,14 +405,14 @@ namespace neural_network
         private void button1_Click(object sender, EventArgs e)
         {
             n = Double.Parse(textBox1.Text);
-            int cnt_images = 1000;
+            int cnt_images = 5000;
             progressBar1.Maximum = cnt_images;
             for (int i = 0; i < cnt_images; ++i)
             {
                // if (i % 1 == 0)
                 progress(i);
 
-                int c = 4 - i % 4 - 1;
+                int c = i % 3;
                 switch (c)
                 {
                     case 0:
@@ -428,16 +428,17 @@ namespace neural_network
                         drawSinHor();
                         break;
                 }
-                List<double> p = predict();
+              
 
                 int cnt = 0;
-                List<double> d = createD(p, c);
-                while (Math.Abs(p[c] - p.Max()) > 0.0001)// && cnt < 1000)
+                List<double> p = predict();
+                if (Math.Abs(p[c] - p.Max()) > 0.1)// && cnt < 1000)
                {
+                    List<double> d = createD(p, c);
                     net.backpropagation(d, n);
                     p = predict();
-                   // cnt++;
-               }
+                    // cnt++;
+                }
               
             }
         }
@@ -551,8 +552,8 @@ namespace neural_network
 
             createConnections();
 
-           // f = (x) => 1.0 / (1 + Math.Exp(-x));
-            f = (x) => (x == 0) ? 0 : (x);
+             f = (x) => 1.0 / (1 + Math.Exp(-x));
+            //f = (x) => (x == 0) ? 0 : (x);
 
         }
 
@@ -592,7 +593,7 @@ namespace neural_network
             {
                 List<double> l = new List<double>();
                 for (int j = 0; j < secondLayer; ++j)
-                    l.Add(rnd.NextDouble());
+                    l.Add(0);// rnd.NextDouble());
                 matr1.Add(l);
             }
 
@@ -650,14 +651,14 @@ namespace neural_network
                 double sum = 0;
                 for (int i = 0; i < secondLayer; ++i)
                     sum += layer1[i] * matr2[i][j];
-                output[j] = f(sum); //f(sum)
+                output[j] = sum; //f(sum)
             }
 
             max = output.Max();
             min = output.Min();
             for (int j = 0; j < outCnt; ++j)
-                output[j] = (max - min) == 0 ? 0 : (output[j] - min) / (max - min);
-
+                output[j] = (max - min) == 0 ? 0 : f((output[j] - min) / (max - min));
+                
             if (fl)
                 show();
 
@@ -681,16 +682,27 @@ namespace neural_network
 
             for (int i = 0; i < outCnt; ++i)
                 s += output[i].ToString() + "  ";
+/*
+            s += Environment.NewLine + Environment.NewLine;
+            s += Environment.NewLine + Environment.NewLine;
+            s += "WEIGHT";
+            s += Environment.NewLine + Environment.NewLine;
+            s += Environment.NewLine + Environment.NewLine;
+
+            for (int i = 0; i < firstLayer; ++i)
+                for (int j = 0; j < secondLayer; ++j)
+                    s += matr1[i][j].ToString() + "  ";
+            s += Environment.NewLine + Environment.NewLine;
+            
+            for (int i = 0; i < secondLayer; ++i)
+                for (int j = 0; j < outCnt; ++j)
+                    s += matr2[i][j].ToString() + "  ";*/
 
             return s;
         }
 
-        public void backpropagation(List<double> d, double n = 1)
+        public void backpropagation(List<double> eps0, double n = 1)
         {
-            List<double> eps0 = new List<double>();
-            for (int i = 0; i < outCnt; ++i)
-                eps0.Add(d[i] - output[i]); //просчет ошибки для выходного слоя
-
             for (int i = 0; i < secondLayer; ++i)
                 for (int j = 0; j < outCnt; ++j)
                     matr2[i][j] += n * eps0[j] * layer2[i]; //изменяем веса

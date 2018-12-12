@@ -17,3 +17,12 @@ C:\flash\PortableGit\IS\neural network\obj\Release\neural network.csproj.Generat
 C:\flash\PortableGit\IS\neural network\obj\Release\neural network.csproj.CoreCompileInputs.cache
 C:\flash\PortableGit\IS\neural network\obj\Release\neural network.exe
 C:\flash\PortableGit\IS\neural network\obj\Release\neural network.pdb
+C:\Users\tatarova\Documents\GitHub\IS\neural network\bin\Release\neural network.exe.config
+C:\Users\tatarova\Documents\GitHub\IS\neural network\bin\Release\neural network.exe
+C:\Users\tatarova\Documents\GitHub\IS\neural network\bin\Release\neural network.pdb
+C:\Users\tatarova\Documents\GitHub\IS\neural network\obj\Release\neural network.csprojResolveAssemblyReference.cache
+C:\Users\tatarova\Documents\GitHub\IS\neural network\obj\Release\neural_network.Form1.resources
+C:\Users\tatarova\Documents\GitHub\IS\neural network\obj\Release\neural_network.Properties.Resources.resources
+C:\Users\tatarova\Documents\GitHub\IS\neural network\obj\Release\neural network.csproj.GenerateResource.Cache
+C:\Users\tatarova\Documents\GitHub\IS\neural network\obj\Release\neural network.exe
+C:\Users\tatarova\Documents\GitHub\IS\neural network\obj\Release\neural network.pdb
