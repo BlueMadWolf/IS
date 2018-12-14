@@ -37,7 +37,7 @@ namespace neural_network
 
             bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
 
-            net = new NeuralNet(400, 600, 60, 3);
+            net = new NeuralNet(400, 600, 80, 4);
 
         }
 
@@ -259,7 +259,7 @@ namespace neural_network
             itIsRectangle(l[0] / sum);
             itIsTriangle(l[1] / sum);
             itIsCircle(l[2] / sum);
-           // itIsSinHor(l[3] / sum);
+            itIsSinHor(l[3] / sum);
         }
 
 
@@ -383,7 +383,7 @@ namespace neural_network
             for (int i = 0; i < inL.Count(); ++i)
                 if (inL[i] > realize_max)
                 {
-                    res.Add(realize_max);
+                    res.Add(realize_max - inL[i]);
                     if (inL[i] > max)
                         max = inL[i] - realize_max;
                 }
@@ -405,14 +405,14 @@ namespace neural_network
         private void button1_Click(object sender, EventArgs e)
         {
             n = Double.Parse(textBox1.Text);
-            int cnt_images = 100, cnt_right = 0;
+            int cnt_images = 4000, cnt_right = 0;
             progressBar1.Maximum = cnt_images;
             for (int i = 0; i < cnt_images; ++i)
             {
                // if (i % 1 == 0)
                 progress(i);
 
-                int c = i % 3;
+                int c = i % 4;
                 switch (c)
                 {
                     case 0:
@@ -436,7 +436,7 @@ namespace neural_network
                {
                     List<double> d = createD(p, c);
                     net.backpropagation(d, n);
-                    p = predict();
+                  //  p = predict();
                     // cnt++;
                 }
                 else
