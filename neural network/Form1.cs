@@ -574,7 +574,7 @@ namespace neural_network
 
         private void button4_Click(object sender, EventArgs e)
         {
-            net = new NeuralNet(400, 800, 800, 4);
+            net = new NeuralNet(400, 800, 80, 4);
 
             button4.Visible = false;
 
@@ -608,7 +608,7 @@ namespace neural_network
         List<double> layer2 = new List<double>();
         List<double> output = new List<double>();
 
-        Dictionary<int, List<int>> inputlink = new Dictionary<int, List<int>>();
+        List<List<double>> inputlink = new List<List<double>>();
         List<List<double>> matr1 = new List<List<double>>();
         List<List<double>> matr2 = new List<List<double>>();
 
@@ -647,18 +647,20 @@ namespace neural_network
             {
                 int cntLinks = firstLayer; // rnd.Next(100, (int)Math.Floor(0.7 * firstLayer)); //кол-во связей для данного сенсора
 
+                List<double> l = new List<double>();
                 for (int j = 0; j < cntLinks; ++j)
                 {
                     //int neighbour = rnd.Next(0, firstLayer - 1);
                     //while (inputlink.ContainsKey(i) && inputlink[i].Contains(neighbour))
-                      //  neighbour = rnd.Next(0, firstLayer - 1);
+                    //  neighbour = rnd.Next(0, firstLayer - 1);
 
-                    if (!inputlink.ContainsKey(i))
-                        inputlink.Add(i, new List<int>());
-                        
-                    inputlink[i].Add(j);
+
+
+                    l.Add(rnd.NextDouble());
                     
                 }
+
+                inputlink.Add(l);
             }
         }
 
@@ -699,9 +701,9 @@ namespace neural_network
 
             clearLayer1();
 
-            foreach (var k in inputlink.Keys) //принимаем веса от входного слоя layer1[j] = sum_i(sensors(i))
-                foreach (var j in inputlink[k])
-                    layer1[j] += input[k];
+            for (int i = 0; i < start_cnt; ++i) //принимаем веса от входного слоя layer1[j] = sum_i(sensors(i))
+                for (int j = 0; j < firstLayer; ++j)
+                    layer1[j] += input[i] * inputlink[i][j];
 
             double max = layer1.Max();
             double min = layer1.Min();
