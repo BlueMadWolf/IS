@@ -55,10 +55,16 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.labelCountOfRightPredictedPictures = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.labelLast100 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
+            this.textBoxCountTrainPictures = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBoxItIs.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -261,7 +267,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(807, 97);
+            this.button1.Location = new System.Drawing.Point(824, 97);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(164, 36);
@@ -283,7 +289,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(807, 66);
+            this.progressBar1.Location = new System.Drawing.Point(807, 68);
             this.progressBar1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(164, 23);
@@ -292,12 +298,12 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(807, 271);
+            this.textBox1.Location = new System.Drawing.Point(808, 214);
             this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(163, 22);
             this.textBox1.TabIndex = 11;
-            this.textBox1.Text = "0,005";
+            this.textBox1.Text = "0,01";
             // 
             // labelCountOfTrainPictures
             // 
@@ -311,7 +317,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.labelCountOfTrainPictures);
-            this.groupBox1.Location = new System.Drawing.Point(770, 318);
+            this.groupBox1.Location = new System.Drawing.Point(770, 416);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(234, 49);
             this.groupBox1.TabIndex = 14;
@@ -321,7 +327,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.labelCountOfRightPredictedPictures);
-            this.groupBox2.Location = new System.Drawing.Point(770, 373);
+            this.groupBox2.Location = new System.Drawing.Point(770, 471);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(237, 44);
             this.groupBox2.TabIndex = 15;
@@ -337,11 +343,62 @@
             this.labelCountOfRightPredictedPictures.TabIndex = 13;
             this.labelCountOfRightPredictedPictures.Text = "0";
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.button3);
+            this.groupBox3.Controls.Add(this.labelLast100);
+            this.groupBox3.Location = new System.Drawing.Point(770, 303);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(234, 61);
+            this.groupBox3.TabIndex = 15;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Right predicted on last 100";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(54, 23);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(77, 32);
+            this.button3.TabIndex = 16;
+            this.button3.Text = "Check";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click_1);
+            // 
+            // labelLast100
+            // 
+            this.labelLast100.AutoSize = true;
+            this.labelLast100.Location = new System.Drawing.Point(148, 31);
+            this.labelLast100.Name = "labelLast100";
+            this.labelLast100.Size = new System.Drawing.Size(16, 17);
+            this.labelLast100.TabIndex = 13;
+            this.labelLast100.Text = "0";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(808, 15);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(105, 42);
+            this.button4.TabIndex = 16;
+            this.button4.Text = "Create NN";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // textBoxCountTrainPictures
+            // 
+            this.textBoxCountTrainPictures.Location = new System.Drawing.Point(773, 103);
+            this.textBoxCountTrainPictures.Name = "textBoxCountTrainPictures";
+            this.textBoxCountTrainPictures.Size = new System.Drawing.Size(50, 22);
+            this.textBoxCountTrainPictures.TabIndex = 17;
+            this.textBoxCountTrainPictures.Text = "105";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1016, 532);
+            this.Controls.Add(this.textBoxCountTrainPictures);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textBox1);
@@ -367,6 +424,8 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -401,6 +460,11 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label labelCountOfRightPredictedPictures;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label labelLast100;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.TextBox textBoxCountTrainPictures;
     }
 }
 

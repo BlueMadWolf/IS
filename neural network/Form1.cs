@@ -37,8 +37,11 @@ namespace neural_network
 
             bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
 
-            net = new NeuralNet(400, 600, 80, 4);
-
+            foreach (Control c in Controls)
+            {
+                if (c.Name != "button4")
+                    c.Visible = false;
+            }
         }
 
         private static Graphics g;
@@ -46,6 +49,7 @@ namespace neural_network
         private Random rand;
         bool drawing_now = false;
         List<Point> drawed_points = new List<Point>();
+        LinkedList<Tuple<List<double>, int>> sensors_class = new LinkedList<Tuple<List<double>, int>>();
 
         int dist_to_center_to, radius_from, radius_to;
 
@@ -405,7 +409,8 @@ namespace neural_network
         private void button1_Click(object sender, EventArgs e)
         {
             n = Double.Parse(textBox1.Text);
-            int cnt_images = 4000, cnt_right = 0;
+            int cnt_right = 0;
+            int cnt_images = Int32.Parse(textBoxCountTrainPictures.Text);
             progressBar1.Maximum = cnt_images;
             for (int i = 0; i < cnt_images; ++i)
             {
@@ -428,10 +433,15 @@ namespace neural_network
                         drawSinHor();
                         break;
                 }
-              
 
                 int cnt = 0;
-                List<double> p = predict();
+                List<double> sensors = getSensors();
+                List<double> p = predict(sensors);
+
+                sensors_class.AddLast(Tuple.Create(sensors, c));
+                if (sensors_class.Count() > 100)
+                    sensors_class.RemoveFirst();
+
                 if (Math.Abs(p[c] - p.Max()) > 0.1)// && cnt < 1000)
                {
                     List<double> d = createD(p, c);
@@ -451,20 +461,32 @@ namespace neural_network
             labelCountOfTrainPictures.Text = (cnt_old + cnt_images).ToString();
         }
 
-        public List<double> predict(bool f = false)
+        /*public List<double> predict(bool f = false)
         {
             List<double> sensors = getSensors();
 
-           /* textBoxOutput.Text += sensors.Count() + System.Environment.NewLine;
-            foreach (var item in sensors)
-                textBoxOutput.Text += item.ToString() + "  ";
-                */
+
+            //textBoxOutput.Text += sensors.Count() + System.Environment.NewLine;
+            //foreach (var item in sensors)
+              //  textBoxOutput.Text += item.ToString() + "  ";
+                
+            return net.predict(sensors, f);
+        }*/
+
+        public List<double> predict(List<double> sensors, bool f = false)
+        {
+            /* textBoxOutput.Text += sensors.Count() + System.Environment.NewLine;
+             foreach (var item in sensors)
+                 textBoxOutput.Text += item.ToString() + "  ";
+                 */
             return net.predict(sensors, f);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            List<double> p = predict(true);
+            pictureBox1.Image = pictureBox1.Image;
+            List<double> sensors = getSensors();
+            List<double> p = predict(sensors, true);
 
             show_res(net.s);
             predictVisible(p);
@@ -501,7 +523,8 @@ namespace neural_network
 
             if (e.KeyCode == Keys.P)
             {
-                List<double> p = predict(true);
+                List<double> sensors = getSensors();
+                List<double> p = predict(sensors, true);
 
                 show_res(net.s);
                 predictVisible(p);
@@ -509,6 +532,56 @@ namespace neural_network
                 List<double> d = createD(p, last_picture);
                 n = Double.Parse(textBox1.Text);
                 net.backpropagation(d, n);
+
+                sensors_class.AddLast(Tuple.Create(sensors, last_picture));
+                if (sensors_class.Count() > 100)
+                    sensors_class.RemoveFirst();
+            }
+        }
+
+        private int indexOfMax(List<double> p)
+        {
+            int imax = 0;
+            double max = p[0];
+            for (int i = 0; i < p.Count(); ++i)
+            {
+                if (p[i] > max)
+                {
+                    max = p[i];
+                    imax = i;
+                }
+            }
+
+            return imax;
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            int cnt = 0;
+
+            foreach (var item in sensors_class)
+            {
+                List<double> sensors = item.Item1;
+                List<double> p = predict(sensors, true);
+                int pred = indexOfMax(p);
+
+                if (pred == item.Item2)
+                    ++cnt;
+            }
+
+            labelLast100.Text = ((double)cnt / sensors_class.Count()).ToString();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            net = new NeuralNet(400, 800, 800, 4);
+
+            button4.Visible = false;
+
+            foreach (Control c in Controls)
+            {
+                if (c.Name != "button4")
+                    c.Visible = true;
             }
         }
 
@@ -572,24 +645,22 @@ namespace neural_network
 
             for (int i = 0; i < start_cnt; ++i)
             {
-                int cntLinks = rnd.Next(100, (int)Math.Floor(0.7 * firstLayer)); //кол-во связей для данного сенсора
+                int cntLinks = firstLayer; // rnd.Next(100, (int)Math.Floor(0.7 * firstLayer)); //кол-во связей для данного сенсора
 
                 for (int j = 0; j < cntLinks; ++j)
                 {
-                    int neighbour = rnd.Next(0, firstLayer - 1);
-                    while (inputlink.ContainsKey(i) && inputlink[i].Contains(neighbour))
-                        neighbour = rnd.Next(0, firstLayer - 1);
+                    //int neighbour = rnd.Next(0, firstLayer - 1);
+                    //while (inputlink.ContainsKey(i) && inputlink[i].Contains(neighbour))
+                      //  neighbour = rnd.Next(0, firstLayer - 1);
 
                     if (!inputlink.ContainsKey(i))
                         inputlink.Add(i, new List<int>());
-
-                    inputlink[i].Add(neighbour);
+                        
+                    inputlink[i].Add(j);
                     
                 }
             }
         }
-
-
 
         //создаем изначально связи (рандомные)
         private void createConnections()
