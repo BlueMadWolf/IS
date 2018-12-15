@@ -521,6 +521,11 @@ namespace neural_network
                 button1_Click(this, new EventArgs());
             }
 
+            if (e.KeyCode == Keys.C)
+            {
+                button3_Click_1(this, new EventArgs());
+            }
+
             if (e.KeyCode == Keys.P)
             {
                 List<double> sensors = getSensors();
@@ -574,9 +579,9 @@ namespace neural_network
 
         private void button4_Click(object sender, EventArgs e)
         {
-            net = new NeuralNet(400, 800, 80, 4);
+            net = new NeuralNet(400, 100, 10, 4);
 
-            button4.Visible = false;
+            //button4.Visible = false;
 
             foreach (Control c in Controls)
             {

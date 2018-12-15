@@ -389,7 +389,7 @@
             this.textBoxCountTrainPictures.Name = "textBoxCountTrainPictures";
             this.textBoxCountTrainPictures.Size = new System.Drawing.Size(50, 22);
             this.textBoxCountTrainPictures.TabIndex = 17;
-            this.textBoxCountTrainPictures.Text = "105";
+            this.textBoxCountTrainPictures.Text = "200";
             // 
             // Form1
             // 
