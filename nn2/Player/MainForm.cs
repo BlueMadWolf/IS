@@ -34,7 +34,7 @@ namespace Player
         {
             InitializeComponent( );
 
-            LearnDemo();
+            Learn();
         }
 
         private void MainForm_FormClosing( object sender, FormClosingEventArgs e )
@@ -222,7 +222,7 @@ namespace Player
             }
         }
 
-        int count_train_samples = 15;
+        int count_train_samples = 4000;
         double[][] input;
         double[][] output;
 
@@ -273,44 +273,77 @@ namespace Player
             }
         }
 
-        ActivationNetwork network;
-        BackPropagationLearning teacher;
+        double[] input_camera;
 
-        public void LearnDemo()
+        public void GetCameraInput()
+        {
+            input_camera = new double[784];
+
+            Bitmap im = (Bitmap)pictureBox1.Image;
+
+            for (int x = 0; x < 28; ++x)
+            {
+                for (int y = 0; y < 28; ++y)
+                {
+                    input_camera[y * 28 + x] = (int)im.GetPixel(x, y).A / 255.0;
+                }
+            }
+        }
+
+        ActivationNetwork network;
+        //BackPropagationLearning teacher;
+
+        public void Learn()
         {
             ReadData("train.csv");
 
-            double[][] input1 = new double[4][] {
+            /*double[][] input1 = new double[4][] {
                 new double[] {0, 0}, new double[] {0, 1},
                 new double[] {1, 0}, new double[] {1, 1}
             };
             double[][] output1 = new double[4][] {
                 new double[] {0}, new double[] {1},
                 new double[] {1}, new double[] {1}
-            };
+            };*/
             // create neural network
+            /*
             network = new ActivationNetwork(
-                new SigmoidFunction(2),
-                2, // two inputs in the network
-                3, // two neurons in the first layer
-                1); // one neuron in the second layer
+                new ThresholdFunction(),
+                784, // two inputs in the network
+                600, // two neurons in the first layer
+                500,
+                400,
+                200,
+                200,
+                100,
+                10); // one neuron in the second layer
                     // create teacher
-            teacher = new BackPropagationLearning(network);
+            teacher = new BackPropagationLearning(network);*/
+
+            // create perceptron
+            network = new ActivationNetwork(new ThresholdFunction(), 784, 10);
+            ActivationLayer layer = network.Layers[0] as ActivationLayer;
+            // create teacher
+            PerceptronLearning teacher = new PerceptronLearning(network);
+            // set learning rate
+            teacher.LearningRate = 1;
+
             bool b = true;
+            double error;
             int cnt_it = 0;
             while (b)
             {
                 // run epoch of learning procedure
-                double error = teacher.RunEpoch(input1, output1);
+                error = teacher.RunEpoch(input, output);
                 // check error value to see if we need to stop
                 // ...
-                b = (error > 0.1);
+                b = ((error > 0.1) && (cnt_it < 1000));
                 ++cnt_it;
             }
-            var r1 = network.Compute(new double[]{ 0, 0});
-            var r2 = network.Compute(new double[] { 0, 1 });
-            var r3 = network.Compute(new double[] { 1, 0 });
-            var r4 = network.Compute(new double[] { 1, 1 });
+            var r1 = network.Compute(input[0]);
+            var r2 = network.Compute(input[1]);
+            var r3 = network.Compute(input[7]);
+            var r4 = network.Compute(input[9]);
 
         }
 
