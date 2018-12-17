@@ -1,0 +1,11 @@
+C:\Users\Alex\Documents\Git Portable\IS\nn2\Player\bin\Debug\Player.exe
+C:\Users\Alex\Documents\Git Portable\IS\nn2\Player\bin\Debug\Player.pdb
+C:\Users\Alex\Documents\Git Portable\IS\nn2\Player\obj\Debug\Player.csprojAssemblyReference.cache
+C:\Users\Alex\Documents\Git Portable\IS\nn2\Player\obj\Debug\Player.MainForm.resources
+C:\Users\Alex\Documents\Git Portable\IS\nn2\Player\obj\Debug\Player.Properties.Resources.resources
+C:\Users\Alex\Documents\Git Portable\IS\nn2\Player\obj\Debug\Player.URLForm.resources
+C:\Users\Alex\Documents\Git Portable\IS\nn2\Player\obj\Debug\Player.csproj.GenerateResource.cache
+C:\Users\Alex\Documents\Git Portable\IS\nn2\Player\obj\Debug\Player.csproj.CoreCompileInputs.cache
+C:\Users\Alex\Documents\Git Portable\IS\nn2\Player\obj\Debug\Player.csproj.CopyComplete
+C:\Users\Alex\Documents\Git Portable\IS\nn2\Player\obj\Debug\Player.exe
+C:\Users\Alex\Documents\Git Portable\IS\nn2\Player\obj\Debug\Player.pdb

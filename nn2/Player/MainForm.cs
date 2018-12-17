@@ -14,9 +14,14 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.IO;
 
 using AForge.Video;
 using AForge.Video.DirectShow;
+using AForge.Neuro;
+using AForge.Neuro.Learning;
+using AForge.Imaging;
+using AForge.Imaging.Filters;
 
 namespace Player
 {
@@ -28,6 +33,8 @@ namespace Player
         public MainForm( )
         {
             InitializeComponent( );
+
+            LearnDemo();
         }
 
         private void MainForm_FormClosing( object sender, FormClosingEventArgs e )
@@ -167,14 +174,23 @@ namespace Player
         // New frame received by the player
         private void videoSourcePlayer_NewFrame( object sender, ref Bitmap image )
         {
-            DateTime now = DateTime.Now;
+            //DateTime now = DateTime.Now;
             Graphics g = Graphics.FromImage( image );
 
             // paint current time
-            SolidBrush brush = new SolidBrush( Color.Red );
-            g.DrawString( now.ToString( ), this.Font, brush, new PointF( 5, 5 ) );
-            brush.Dispose( );
+            //SolidBrush brush = new SolidBrush( Color.Red );
+            //g.DrawString( now.ToString( ), this.Font, brush, new PointF( 5, 5 ) );
 
+            Crop filter = new Crop(new Rectangle(0, 0, 500, 500));
+            Bitmap newImage = filter.Apply(image);
+            ResizeBilinear filter1 = new ResizeBilinear(28, 28);
+            newImage = filter1.Apply(newImage);
+            GrayscaleBT709 filter2 = new GrayscaleBT709();
+            Bitmap grayImage = filter2.Apply(newImage);
+            pictureBox1.Image = grayImage;
+            
+
+            //brush.Dispose( );
             g.Dispose( );
         }
 
@@ -205,5 +221,99 @@ namespace Player
                 }
             }
         }
+
+        int count_train_samples = 15;
+        double[][] input;
+        double[][] output;
+
+        public void fill_data(string[] ss, int num_str)
+        {
+            output[num_str] = new double[10];
+            int res = Int32.Parse(ss[0]);
+
+            for (int i = 0; i < 10; ++i)
+            {
+                if (i == res)
+                {
+                    output[num_str][i] = 1;
+                }
+                else
+                {
+                    output[num_str][i] = 0;
+                }
+            }
+
+            input[num_str] = new double[784];
+            for (int i = 0; i < 784; ++i)
+            {
+                int curr_value = Int32.Parse(ss[i+1]);
+                input[num_str][i] = curr_value / 255.0;
+            }
+        }
+
+        public void ReadData(string fname)
+        {
+            input = new double[count_train_samples][];
+            output = new double[count_train_samples][];
+            int cnt_read = 0;
+
+            using (var reader = new StreamReader(fname))
+            {
+                var line = reader.ReadLine();
+                while (!reader.EndOfStream && (cnt_read < count_train_samples))
+                {
+                    line = reader.ReadLine();
+                
+                    var values = line.Split(',');
+
+                    fill_data(values, cnt_read);
+
+                    ++cnt_read;
+                }
+            }
+        }
+
+        ActivationNetwork network;
+        BackPropagationLearning teacher;
+
+        public void LearnDemo()
+        {
+            ReadData("train.csv");
+
+            double[][] input1 = new double[4][] {
+                new double[] {0, 0}, new double[] {0, 1},
+                new double[] {1, 0}, new double[] {1, 1}
+            };
+            double[][] output1 = new double[4][] {
+                new double[] {0}, new double[] {1},
+                new double[] {1}, new double[] {1}
+            };
+            // create neural network
+            network = new ActivationNetwork(
+                new SigmoidFunction(2),
+                2, // two inputs in the network
+                3, // two neurons in the first layer
+                1); // one neuron in the second layer
+                    // create teacher
+            teacher = new BackPropagationLearning(network);
+            bool b = true;
+            int cnt_it = 0;
+            while (b)
+            {
+                // run epoch of learning procedure
+                double error = teacher.RunEpoch(input1, output1);
+                // check error value to see if we need to stop
+                // ...
+                b = (error > 0.1);
+                ++cnt_it;
+            }
+            var r1 = network.Compute(new double[]{ 0, 0});
+            var r2 = network.Compute(new double[] { 0, 1 });
+            var r3 = network.Compute(new double[] { 1, 0 });
+            var r4 = network.Compute(new double[] { 1, 1 });
+
+        }
+
+
     }
 }
