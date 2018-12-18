@@ -188,7 +188,7 @@ namespace Player
 
             if (radioButtonFixPicNo.Checked)
             {
-                Crop filter = new Crop(new Rectangle(0, 0, 500, 500));
+                Crop filter = new Crop(new Rectangle(0, 300, 400, 400));
                 Bitmap newImage = filter.Apply(image);
                 ResizeBilinear filter1 = new ResizeBilinear(28, 28);
                 newImage = filter1.Apply(newImage);
@@ -237,16 +237,16 @@ namespace Player
         int total_cnt_epochs;
 
         ActivationNetwork network;
-        EvolutionaryLearning teacher;
+        ResilientBackpropagationLearning teacher;
         public void InitNet()
         {
             // create perceptron
-            network = new ActivationNetwork(new SigmoidFunction(2), 784, 10);
+            network = new ActivationNetwork(new SigmoidFunction(0.05), 784, 800, 400, 10);
+            //network = new ActivationNetwork(new SigmoidFunction(0.08), 784, 10);
             // create teacher
-             teacher = new EvolutionaryLearning(network,
-    100);
+            teacher = new ResilientBackpropagationLearning(network);
             // set learning rate
-            //teacher.LearningRate = 0.005;
+            teacher.LearningRate = 0.05;
         }
 
         public void fill_data(string[] ss, int num_str)
@@ -306,7 +306,7 @@ namespace Player
             {
                 for (int y = 0; y < 28; ++y)
                 {
-                    input_camera[y * 28 + x] = (int)im.GetPixel(x, y).A / 255.0;
+                    input_camera[y * 28 + x] = (int)im.GetPixel(x, y).R / 255.0;
                 }
             }
         }        
@@ -345,7 +345,7 @@ namespace Player
                 // ...
                 b = ((error > 0.1) && (cnt_it < cnt_epochs));
                               
-                if ((cnt_it % 9) == 0)
+                if ((cnt_it % 1) == 0)
                 {
                     PutCurrInfo(cnt_it, error);
                 }
@@ -385,7 +385,8 @@ namespace Player
             {
                 //if (p[i] > 0)
                 {
-                    labelPredictedNums.Text += i.ToString() + ": " + p[i].ToString() + " | ";
+                    labelPredictedNums.Text += i.ToString() + 
+                        ": " + String.Format("{0:0.00}", p[i]) + " | ";
                 }
             }
         }

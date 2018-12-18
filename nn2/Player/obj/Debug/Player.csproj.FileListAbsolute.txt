@@ -30,3 +30,12 @@ C:\Users\arudnev\OneDrive - Южный Федеральный Университ
 C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Debug\Player.csproj.CopyComplete
 C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Debug\Player.exe
 C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Debug\Player.pdb
+C:\flash\PortableGit\IS\nn2\Player\bin\Debug\AForge.Controls.dll
+C:\flash\PortableGit\IS\nn2\Player\bin\Debug\AForge.dll
+C:\flash\PortableGit\IS\nn2\Player\bin\Debug\AForge.Genetic.dll
+C:\flash\PortableGit\IS\nn2\Player\bin\Debug\AForge.Imaging.dll
+C:\flash\PortableGit\IS\nn2\Player\bin\Debug\AForge.MachineLearning.dll
+C:\flash\PortableGit\IS\nn2\Player\bin\Debug\AForge.Math.dll
+C:\flash\PortableGit\IS\nn2\Player\bin\Debug\AForge.Neuro.dll
+C:\flash\PortableGit\IS\nn2\Player\bin\Debug\AForge.Video.DirectShow.dll
+C:\flash\PortableGit\IS\nn2\Player\bin\Debug\AForge.Video.dll
