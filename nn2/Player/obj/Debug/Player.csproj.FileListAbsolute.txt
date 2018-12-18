@@ -19,3 +19,14 @@ C:\flash\PortableGit\IS\nn2\Player\obj\Debug\Player.csproj.GenerateResource.Cach
 C:\flash\PortableGit\IS\nn2\Player\obj\Debug\Player.csproj.CoreCompileInputs.cache
 C:\flash\PortableGit\IS\nn2\Player\obj\Debug\Player.exe
 C:\flash\PortableGit\IS\nn2\Player\obj\Debug\Player.pdb
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\bin\Debug\Player.exe
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\bin\Debug\Player.pdb
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Debug\Player.csprojAssemblyReference.cache
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Debug\Player.MainForm.resources
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Debug\Player.Properties.Resources.resources
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Debug\Player.URLForm.resources
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Debug\Player.csproj.GenerateResource.cache
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Debug\Player.csproj.CoreCompileInputs.cache
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Debug\Player.csproj.CopyComplete
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Debug\Player.exe
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Debug\Player.pdb

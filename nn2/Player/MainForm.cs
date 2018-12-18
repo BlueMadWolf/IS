@@ -27,14 +27,19 @@ namespace Player
 {
     public partial class MainForm : Form
     {
-        private Stopwatch stopWatch = null;
+        private Stopwatch stopWatch = null;       
 
         // Class constructor
         public MainForm( )
         {
             InitializeComponent( );
 
-            Learn();
+            Invalidate();
+            labelCurrCountIterations.Invalidate();
+            labelCurrError.Invalidate();
+            labelTotalCountEpochs.Invalidate();
+
+            //InitNet();
         }
 
         private void MainForm_FormClosing( object sender, FormClosingEventArgs e )
@@ -181,14 +186,16 @@ namespace Player
             //SolidBrush brush = new SolidBrush( Color.Red );
             //g.DrawString( now.ToString( ), this.Font, brush, new PointF( 5, 5 ) );
 
-            Crop filter = new Crop(new Rectangle(0, 0, 500, 500));
-            Bitmap newImage = filter.Apply(image);
-            ResizeBilinear filter1 = new ResizeBilinear(28, 28);
-            newImage = filter1.Apply(newImage);
-            GrayscaleBT709 filter2 = new GrayscaleBT709();
-            Bitmap grayImage = filter2.Apply(newImage);
-            pictureBox1.Image = grayImage;
-            
+            if (radioButtonFixPicNo.Checked)
+            {
+                Crop filter = new Crop(new Rectangle(0, 0, 500, 500));
+                Bitmap newImage = filter.Apply(image);
+                ResizeBilinear filter1 = new ResizeBilinear(28, 28);
+                newImage = filter1.Apply(newImage);
+                GrayscaleBT709 filter2 = new GrayscaleBT709();
+                Bitmap grayImage = filter2.Apply(newImage);
+                pictureBox1.Image = grayImage;
+            }
 
             //brush.Dispose( );
             g.Dispose( );
@@ -221,10 +228,26 @@ namespace Player
                 }
             }
         }
-
+        
         int count_train_samples = 4000;
         double[][] input;
         double[][] output;
+        double[] input_camera;
+        int cnt_epochs;
+        int total_cnt_epochs;
+
+        ActivationNetwork network;
+        EvolutionaryLearning teacher;
+        public void InitNet()
+        {
+            // create perceptron
+            network = new ActivationNetwork(new SigmoidFunction(2), 784, 10);
+            // create teacher
+             teacher = new EvolutionaryLearning(network,
+    100);
+            // set learning rate
+            //teacher.LearningRate = 0.005;
+        }
 
         public void fill_data(string[] ss, int num_str)
         {
@@ -271,9 +294,7 @@ namespace Player
                     ++cnt_read;
                 }
             }
-        }
-
-        double[] input_camera;
+        }        
 
         public void GetCameraInput()
         {
@@ -288,48 +309,33 @@ namespace Player
                     input_camera[y * 28 + x] = (int)im.GetPixel(x, y).A / 255.0;
                 }
             }
+        }        
+
+        public void PutCurrInfo(int cnt_it, double error)
+        {            
+            labelCurrCountIterations.Text = cnt_it.ToString();
+            labelCurrError.Text = error.ToString();
+
+            labelCurrCountIterations.Update();
+            labelCurrError.Update();
         }
 
-        ActivationNetwork network;
-        //BackPropagationLearning teacher;
-
-        public void Learn()
+        public void PutTotalInfo(int cnt_it, double error)
         {
-            ReadData("train.csv");
+            labelCurrCountIterations.Text = cnt_it.ToString();
+            labelCurrError.Text = error.ToString();
+            labelTotalCountEpochs.Text = total_cnt_epochs.ToString();
 
-            /*double[][] input1 = new double[4][] {
-                new double[] {0, 0}, new double[] {0, 1},
-                new double[] {1, 0}, new double[] {1, 1}
-            };
-            double[][] output1 = new double[4][] {
-                new double[] {0}, new double[] {1},
-                new double[] {1}, new double[] {1}
-            };*/
-            // create neural network
-            /*
-            network = new ActivationNetwork(
-                new ThresholdFunction(),
-                784, // two inputs in the network
-                600, // two neurons in the first layer
-                500,
-                400,
-                200,
-                200,
-                100,
-                10); // one neuron in the second layer
-                    // create teacher
-            teacher = new BackPropagationLearning(network);*/
+            labelCurrCountIterations.Update();
+            labelCurrError.Update();
+            labelTotalCountEpochs.Update();
+        }
 
-            // create perceptron
-            network = new ActivationNetwork(new ThresholdFunction(), 784, 10);
-            ActivationLayer layer = network.Layers[0] as ActivationLayer;
-            // create teacher
-            PerceptronLearning teacher = new PerceptronLearning(network);
-            // set learning rate
-            teacher.LearningRate = 1;
-
+        public void Train()
+        {
+                
             bool b = true;
-            double error;
+            double error = 0;
             int cnt_it = 0;
             while (b)
             {
@@ -337,16 +343,56 @@ namespace Player
                 error = teacher.RunEpoch(input, output);
                 // check error value to see if we need to stop
                 // ...
-                b = ((error > 0.1) && (cnt_it < 1000));
+                b = ((error > 0.1) && (cnt_it < cnt_epochs));
+                              
+                if ((cnt_it % 9) == 0)
+                {
+                    PutCurrInfo(cnt_it, error);
+                }
+
                 ++cnt_it;
             }
-            var r1 = network.Compute(input[0]);
-            var r2 = network.Compute(input[1]);
-            var r3 = network.Compute(input[7]);
-            var r4 = network.Compute(input[9]);
+            total_cnt_epochs += (cnt_it - 1);
+            PutTotalInfo(cnt_it-1, error);
+            //var r1 = network.Compute(input[0]);
+            //var r2 = network.Compute(input[1]);
+            //var r3 = network.Compute(input[7]);
+            //var r4 = network.Compute(input[9]);
+        }
+           
+        private void buttonTrainNetwork_Click(object sender, EventArgs e)
+        {
+            cnt_epochs = Int32.Parse(textBoxCountEpochs.Text);
 
+            Train();
         }
 
+        private void buttonReadData_Click(object sender, EventArgs e)
+        {
+            count_train_samples = Int32.Parse(textBoxCountSamples.Text);
+            
+            ReadData("train.csv");
+            labelCntSamples.Text = input.Length.ToString();
+        }
 
+        private void buttonPredict_Click(object sender, EventArgs e)
+        {
+            GetCameraInput();
+            var p = network.Compute(input_camera);
+            labelPredictedNums.Text = "";
+
+            for (int i = 0; i < p.Length; ++i)
+            {
+                //if (p[i] > 0)
+                {
+                    labelPredictedNums.Text += i.ToString() + ": " + p[i].ToString() + " | ";
+                }
+            }
+        }
+
+        private void buttonInitNet_Click(object sender, EventArgs e)
+        {
+            InitNet();
+        }
     }
 }
