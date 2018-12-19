@@ -188,9 +188,9 @@ namespace Player
 
             if (radioButtonFixPicNo.Checked)
             {
-                Crop filter = new Crop(new Rectangle(0, 300, 400, 400));
+                Crop filter = new Crop(new Rectangle(50, 300, 400, 400));
                 Bitmap newImage = filter.Apply(image);
-                ResizeBilinear filter1 = new ResizeBilinear(28, 28);
+                ResizeBilinear filter1 = new ResizeBilinear(300, 300);
                 newImage = filter1.Apply(newImage);
                 GrayscaleBT709 filter2 = new GrayscaleBT709();
                 Bitmap grayImage = filter2.Apply(newImage);
@@ -230,55 +230,108 @@ namespace Player
         }
         
         int count_train_samples = 4000;
-        double[][] input;
-        double[][] output;
-        double[] input_camera;
+        List<List<double>> input;
+        List<List<double>> output;
+        List<double> input_camera;
         int cnt_epochs;
         int total_cnt_epochs;
+        int cnt_blocks_one_line = 2;
+        int count_output = 2;
+        int cnt_added = 0;
 
         ActivationNetwork network;
-        ResilientBackpropagationLearning teacher;
+        //PerceptronLearning teacher;
+        BackPropagationLearning teacher;
+        //ResilientBackpropagationLearning teacher;
+        //EvolutionaryLearning teacher;
         public void InitNet()
         {
             // create perceptron
-            network = new ActivationNetwork(new SigmoidFunction(0.05), 784, 800, 400, 10);
-            //network = new ActivationNetwork(new SigmoidFunction(0.08), 784, 10);
+            int cnt_input = 56 + cnt_blocks_one_line * cnt_blocks_one_line;
+            network = new ActivationNetwork(new SigmoidFunction(-0.1), 
+                cnt_input, cnt_input*2, cnt_input * 2, count_output);
+      
             // create teacher
-            teacher = new ResilientBackpropagationLearning(network);
+            teacher = new BackPropagationLearning(network);
             // set learning rate
-            teacher.LearningRate = 0.05;
+            teacher.LearningRate = 0.1;
         }
 
-        public void fill_data(string[] ss, int num_str)
+        public void fill_data(string[] ss)//, int num_str)
         {
-            output[num_str] = new double[10];
+            //output[num_str] = new double[count_output];
+            output.Add(new List<double>(count_output));
             int res = Int32.Parse(ss[0]);
-
-            for (int i = 0; i < 10; ++i)
+            
+            for (int i = 0; i < count_output; ++i)
             {
                 if (i == res)
                 {
-                    output[num_str][i] = 1;
+                    output[output.Count-1].Add(1);
                 }
                 else
                 {
-                    output[num_str][i] = 0;
+                    output[output.Count - 1].Add(0);
                 }
             }
 
-            input[num_str] = new double[784];
-            for (int i = 0; i < 784; ++i)
+
+            //input[num_str] = new double[56 + cnt_blocks_one_line*cnt_blocks_one_line];
+            input.Add(new List<double>(56 + cnt_blocks_one_line * cnt_blocks_one_line));
+
+            for (int y = 0; y < 28; ++y)
             {
-                int curr_value = Int32.Parse(ss[i+1]);
-                input[num_str][i] = curr_value / 255.0;
+                double sum = 0;
+                for (int x = 0; x < 28; ++x)
+                {
+                    int curr_value = Int32.Parse(ss[y*28 + x]);
+                    sum += curr_value / 255.0;
+                }
+                input[input.Count - 1].Add((sum / 28.0));// * 2 - 1);
+            }
+            for (int x = 0; x < 28; ++x)
+            {
+                double sum = 0;
+                for (int y = 0; y < 28; ++y)
+                {
+                    int curr_value = Int32.Parse(ss[x * 28 + y]);
+                    sum += curr_value / 255.0;
+                }
+                input[input.Count - 1].Add((sum / 28.0));// * 2 - 1);
+            }
+
+            int length = 28 / cnt_blocks_one_line;
+
+            for (int y1 = 0; y1 < cnt_blocks_one_line; ++y1)
+            {
+                for (int x1 = 0; x1 < cnt_blocks_one_line; ++x1)
+                {
+                    double sum = 0;
+                    for (int y2 = 0; y2 < length; ++y2)
+                    {
+                        for (int x2 = 0; x2 < length; ++x2)
+                        {
+                            int y = y1 * length + y2;
+                            int x = x1 * length + x2;
+                            int curr_value = Int32.Parse(ss[y * 28 + x]);
+                            sum += curr_value / 255.0;
+                        }
+                    }
+                    int ind = y1 * cnt_blocks_one_line + x1;
+                    input[input.Count - 1].Add((sum / length / length));// * 2 - 1);
+                }
             }
         }
 
         public void ReadData(string fname)
         {
-            input = new double[count_train_samples][];
-            output = new double[count_train_samples][];
+            //input = new double[count_train_samples][];
+            //output = new double[count_train_samples][];
+            input = new List<List<double>>();
+            output = new List<List<double>>();
+
             int cnt_read = 0;
+            cnt_added = 0;
 
             using (var reader = new StreamReader(fname))
             {
@@ -288,9 +341,12 @@ namespace Player
                     line = reader.ReadLine();
                 
                     var values = line.Split(',');
-
-                    fill_data(values, cnt_read);
-
+                    int res = Int32.Parse(values[0]);
+                    if (res < count_output)
+                    {
+                        fill_data(values);//, cnt_added);
+                        ++cnt_added;
+                    }
                     ++cnt_read;
                 }
             }
@@ -298,15 +354,52 @@ namespace Player
 
         public void GetCameraInput()
         {
-            input_camera = new double[784];
+            input_camera = new List<double>(56 + cnt_blocks_one_line*cnt_blocks_one_line);
 
             Bitmap im = (Bitmap)pictureBox1.Image;
+            ResizeBilinear filter = new ResizeBilinear(28, 28);
+            im = filter.Apply(im);
 
+            for (int y = 0; y < 28; ++y)
+            {
+                double sum = 0;
+                for (int x = 0; x < 28; ++x)
+                {
+                    double curr_value = (int)im.GetPixel(x, y).R;
+                    sum += curr_value / 255.0;
+                }
+                input_camera.Add((sum / 28.0));// * 2 - 1);
+            }
             for (int x = 0; x < 28; ++x)
             {
+                double sum = 0;
                 for (int y = 0; y < 28; ++y)
                 {
-                    input_camera[y * 28 + x] = (int)im.GetPixel(x, y).R / 255.0;
+                    double curr_value = (int)im.GetPixel(x, y).R;
+                    sum += curr_value / 255.0;
+                }
+                input_camera.Add((sum / 28.0));// * 2 - 1);
+            }
+
+            int length = 28 / cnt_blocks_one_line;
+
+            for (int y1 = 0; y1 < cnt_blocks_one_line; ++y1)
+            {
+                for (int x1 = 0; x1 < cnt_blocks_one_line; ++x1)
+                {
+                    double sum = 0;
+                    for (int y2 = 0; y2 < length; ++y2)
+                    {
+                        for (int x2 = 0; x2 < length; ++x2)
+                        {
+                            int y = y1 * length + y2;
+                            int x = x1 * length + x2;
+                            int curr_value = (int)im.GetPixel(x, y).R;
+                            sum += curr_value / 255.0;
+                        }
+                    }
+                    int ind = y1 * cnt_blocks_one_line + x1;
+                    input_camera.Add((sum / length / length));// * 2 - 1);
                 }
             }
         }        
@@ -333,14 +426,19 @@ namespace Player
 
         public void Train()
         {
-                
+            
             bool b = true;
             double error = 0;
             int cnt_it = 0;
             while (b)
             {
                 // run epoch of learning procedure
-                error = teacher.RunEpoch(input, output);
+                error = teacher.RunEpoch(
+                    input.ConvertAll(x => x.ToArray()).ToArray(),
+                    output.ConvertAll(x => x.ToArray()).ToArray());
+
+                //teacher.LearningRate *= 0.99;
+
                 // check error value to see if we need to stop
                 // ...
                 b = ((error > 0.1) && (cnt_it < cnt_epochs));
@@ -354,10 +452,6 @@ namespace Player
             }
             total_cnt_epochs += (cnt_it - 1);
             PutTotalInfo(cnt_it-1, error);
-            //var r1 = network.Compute(input[0]);
-            //var r2 = network.Compute(input[1]);
-            //var r3 = network.Compute(input[7]);
-            //var r4 = network.Compute(input[9]);
         }
            
         private void buttonTrainNetwork_Click(object sender, EventArgs e)
@@ -372,13 +466,13 @@ namespace Player
             count_train_samples = Int32.Parse(textBoxCountSamples.Text);
             
             ReadData("train.csv");
-            labelCntSamples.Text = input.Length.ToString();
+            labelCntSamples.Text = cnt_added.ToString();
         }
 
         private void buttonPredict_Click(object sender, EventArgs e)
         {
             GetCameraInput();
-            var p = network.Compute(input_camera);
+            var p = network.Compute(input_camera.ToArray());
             labelPredictedNums.Text = "";
 
             for (int i = 0; i < p.Length; ++i)
@@ -394,6 +488,27 @@ namespace Player
         private void buttonInitNet_Click(object sender, EventArgs e)
         {
             InitNet();
+        }
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.I:
+                    buttonInitNet_Click(this, new EventArgs());
+                    break;
+                case Keys.R:
+                    buttonReadData_Click(this, new EventArgs());
+                    break;
+                case Keys.T:
+                    buttonTrainNetwork_Click(this, new EventArgs());
+                    break;
+                case Keys.P:
+                    buttonPredict_Click(this, new EventArgs());
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
