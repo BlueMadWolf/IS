@@ -1,0 +1,24 @@
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Release\Player.csprojAssemblyReference.cache
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Release\Player.MainForm.resources
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Release\Player.Properties.Resources.resources
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Release\Player.URLForm.resources
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Release\Player.csproj.GenerateResource.cache
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Release\Player.csproj.CoreCompileInputs.cache
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\bin\Release\Player.exe
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\bin\Release\Player.pdb
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\bin\Release\AForge.dll
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\bin\Release\AForge.Imaging.dll
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\bin\Release\AForge.Neuro.dll
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Release\Player.csproj.CopyComplete
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Release\Player.exe
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Release\Player.pdb
+C:\flash\PortableGit\IS\nn2\Player\bin\Release\Player.exe
+C:\flash\PortableGit\IS\nn2\Player\bin\Release\Player.pdb
+C:\flash\PortableGit\IS\nn2\Player\obj\Release\Player.csprojResolveAssemblyReference.cache
+C:\flash\PortableGit\IS\nn2\Player\obj\Release\Player.MainForm.resources
+C:\flash\PortableGit\IS\nn2\Player\obj\Release\Player.Properties.Resources.resources
+C:\flash\PortableGit\IS\nn2\Player\obj\Release\Player.URLForm.resources
+C:\flash\PortableGit\IS\nn2\Player\obj\Release\Player.csproj.GenerateResource.Cache
+C:\flash\PortableGit\IS\nn2\Player\obj\Release\Player.csproj.CoreCompileInputs.cache
+C:\flash\PortableGit\IS\nn2\Player\obj\Release\Player.exe
+C:\flash\PortableGit\IS\nn2\Player\obj\Release\Player.pdb

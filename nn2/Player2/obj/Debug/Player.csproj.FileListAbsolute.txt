@@ -1,0 +1,41 @@
+C:\Users\Alex\Documents\Git Portable\IS\nn2\Player\bin\Debug\Player.exe
+C:\Users\Alex\Documents\Git Portable\IS\nn2\Player\bin\Debug\Player.pdb
+C:\Users\Alex\Documents\Git Portable\IS\nn2\Player\obj\Debug\Player.csprojAssemblyReference.cache
+C:\Users\Alex\Documents\Git Portable\IS\nn2\Player\obj\Debug\Player.MainForm.resources
+C:\Users\Alex\Documents\Git Portable\IS\nn2\Player\obj\Debug\Player.Properties.Resources.resources
+C:\Users\Alex\Documents\Git Portable\IS\nn2\Player\obj\Debug\Player.URLForm.resources
+C:\Users\Alex\Documents\Git Portable\IS\nn2\Player\obj\Debug\Player.csproj.GenerateResource.cache
+C:\Users\Alex\Documents\Git Portable\IS\nn2\Player\obj\Debug\Player.csproj.CoreCompileInputs.cache
+C:\Users\Alex\Documents\Git Portable\IS\nn2\Player\obj\Debug\Player.csproj.CopyComplete
+C:\Users\Alex\Documents\Git Portable\IS\nn2\Player\obj\Debug\Player.exe
+C:\Users\Alex\Documents\Git Portable\IS\nn2\Player\obj\Debug\Player.pdb
+C:\flash\PortableGit\IS\nn2\Player\bin\Debug\Player.exe
+C:\flash\PortableGit\IS\nn2\Player\bin\Debug\Player.pdb
+C:\flash\PortableGit\IS\nn2\Player\obj\Debug\Player.csprojResolveAssemblyReference.cache
+C:\flash\PortableGit\IS\nn2\Player\obj\Debug\Player.MainForm.resources
+C:\flash\PortableGit\IS\nn2\Player\obj\Debug\Player.Properties.Resources.resources
+C:\flash\PortableGit\IS\nn2\Player\obj\Debug\Player.URLForm.resources
+C:\flash\PortableGit\IS\nn2\Player\obj\Debug\Player.csproj.GenerateResource.Cache
+C:\flash\PortableGit\IS\nn2\Player\obj\Debug\Player.csproj.CoreCompileInputs.cache
+C:\flash\PortableGit\IS\nn2\Player\obj\Debug\Player.exe
+C:\flash\PortableGit\IS\nn2\Player\obj\Debug\Player.pdb
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\bin\Debug\Player.exe
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\bin\Debug\Player.pdb
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Debug\Player.csprojAssemblyReference.cache
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Debug\Player.MainForm.resources
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Debug\Player.Properties.Resources.resources
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Debug\Player.URLForm.resources
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Debug\Player.csproj.GenerateResource.cache
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Debug\Player.csproj.CoreCompileInputs.cache
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Debug\Player.csproj.CopyComplete
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Debug\Player.exe
+C:\Users\arudnev\OneDrive - Южный Федеральный Университет\Документы\GitPortable\IS\nn2\Player\obj\Debug\Player.pdb
+C:\flash\PortableGit\IS\nn2\Player\bin\Debug\AForge.Controls.dll
+C:\flash\PortableGit\IS\nn2\Player\bin\Debug\AForge.dll
+C:\flash\PortableGit\IS\nn2\Player\bin\Debug\AForge.Genetic.dll
+C:\flash\PortableGit\IS\nn2\Player\bin\Debug\AForge.Imaging.dll
+C:\flash\PortableGit\IS\nn2\Player\bin\Debug\AForge.MachineLearning.dll
+C:\flash\PortableGit\IS\nn2\Player\bin\Debug\AForge.Math.dll
+C:\flash\PortableGit\IS\nn2\Player\bin\Debug\AForge.Neuro.dll
+C:\flash\PortableGit\IS\nn2\Player\bin\Debug\AForge.Video.DirectShow.dll
+C:\flash\PortableGit\IS\nn2\Player\bin\Debug\AForge.Video.dll
