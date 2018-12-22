@@ -247,12 +247,12 @@ namespace Player
         int cnt_epochs;
         int total_cnt_epochs;
         int cnt_blocks_one_line = 2;
-        int count_output = 2;
+        int count_output = 5;
         int cnt_added = 0;
 
 
         ActivationNetwork network;
-        BackPropagationLearning teacher;
+        PerceptronLearning teacher;
 
         //AForge.Neuro.ActivationNetwork network;
         //PerceptronLearning teacher;
@@ -268,13 +268,13 @@ namespace Player
 
             // create teacher
             //teacher = new BackPropagationLearning(network);
+            
+            network = new ActivationNetwork(new LinearFunction(),
+                cnt_input, new[] { count_output });
 
-            network = new ActivationNetwork(new BipolarSigmoidFunction(-0.1),
-                cnt_input, new[] { cnt_input * 2, cnt_input / 2, count_output });
-
-            teacher = new BackPropagationLearning(network)
+            teacher = new PerceptronLearning(network);
             {
-                LearningRate = 0.1,
+                //LearningRate = 1,
                 //Momentum = 0.5
             };
         }
@@ -436,15 +436,17 @@ namespace Player
             labelCurrError.Update();
         }
 
-        public void PutTotalInfo(int cnt_it, double error)
+        public void PutTotalInfo(int cnt_it, double error, double accuracy)
         {
             labelCurrCountIterations.Text = cnt_it.ToString();
             labelCurrError.Text = error.ToString();
             labelTotalCountEpochs.Text = total_cnt_epochs.ToString();
+            labelAccuracy.Text = accuracy.ToString();
 
             labelCurrCountIterations.Update();
             labelCurrError.Update();
             labelTotalCountEpochs.Update();
+            labelAccuracy.Update();
         }
 
         public void Train()
@@ -473,8 +475,41 @@ namespace Player
 
                 ++cnt_it;
             }
+            double accuracy = CheckAccuracy();
             total_cnt_epochs += (cnt_it - 1);
-            PutTotalInfo(cnt_it-1, error);
+            PutTotalInfo(cnt_it-1, error, accuracy);
+        }
+
+        private int IndexOfMax(double[] l)
+        {
+            double max = l[0];
+            int indmax = 0;
+
+            for (int i = 0; i < l.Length; ++i)
+            {
+                if (l[i] > max)
+                {
+                    max = l[i];
+                    indmax = i;
+                }
+            }
+            return indmax;
+        }
+
+        private double CheckAccuracy()
+        {
+            int cnt_right_predicted = 0;
+            for (int i = 0; i < input.Count; ++i)
+            {
+                var p = network.Compute(input[i].ToArray());
+                int pred = IndexOfMax(p);
+                if (Math.Abs(output[i][pred] - 1) < 0.001)
+                {
+                    ++cnt_right_predicted;
+                }
+            }
+
+            return (double)cnt_right_predicted / input.Count;
         }
            
         private void buttonTrainNetwork_Click(object sender, EventArgs e)
