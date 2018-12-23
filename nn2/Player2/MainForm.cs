@@ -197,7 +197,7 @@ namespace Player
             {
                 Crop filter = new Crop(new Rectangle(50, 300, 400, 400));
                 Bitmap newImage = filter.Apply(image);
-                ResizeBilinear filter1 = new ResizeBilinear(300, 300);
+                ResizeBilinear filter1 = new ResizeBilinear(200, 200);
                 newImage = filter1.Apply(newImage);
                 GrayscaleBT709 filter2 = new GrayscaleBT709();
                 Bitmap grayImage = filter2.Apply(newImage);
@@ -246,13 +246,14 @@ namespace Player
         List<double> input_camera;
         int cnt_epochs;
         int total_cnt_epochs;
-        int cnt_blocks_one_line = 2;
-        int count_output = 5;
+        int cnt_blocks_one_line = 28;
+        int count_output = 10;
         int cnt_added = 0;
+        int count_saved = 0;
 
 
         ActivationNetwork network;
-        PerceptronLearning teacher;
+        BackPropagationLearning teacher;
 
         //AForge.Neuro.ActivationNetwork network;
         //PerceptronLearning teacher;
@@ -262,29 +263,50 @@ namespace Player
         public void InitNet()
         {
             // create perceptron
-            int cnt_input = 56 + cnt_blocks_one_line * cnt_blocks_one_line;
+            int cnt_input = cnt_blocks_one_line * cnt_blocks_one_line;
             //network = new AForge.Neuro.ActivationNetwork(new AForge.Neuro.SigmoidFunction(-0.1), 
             //cnt_input, cnt_input*2, cnt_input * 2, count_output);         
 
             // create teacher
             //teacher = new BackPropagationLearning(network);
             
-            network = new ActivationNetwork(new LinearFunction(),
-                cnt_input, new[] { count_output });
+            network = new ActivationNetwork(new SigmoidFunction(0.1),
+                cnt_input, new[] { cnt_input*2, cnt_input/2, count_output });
+            network.Randomize();
 
-            teacher = new PerceptronLearning(network);
+            teacher = new BackPropagationLearning(network);
             {
-                //LearningRate = 1,
+                //LearningRate = 0.1,
                 //Momentum = 0.5
             };
+            teacher.LearningRate = 0.1;
+        }
+
+        private List<double> ToMultiClass(int res)
+        {
+            List<double> multiclass = new List<double>();
+            for (int i = 0; i < count_output; ++i)
+            {
+                if (i == res)
+                {
+                    multiclass.Add(1);
+                }
+                else
+                {
+                    multiclass.Add(0);
+                }
+            }
+            return multiclass;
         }
 
         public void fill_data(string[] ss)//, int num_str)
         {
             //output[num_str] = new double[count_output];
-            output.Add(new List<double>(count_output));
-            int res = Int32.Parse(ss[0]);
             
+            int res = Int32.Parse(ss[0]);
+            output.Add(ToMultiClass(res));
+
+            /*
             for (int i = 0; i < count_output; ++i)
             {
                 if (i == res)
@@ -295,12 +317,14 @@ namespace Player
                 {
                     output[output.Count - 1].Add(0);
                 }
-            }
+            }*/
 
 
             //input[num_str] = new double[56 + cnt_blocks_one_line*cnt_blocks_one_line];
-            input.Add(new List<double>(56 + cnt_blocks_one_line * cnt_blocks_one_line));
 
+            input.Add(new List<double>(cnt_blocks_one_line * cnt_blocks_one_line));
+
+            /*
             for (int y = 0; y < 28; ++y)
             {
                 double sum = 0;
@@ -321,6 +345,7 @@ namespace Player
                 }
                 input[input.Count - 1].Add((sum / 28.0));// * 2 - 1);
             }
+            */
 
             int length = 28 / cnt_blocks_one_line;
 
@@ -345,6 +370,7 @@ namespace Player
             }
         }
 
+        /*
         public void ReadData(string fname)
         {
             //input = new double[count_train_samples][];
@@ -373,15 +399,39 @@ namespace Player
                 }
             }
         }        
+        */
 
-        public void GetCameraInput()
+        public void ReadData()
         {
-            input_camera = new List<double>(56 + cnt_blocks_one_line*cnt_blocks_one_line);
+            //input = new double[count_train_samples][];
+            //output = new double[count_train_samples][];
+            input = new List<List<double>>();
+            output = new List<List<double>>();
 
-            Bitmap im = (Bitmap)pictureBox1.Image;
+            int cnt_read = 1;
+            cnt_added = 0;
+
+            for (int numpic = 1; numpic <= count_train_samples; ++numpic)
+            {
+                Bitmap image = new Bitmap("..\\..\\Pictures\\pic" + numpic.ToString() + ".png");
+                List<double> sensors = GetSensorsFromBitmap(image);
+                int res = (numpic - 1) / 10;
+
+                input.Add(sensors);
+                output.Add(ToMultiClass(res));
+            }
+            
+        }
+
+        public List<double> GetSensorsFromBitmap(Bitmap image)
+        {
+            List<double> sensors = new List<double>(cnt_blocks_one_line*cnt_blocks_one_line);
+
+            //Bitmap im = (Bitmap)pictureBox1.Image;
             ResizeBilinear filter = new ResizeBilinear(28, 28);
-            im = filter.Apply(im);
+            Bitmap im = filter.Apply(image);
 
+            /*
             for (int y = 0; y < 28; ++y)
             {
                 double sum = 0;
@@ -403,6 +453,7 @@ namespace Player
                 }
                 input_camera.Add((sum / 28.0));// * 2 - 1);
             }
+            */
 
             int length = 28 / cnt_blocks_one_line;
 
@@ -422,9 +473,11 @@ namespace Player
                         }
                     }
                     int ind = y1 * cnt_blocks_one_line + x1;
-                    input_camera.Add((sum / length / length));// * 2 - 1);
+                    sensors.Add((sum / length / length));// * 2 - 1);
                 }
             }
+
+            return sensors;
         }        
 
         public void PutCurrInfo(int cnt_it, double error)
@@ -466,7 +519,7 @@ namespace Player
 
                 // check error value to see if we need to stop
                 // ...
-                b = ((error > 0.1) && (cnt_it < cnt_epochs));
+                b = ((error > 0.01) && (cnt_it < cnt_epochs));
                               
                 if ((cnt_it % 1) == 0)
                 {
@@ -523,13 +576,13 @@ namespace Player
         {
             count_train_samples = Int32.Parse(textBoxCountSamples.Text);
             
-            ReadData("train.csv");
+            ReadData();
             labelCntSamples.Text = cnt_added.ToString();
         }
 
         private void buttonPredict_Click(object sender, EventArgs e)
         {
-            GetCameraInput();
+            input_camera = GetSensorsFromBitmap((Bitmap)pictureBox1.Image);
             var p = network.Compute(input_camera.ToArray());
             labelPredictedNums.Text = "";
 
@@ -564,9 +617,25 @@ namespace Player
                 case Keys.P:
                     buttonPredict_Click(this, new EventArgs());
                     break;
+                case Keys.S:
+                    buttonSaveForTrain_Click(this, new EventArgs());
+                    break;
                 default:
                     break;
             }
+        }
+
+        private void buttonSaveForTrain_Click(object sender, EventArgs e)
+        {
+            List<double> sensors = GetSensorsFromBitmap((Bitmap)pictureBox1.Image);
+            
+            int numpic = (int)numericUpDownNumPic.Value;
+
+            ((Bitmap)pictureBox1.Image).Save("..\\..\\Pics\\pic" + numpic.ToString() + ".png");
+
+            ++count_saved;
+            labelCountSavedPictures.Text = count_saved.ToString();
+            numericUpDownNumPic.Value += 1;
         }
     }
 }
