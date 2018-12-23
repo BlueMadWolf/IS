@@ -23,18 +23,24 @@ using Accord.Video.DirectShow;
 using Accord.Imaging;
 using Accord.Imaging.Filters;
 
-
 using Accord;
 using Accord.MachineLearning;
 using Accord.Neuro;
 using Accord.Neuro.Learning;
 using Accord.Neuro.Networks;
 
+using Microsoft.Speech.Recognition;
+using Microsoft.Speech.Synthesis;
+using System.Globalization;
+
 namespace Player
 {
     public partial class MainForm : Form
     {
-        private Stopwatch stopWatch = null;       
+        private Stopwatch stopWatch = null;
+
+        static SpeechSynthesizer ss = new SpeechSynthesizer();
+        static SpeechRecognitionEngine sre;
 
         // Class constructor
         public MainForm( )
@@ -46,7 +52,38 @@ namespace Player
             labelCurrError.Invalidate();
             labelTotalCountEpochs.Invalidate();
 
+            System.Globalization.CultureInfo ci;
+            ci = new System.Globalization.CultureInfo("ru-ru");
+            sre = new SpeechRecognitionEngine(ci);
+
+            ss.SetOutputToDefaultAudioDevice();
+            sre.SetInputToDefaultAudioDevice();
+            sre.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(sre_SpeechRecognized);
+
+            Choices PredictCommands = new Choices();
+            PredictCommands.Add("угадай");
+            //PredictCommands.Add("speech off");
+            //PredictCommands.Add("klatu barada nikto");
+
+            GrammarBuilder gb_Predict = new GrammarBuilder();
+            gb_Predict.Append(PredictCommands);
+
+            Grammar g_Predict = new Grammar(gb_Predict);
+            sre.LoadGrammarAsync(g_Predict);
+
+            sre.RecognizeAsync(RecognizeMode.Multiple);
             //InitNet();
+        }
+
+        private void sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+        {
+            string txt = e.Result.Text;
+            labelRecognized.Text = "Recognized: " + txt;
+
+            if (txt.IndexOf("угадай") >= 0)
+            {
+                buttonPredict_Click(this, new EventArgs());
+            }
         }
 
         private void MainForm_FormClosing( object sender, FormClosingEventArgs e )
@@ -58,6 +95,7 @@ namespace Player
         private void exitToolStripMenuItem_Click( object sender, EventArgs e )
         {
             this.Close( );
+            
         }
 
         // Open local video capture device
@@ -253,7 +291,7 @@ namespace Player
 
 
         ActivationNetwork network;
-        BackPropagationLearning teacher;
+        ResilientBackpropagationLearning teacher;
 
         //AForge.Neuro.ActivationNetwork network;
         //PerceptronLearning teacher;
@@ -270,16 +308,15 @@ namespace Player
             // create teacher
             //teacher = new BackPropagationLearning(network);
             
-            network = new ActivationNetwork(new SigmoidFunction(0.1),
+            
+            network = new ActivationNetwork(new BipolarSigmoidFunction(),
                 cnt_input, new[] { cnt_input*2, cnt_input/2, count_output });
-            network.Randomize();
+            new NguyenWidrow(network).Randomize();
 
-            teacher = new BackPropagationLearning(network);
-            {
-                //LearningRate = 0.1,
-                //Momentum = 0.5
-            };
-            teacher.LearningRate = 0.1;
+            
+            teacher = new ResilientBackpropagationLearning(network);
+            
+            //teacher.LearningRate = 0.1;
         }
 
         private List<double> ToMultiClass(int res)
@@ -519,7 +556,7 @@ namespace Player
 
                 // check error value to see if we need to stop
                 // ...
-                b = ((error > 0.01) && (cnt_it < cnt_epochs));
+                b = ((error > 0.1) && (cnt_it < cnt_epochs));
                               
                 if ((cnt_it % 1) == 0)
                 {
@@ -586,6 +623,7 @@ namespace Player
             var p = network.Compute(input_camera.ToArray());
             labelPredictedNums.Text = "";
 
+            UpdatePredicted(new List<double> (p));
             for (int i = 0; i < p.Length; ++i)
             {
                 //if (p[i] > 0)
@@ -594,6 +632,9 @@ namespace Player
                         ": " + String.Format("{0:0.00}", p[i]) + " | ";
                 }
             }
+
+            int res = IndexOfMax(p);
+            ss.SpeakAsync(res.ToString());
         }
 
         private void buttonInitNet_Click(object sender, EventArgs e)
@@ -636,6 +677,43 @@ namespace Player
             ++count_saved;
             labelCountSavedPictures.Text = count_saved.ToString();
             numericUpDownNumPic.Value += 1;
+        }
+
+        private void UpdateProgressBar(string name, int value)
+        {
+            if ((value <= 100) && (value >= 0))
+            {
+                ProgressBar pb = Controls.Find(name, true)[0] as ProgressBar;
+                pb.Value = value;
+            }
+        }
+
+        private void UpdatePredicted(List<double> pred)
+        {
+            bool use_bipolar = true;
+
+            if (use_bipolar)
+            {
+                pred = pred.ConvertAll(x => ((x + 1) / 2));
+            }
+            List<int> p = pred.ConvertAll(x => (int)(x * 100));
+
+            for (int i = 0; i < pred.Count; ++i)
+            {
+                UpdateProgressBar("progressBarPred" + i.ToString(), p[i]);
+            }
+        }
+
+        private void buttonSaveNN_Click(object sender, EventArgs e)
+        {
+            network.Save("nn.txt");
+        }
+
+        private void buttonLoadNN_Click(object sender, EventArgs e)
+        {
+            network = Network.Load("nn.txt") as ActivationNetwork;
+            //var r = sre.Recognize();
+            //labelRecognized.Text = r.Text;
         }
     }
 }

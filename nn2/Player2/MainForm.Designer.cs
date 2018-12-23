@@ -69,6 +69,30 @@
             this.numericUpDownNumPic = new System.Windows.Forms.NumericUpDown();
             this.buttonSaveForTrain = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.progressBarPred9 = new System.Windows.Forms.ProgressBar();
+            this.labelPred9 = new System.Windows.Forms.Label();
+            this.progressBarPred8 = new System.Windows.Forms.ProgressBar();
+            this.labelPred8 = new System.Windows.Forms.Label();
+            this.progressBarPred7 = new System.Windows.Forms.ProgressBar();
+            this.labelPred7 = new System.Windows.Forms.Label();
+            this.progressBarPred6 = new System.Windows.Forms.ProgressBar();
+            this.labelPred6 = new System.Windows.Forms.Label();
+            this.progressBarPred5 = new System.Windows.Forms.ProgressBar();
+            this.labelPred5 = new System.Windows.Forms.Label();
+            this.progressBarPred4 = new System.Windows.Forms.ProgressBar();
+            this.labelPred4 = new System.Windows.Forms.Label();
+            this.progressBarPred3 = new System.Windows.Forms.ProgressBar();
+            this.labelPred3 = new System.Windows.Forms.Label();
+            this.progressBarPred2 = new System.Windows.Forms.ProgressBar();
+            this.labelPred2 = new System.Windows.Forms.Label();
+            this.progressBarPred1 = new System.Windows.Forms.ProgressBar();
+            this.labelPred1 = new System.Windows.Forms.Label();
+            this.progressBarPred0 = new System.Windows.Forms.ProgressBar();
+            this.labelPred0 = new System.Windows.Forms.Label();
+            this.buttonSaveNN = new System.Windows.Forms.Button();
+            this.buttonLoadNN = new System.Windows.Forms.Button();
+            this.labelRecognized = new System.Windows.Forms.Label();
             this.mainMenuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.mainPanel.SuspendLayout();
@@ -80,6 +104,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumPic)).BeginInit();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenuStrip
@@ -175,10 +200,11 @@
             // mainPanel
             // 
             this.mainPanel.Controls.Add(this.videoSourcePlayer);
-            this.mainPanel.Location = new System.Drawing.Point(0, 24);
+            this.mainPanel.Location = new System.Drawing.Point(559, 272);
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(422, 308);
             this.mainPanel.TabIndex = 2;
+            this.mainPanel.Visible = false;
             // 
             // videoSourcePlayer
             // 
@@ -444,11 +470,234 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "NumPic";
             // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.progressBarPred9);
+            this.groupBox6.Controls.Add(this.labelPred9);
+            this.groupBox6.Controls.Add(this.progressBarPred8);
+            this.groupBox6.Controls.Add(this.labelPred8);
+            this.groupBox6.Controls.Add(this.progressBarPred7);
+            this.groupBox6.Controls.Add(this.labelPred7);
+            this.groupBox6.Controls.Add(this.progressBarPred6);
+            this.groupBox6.Controls.Add(this.labelPred6);
+            this.groupBox6.Controls.Add(this.progressBarPred5);
+            this.groupBox6.Controls.Add(this.labelPred5);
+            this.groupBox6.Controls.Add(this.progressBarPred4);
+            this.groupBox6.Controls.Add(this.labelPred4);
+            this.groupBox6.Controls.Add(this.progressBarPred3);
+            this.groupBox6.Controls.Add(this.labelPred3);
+            this.groupBox6.Controls.Add(this.progressBarPred2);
+            this.groupBox6.Controls.Add(this.labelPred2);
+            this.groupBox6.Controls.Add(this.progressBarPred1);
+            this.groupBox6.Controls.Add(this.labelPred1);
+            this.groupBox6.Controls.Add(this.progressBarPred0);
+            this.groupBox6.Controls.Add(this.labelPred0);
+            this.groupBox6.Location = new System.Drawing.Point(24, 31);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(380, 287);
+            this.groupBox6.TabIndex = 15;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Predicted";
+            // 
+            // progressBarPred9
+            // 
+            this.progressBarPred9.Location = new System.Drawing.Point(27, 254);
+            this.progressBarPred9.Name = "progressBarPred9";
+            this.progressBarPred9.Size = new System.Drawing.Size(334, 20);
+            this.progressBarPred9.TabIndex = 19;
+            // 
+            // labelPred9
+            // 
+            this.labelPred9.AutoSize = true;
+            this.labelPred9.Location = new System.Drawing.Point(7, 254);
+            this.labelPred9.Name = "labelPred9";
+            this.labelPred9.Size = new System.Drawing.Size(14, 15);
+            this.labelPred9.TabIndex = 18;
+            this.labelPred9.Text = "9";
+            // 
+            // progressBarPred8
+            // 
+            this.progressBarPred8.Location = new System.Drawing.Point(27, 228);
+            this.progressBarPred8.Name = "progressBarPred8";
+            this.progressBarPred8.Size = new System.Drawing.Size(334, 20);
+            this.progressBarPred8.TabIndex = 17;
+            // 
+            // labelPred8
+            // 
+            this.labelPred8.AutoSize = true;
+            this.labelPred8.Location = new System.Drawing.Point(7, 228);
+            this.labelPred8.Name = "labelPred8";
+            this.labelPred8.Size = new System.Drawing.Size(14, 15);
+            this.labelPred8.TabIndex = 16;
+            this.labelPred8.Text = "8";
+            // 
+            // progressBarPred7
+            // 
+            this.progressBarPred7.Location = new System.Drawing.Point(27, 202);
+            this.progressBarPred7.Name = "progressBarPred7";
+            this.progressBarPred7.Size = new System.Drawing.Size(334, 20);
+            this.progressBarPred7.TabIndex = 15;
+            // 
+            // labelPred7
+            // 
+            this.labelPred7.AutoSize = true;
+            this.labelPred7.Location = new System.Drawing.Point(7, 202);
+            this.labelPred7.Name = "labelPred7";
+            this.labelPred7.Size = new System.Drawing.Size(14, 15);
+            this.labelPred7.TabIndex = 14;
+            this.labelPred7.Text = "7";
+            // 
+            // progressBarPred6
+            // 
+            this.progressBarPred6.Location = new System.Drawing.Point(27, 176);
+            this.progressBarPred6.Name = "progressBarPred6";
+            this.progressBarPred6.Size = new System.Drawing.Size(334, 20);
+            this.progressBarPred6.TabIndex = 13;
+            // 
+            // labelPred6
+            // 
+            this.labelPred6.AutoSize = true;
+            this.labelPred6.Location = new System.Drawing.Point(7, 176);
+            this.labelPred6.Name = "labelPred6";
+            this.labelPred6.Size = new System.Drawing.Size(14, 15);
+            this.labelPred6.TabIndex = 12;
+            this.labelPred6.Text = "6";
+            // 
+            // progressBarPred5
+            // 
+            this.progressBarPred5.Location = new System.Drawing.Point(27, 149);
+            this.progressBarPred5.Name = "progressBarPred5";
+            this.progressBarPred5.Size = new System.Drawing.Size(334, 20);
+            this.progressBarPred5.TabIndex = 11;
+            // 
+            // labelPred5
+            // 
+            this.labelPred5.AutoSize = true;
+            this.labelPred5.Location = new System.Drawing.Point(7, 149);
+            this.labelPred5.Name = "labelPred5";
+            this.labelPred5.Size = new System.Drawing.Size(14, 15);
+            this.labelPred5.TabIndex = 10;
+            this.labelPred5.Text = "5";
+            // 
+            // progressBarPred4
+            // 
+            this.progressBarPred4.Location = new System.Drawing.Point(27, 123);
+            this.progressBarPred4.Name = "progressBarPred4";
+            this.progressBarPred4.Size = new System.Drawing.Size(334, 20);
+            this.progressBarPred4.TabIndex = 9;
+            // 
+            // labelPred4
+            // 
+            this.labelPred4.AutoSize = true;
+            this.labelPred4.Location = new System.Drawing.Point(7, 123);
+            this.labelPred4.Name = "labelPred4";
+            this.labelPred4.Size = new System.Drawing.Size(14, 15);
+            this.labelPred4.TabIndex = 8;
+            this.labelPred4.Text = "4";
+            // 
+            // progressBarPred3
+            // 
+            this.progressBarPred3.Location = new System.Drawing.Point(27, 97);
+            this.progressBarPred3.Name = "progressBarPred3";
+            this.progressBarPred3.Size = new System.Drawing.Size(334, 20);
+            this.progressBarPred3.TabIndex = 7;
+            // 
+            // labelPred3
+            // 
+            this.labelPred3.AutoSize = true;
+            this.labelPred3.Location = new System.Drawing.Point(7, 97);
+            this.labelPred3.Name = "labelPred3";
+            this.labelPred3.Size = new System.Drawing.Size(14, 15);
+            this.labelPred3.TabIndex = 6;
+            this.labelPred3.Text = "3";
+            // 
+            // progressBarPred2
+            // 
+            this.progressBarPred2.Location = new System.Drawing.Point(27, 71);
+            this.progressBarPred2.Name = "progressBarPred2";
+            this.progressBarPred2.Size = new System.Drawing.Size(334, 20);
+            this.progressBarPred2.TabIndex = 5;
+            // 
+            // labelPred2
+            // 
+            this.labelPred2.AutoSize = true;
+            this.labelPred2.Location = new System.Drawing.Point(7, 71);
+            this.labelPred2.Name = "labelPred2";
+            this.labelPred2.Size = new System.Drawing.Size(14, 15);
+            this.labelPred2.TabIndex = 4;
+            this.labelPred2.Text = "2";
+            // 
+            // progressBarPred1
+            // 
+            this.progressBarPred1.Location = new System.Drawing.Point(27, 45);
+            this.progressBarPred1.Name = "progressBarPred1";
+            this.progressBarPred1.Size = new System.Drawing.Size(334, 20);
+            this.progressBarPred1.TabIndex = 3;
+            // 
+            // labelPred1
+            // 
+            this.labelPred1.AutoSize = true;
+            this.labelPred1.Location = new System.Drawing.Point(7, 45);
+            this.labelPred1.Name = "labelPred1";
+            this.labelPred1.Size = new System.Drawing.Size(14, 15);
+            this.labelPred1.TabIndex = 2;
+            this.labelPred1.Text = "1";
+            // 
+            // progressBarPred0
+            // 
+            this.progressBarPred0.Location = new System.Drawing.Point(27, 19);
+            this.progressBarPred0.Name = "progressBarPred0";
+            this.progressBarPred0.Size = new System.Drawing.Size(334, 20);
+            this.progressBarPred0.Step = 1;
+            this.progressBarPred0.TabIndex = 1;
+            // 
+            // labelPred0
+            // 
+            this.labelPred0.AutoSize = true;
+            this.labelPred0.Location = new System.Drawing.Point(7, 19);
+            this.labelPred0.Name = "labelPred0";
+            this.labelPred0.Size = new System.Drawing.Size(14, 15);
+            this.labelPred0.TabIndex = 0;
+            this.labelPred0.Text = "0";
+            // 
+            // buttonSaveNN
+            // 
+            this.buttonSaveNN.Location = new System.Drawing.Point(681, 154);
+            this.buttonSaveNN.Name = "buttonSaveNN";
+            this.buttonSaveNN.Size = new System.Drawing.Size(100, 32);
+            this.buttonSaveNN.TabIndex = 16;
+            this.buttonSaveNN.Text = "SaveNN";
+            this.buttonSaveNN.UseVisualStyleBackColor = true;
+            this.buttonSaveNN.Click += new System.EventHandler(this.buttonSaveNN_Click);
+            // 
+            // buttonLoadNN
+            // 
+            this.buttonLoadNN.Location = new System.Drawing.Point(681, 192);
+            this.buttonLoadNN.Name = "buttonLoadNN";
+            this.buttonLoadNN.Size = new System.Drawing.Size(100, 32);
+            this.buttonLoadNN.TabIndex = 17;
+            this.buttonLoadNN.Text = "LoadNN";
+            this.buttonLoadNN.UseVisualStyleBackColor = true;
+            this.buttonLoadNN.Click += new System.EventHandler(this.buttonLoadNN_Click);
+            // 
+            // labelRecognized
+            // 
+            this.labelRecognized.AutoSize = true;
+            this.labelRecognized.Location = new System.Drawing.Point(410, 233);
+            this.labelRecognized.Name = "labelRecognized";
+            this.labelRecognized.Size = new System.Drawing.Size(73, 15);
+            this.labelRecognized.TabIndex = 18;
+            this.labelRecognized.Text = "Recognized";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(868, 490);
+            this.Controls.Add(this.labelRecognized);
+            this.Controls.Add(this.buttonLoadNN);
+            this.Controls.Add(this.buttonSaveNN);
+            this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.buttonInitNet);
@@ -489,6 +738,8 @@
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumPic)).EndInit();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -536,6 +787,30 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericUpDownNumPic;
         private System.Windows.Forms.Label labelCountSavedPictures;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.ProgressBar progressBarPred0;
+        private System.Windows.Forms.Label labelPred0;
+        private System.Windows.Forms.ProgressBar progressBarPred9;
+        private System.Windows.Forms.Label labelPred9;
+        private System.Windows.Forms.ProgressBar progressBarPred8;
+        private System.Windows.Forms.Label labelPred8;
+        private System.Windows.Forms.ProgressBar progressBarPred7;
+        private System.Windows.Forms.Label labelPred7;
+        private System.Windows.Forms.ProgressBar progressBarPred6;
+        private System.Windows.Forms.Label labelPred6;
+        private System.Windows.Forms.ProgressBar progressBarPred5;
+        private System.Windows.Forms.Label labelPred5;
+        private System.Windows.Forms.ProgressBar progressBarPred4;
+        private System.Windows.Forms.Label labelPred4;
+        private System.Windows.Forms.ProgressBar progressBarPred3;
+        private System.Windows.Forms.Label labelPred3;
+        private System.Windows.Forms.ProgressBar progressBarPred2;
+        private System.Windows.Forms.Label labelPred2;
+        private System.Windows.Forms.ProgressBar progressBarPred1;
+        private System.Windows.Forms.Label labelPred1;
+        private System.Windows.Forms.Button buttonSaveNN;
+        private System.Windows.Forms.Button buttonLoadNN;
+        private System.Windows.Forms.Label labelRecognized;
     }
 }
 
