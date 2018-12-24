@@ -60,11 +60,17 @@
             this.labelLast100 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.textBoxCountTrainPictures = new System.Windows.Forms.TextBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBoxItIs.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -162,7 +168,7 @@
             this.label2.Location = new System.Drawing.Point(4, 53);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(45, 13);
+            this.label2.Size = new System.Drawing.Size(52, 15);
             this.label2.TabIndex = 13;
             this.label2.Text = "Triangle";
             // 
@@ -172,7 +178,7 @@
             this.label5.Location = new System.Drawing.Point(4, 100);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(22, 13);
+            this.label5.Size = new System.Drawing.Size(25, 15);
             this.label5.TabIndex = 12;
             this.label5.Text = "Sin";
             // 
@@ -182,7 +188,7 @@
             this.label6.Location = new System.Drawing.Point(4, 76);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(33, 13);
+            this.label6.Size = new System.Drawing.Size(38, 15);
             this.label6.TabIndex = 11;
             this.label6.Text = "Circle";
             // 
@@ -192,7 +198,7 @@
             this.label7.Location = new System.Drawing.Point(4, 29);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(56, 13);
+            this.label7.Size = new System.Drawing.Size(63, 15);
             this.label7.TabIndex = 10;
             this.label7.Text = "Rectangle";
             // 
@@ -202,7 +208,7 @@
             this.labelTriangle.Location = new System.Drawing.Point(144, 53);
             this.labelTriangle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelTriangle.Name = "labelTriangle";
-            this.labelTriangle.Size = new System.Drawing.Size(45, 13);
+            this.labelTriangle.Size = new System.Drawing.Size(52, 15);
             this.labelTriangle.TabIndex = 9;
             this.labelTriangle.Text = "Triangle";
             // 
@@ -221,7 +227,7 @@
             this.labelCircle.Location = new System.Drawing.Point(144, 76);
             this.labelCircle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelCircle.Name = "labelCircle";
-            this.labelCircle.Size = new System.Drawing.Size(33, 13);
+            this.labelCircle.Size = new System.Drawing.Size(38, 15);
             this.labelCircle.TabIndex = 3;
             this.labelCircle.Text = "Circle";
             // 
@@ -240,7 +246,7 @@
             this.labelSinHor.Location = new System.Drawing.Point(144, 100);
             this.labelSinHor.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelSinHor.Name = "labelSinHor";
-            this.labelSinHor.Size = new System.Drawing.Size(22, 13);
+            this.labelSinHor.Size = new System.Drawing.Size(25, 15);
             this.labelSinHor.TabIndex = 7;
             this.labelSinHor.Text = "Sin";
             // 
@@ -250,7 +256,7 @@
             this.labelRectangle.Location = new System.Drawing.Point(144, 29);
             this.labelRectangle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelRectangle.Name = "labelRectangle";
-            this.labelRectangle.Size = new System.Drawing.Size(56, 13);
+            this.labelRectangle.Size = new System.Drawing.Size(63, 15);
             this.labelRectangle.TabIndex = 1;
             this.labelRectangle.Text = "Rectangle";
             // 
@@ -274,7 +280,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(618, 79);
+            this.button1.Location = new System.Drawing.Point(26, 79);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(123, 29);
             this.button1.TabIndex = 8;
@@ -284,7 +290,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(605, 122);
+            this.button2.Location = new System.Drawing.Point(423, 176);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(123, 31);
             this.button2.TabIndex = 9;
@@ -294,7 +300,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(605, 55);
+            this.progressBar1.Location = new System.Drawing.Point(26, 113);
             this.progressBar1.Margin = new System.Windows.Forms.Padding(2);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(123, 19);
@@ -303,19 +309,19 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(606, 174);
+            this.textBox1.Location = new System.Drawing.Point(13, 35);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(123, 20);
+            this.textBox1.Size = new System.Drawing.Size(48, 20);
             this.textBox1.TabIndex = 11;
             this.textBox1.Text = "0,008";
             // 
             // labelCountOfTrainPictures
             // 
             this.labelCountOfTrainPictures.AutoSize = true;
-            this.labelCountOfTrainPictures.Location = new System.Drawing.Point(45, 15);
+            this.labelCountOfTrainPictures.Location = new System.Drawing.Point(84, 15);
             this.labelCountOfTrainPictures.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelCountOfTrainPictures.Name = "labelCountOfTrainPictures";
-            this.labelCountOfTrainPictures.Size = new System.Drawing.Size(13, 13);
+            this.labelCountOfTrainPictures.Size = new System.Drawing.Size(14, 15);
             this.labelCountOfTrainPictures.TabIndex = 13;
             this.labelCountOfTrainPictures.Text = "0";
             // 
@@ -346,10 +352,10 @@
             // labelCountOfRightPredictedPictures
             // 
             this.labelCountOfRightPredictedPictures.AutoSize = true;
-            this.labelCountOfRightPredictedPictures.Location = new System.Drawing.Point(45, 15);
+            this.labelCountOfRightPredictedPictures.Location = new System.Drawing.Point(84, 15);
             this.labelCountOfRightPredictedPictures.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelCountOfRightPredictedPictures.Name = "labelCountOfRightPredictedPictures";
-            this.labelCountOfRightPredictedPictures.Size = new System.Drawing.Size(13, 13);
+            this.labelCountOfRightPredictedPictures.Size = new System.Drawing.Size(14, 15);
             this.labelCountOfRightPredictedPictures.TabIndex = 13;
             this.labelCountOfRightPredictedPictures.Text = "0";
             // 
@@ -383,13 +389,13 @@
             this.labelLast100.Location = new System.Drawing.Point(111, 25);
             this.labelLast100.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelLast100.Name = "labelLast100";
-            this.labelLast100.Size = new System.Drawing.Size(13, 13);
+            this.labelLast100.Size = new System.Drawing.Size(14, 15);
             this.labelLast100.TabIndex = 13;
             this.labelLast100.Text = "0";
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(606, 12);
+            this.button4.Location = new System.Drawing.Point(649, 176);
             this.button4.Margin = new System.Windows.Forms.Padding(2);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(79, 34);
@@ -400,27 +406,57 @@
             // 
             // textBoxCountTrainPictures
             // 
-            this.textBoxCountTrainPictures.Location = new System.Drawing.Point(580, 84);
+            this.textBoxCountTrainPictures.Location = new System.Drawing.Point(13, 35);
             this.textBoxCountTrainPictures.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxCountTrainPictures.Name = "textBoxCountTrainPictures";
             this.textBoxCountTrainPictures.Size = new System.Drawing.Size(38, 20);
             this.textBoxCountTrainPictures.TabIndex = 17;
             this.textBoxCountTrainPictures.Text = "120";
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.groupBox6);
+            this.groupBox4.Controls.Add(this.groupBox5);
+            this.groupBox4.Controls.Add(this.button1);
+            this.groupBox4.Controls.Add(this.progressBar1);
+            this.groupBox4.Location = new System.Drawing.Point(579, 31);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(171, 144);
+            this.groupBox4.TabIndex = 18;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Training";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.textBoxCountTrainPictures);
+            this.groupBox5.Location = new System.Drawing.Point(98, 13);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(67, 60);
+            this.groupBox5.TabIndex = 18;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Count pictures";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.textBox1);
+            this.groupBox6.Location = new System.Drawing.Point(10, 13);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(71, 60);
+            this.groupBox6.TabIndex = 19;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Learning rate";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(762, 432);
-            this.Controls.Add(this.textBoxCountTrainPictures);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBoxItIs);
             this.Controls.Add(this.textBoxOutput);
             this.Controls.Add(this.buttonSinHor);
@@ -441,6 +477,11 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -480,6 +521,9 @@
         private System.Windows.Forms.Label labelLast100;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.TextBox textBoxCountTrainPictures;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.GroupBox groupBox5;
     }
 }
 
