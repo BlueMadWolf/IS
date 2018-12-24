@@ -14,3 +14,19 @@ C:\Users\Alex\Documents\Git Portable\IS\tgBot\obj\Debug\tgBot.csproj.CoreCompile
 C:\Users\Alex\Documents\Git Portable\IS\tgBot\obj\Debug\tgBot.csproj.CopyComplete
 C:\Users\Alex\Documents\Git Portable\IS\tgBot\obj\Debug\tgBot.exe
 C:\Users\Alex\Documents\Git Portable\IS\tgBot\obj\Debug\tgBot.pdb
+C:\flash\PortableGit\IS\tgBot\bin\Debug\tgBot.exe.config
+C:\flash\PortableGit\IS\tgBot\bin\Debug\tgBot.exe
+C:\flash\PortableGit\IS\tgBot\bin\Debug\tgBot.pdb
+C:\flash\PortableGit\IS\tgBot\bin\Debug\Newtonsoft.Json.dll
+C:\flash\PortableGit\IS\tgBot\bin\Debug\Telegram.Bot.dll
+C:\flash\PortableGit\IS\tgBot\bin\Debug\AIMLbot.pdb
+C:\flash\PortableGit\IS\tgBot\bin\Debug\Newtonsoft.Json.pdb
+C:\flash\PortableGit\IS\tgBot\bin\Debug\Newtonsoft.Json.xml
+C:\flash\PortableGit\IS\tgBot\bin\Debug\Telegram.Bot.xml
+C:\flash\PortableGit\IS\tgBot\obj\Debug\tgBot.csprojResolveAssemblyReference.cache
+C:\flash\PortableGit\IS\tgBot\obj\Debug\tgBot.Form1.resources
+C:\flash\PortableGit\IS\tgBot\obj\Debug\tgBot.Properties.Resources.resources
+C:\flash\PortableGit\IS\tgBot\obj\Debug\tgBot.csproj.GenerateResource.Cache
+C:\flash\PortableGit\IS\tgBot\obj\Debug\tgBot.csproj.CoreCompileInputs.cache
+C:\flash\PortableGit\IS\tgBot\obj\Debug\tgBot.exe
+C:\flash\PortableGit\IS\tgBot\obj\Debug\tgBot.pdb

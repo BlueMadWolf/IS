@@ -7,15 +7,29 @@
 <!-- Complies with AIML 1.01 Tag Set Specification -->
 <!-- as adopted by the ALICE A.I. Foundation.  -->
 <!-- Annotated Version updated September 2003 -->
+
+<category>
+    <pattern>рок</pattern>
+    <template>Мне нравится AC/DC</template>
+</category>
+
+
+<category>
+    <pattern>металл</pattern>
+    <template>
+        <srai>рок</srai> 
+    </template>
+</category>
+
+
 <category>
 	<pattern>*</pattern>
 	<template>
 		<random>
-			<li>Привет</li>
-			<!--<li>I beg your pardon?</li>
-			<li>Could you explain that in different words?</li>
-			<li>Huh?</li>
-			<li>You aren't making sense to me...</li>-->
+			<li>А?</li>
+            <li>Что вы сказали?</li>
+            <li>Я не понимаю</li>
+            <li>Я в конфузии</li>
 		</random>
 	</template>
 </category>

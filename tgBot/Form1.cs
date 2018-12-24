@@ -89,8 +89,7 @@ namespace tgBot
                 }*/
                 AIMLbot.Request r = new AIMLbot.Request(e.Message.Text, me, aiml);
                 AIMLbot.Result res = aiml.Chat(r);
-                Bot.SendTextMessageAsync(e.Message.Chat.Id, res.Output);
-
+                Bot.SendTextMessageAsync(e.Message.Chat.Id, res.Output);         
                 
 
                 //label1.Text += "Received: " + e.Message.Text;

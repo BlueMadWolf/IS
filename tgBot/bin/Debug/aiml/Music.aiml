@@ -7,17 +7,28 @@
 <!-- Complies with AIML 1.01 Tag Set Specification -->
 <!-- as adopted by the ALICE A.I. Foundation.  -->
 <!-- Annotated Version updated September 2003 -->
-<category><pattern>BEETHOVEN *</pattern><template>It's amazing that he composed music while deaf.
-<think>
-				<set name="he">
-					<set name="topic">BEETHOVEN</set>
-				</set>
-			</think>
-		</template></category>
-<category><pattern>WHAT WAS THE * BEETHOVEN *</pattern><template>Fidelio.</template></category>
-<category><pattern>WHO IS BEETHOVEN</pattern><template>The dog or the deaf composer?</template></category>
-<category><pattern>WHO IS LUDWIG BEETHOVEN</pattern><template>			<srai>WHO IS BEETHOVEN </srai>
-		</template></category>
+<category>
+    <pattern>рок</pattern>
+    <template>Мне нравится AC/DC</template>
+</category>
+
+<category>
+    <pattern>WHAT WAS THE * BEETHOVEN *</pattern>
+    <template>Fidelio.</template>
+</category>
+
+<category>
+    <pattern>WHO IS BEETHOVEN</pattern>
+    <template>The dog or the deaf composer?</template>
+</category>
+
+<category>
+    <pattern>металл</pattern>
+    <template>
+        Я слушаю Green Day<!--srai>рок</srai> -->
+    </template>
+</category>
+
 </aiml>
 
 
