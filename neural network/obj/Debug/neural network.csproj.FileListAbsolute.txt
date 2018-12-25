@@ -1,1 +1,7 @@
 D:\Документы\OneDrive\Документы\7 семестр\IS\IS\neural network\bin\Debug\neural network.exe.config
+D:\Документы\OneDrive\Документы\7 семестр\IS\IS\neural network\bin\Debug\neural network.exe
+D:\Документы\OneDrive\Документы\7 семестр\IS\IS\neural network\bin\Debug\neural network.pdb
+D:\Документы\OneDrive\Документы\7 семестр\IS\IS\neural network\obj\Debug\neural_network.Properties.Resources.resources
+D:\Документы\OneDrive\Документы\7 семестр\IS\IS\neural network\obj\Debug\neural network.csproj.GenerateResource.Cache
+D:\Документы\OneDrive\Документы\7 семестр\IS\IS\neural network\obj\Debug\neural network.exe
+D:\Документы\OneDrive\Документы\7 семестр\IS\IS\neural network\obj\Debug\neural network.pdb

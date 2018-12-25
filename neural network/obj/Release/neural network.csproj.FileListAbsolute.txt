@@ -6,3 +6,4 @@ D:\Документы\OneDrive\Документы\7 семестр\IS\IS\neural 
 D:\Документы\OneDrive\Документы\7 семестр\IS\IS\neural network\obj\Release\neural network.csproj.GenerateResource.Cache
 D:\Документы\OneDrive\Документы\7 семестр\IS\IS\neural network\obj\Release\neural network.exe
 D:\Документы\OneDrive\Документы\7 семестр\IS\IS\neural network\obj\Release\neural network.pdb
+D:\Документы\OneDrive\Документы\7 семестр\IS\IS\neural network\obj\Release\neural_network.Form1.resources
