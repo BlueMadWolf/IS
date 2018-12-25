@@ -24,12 +24,12 @@ namespace neural_network
         public Form1()
         {
             InitializeComponent();
-            n = 0.5;
             Invalidate();
 
             pictureBox1.Width = Width;
             pictureBox1.Height = Height;
 
+            //зададим диапазон изменений при построении фигуры
             dist_to_center_to = 5;
             radius_from = 30;
             radius_to = 35;
@@ -56,17 +56,17 @@ namespace neural_network
 
         private System.IO.StreamWriter writer = new System.IO.StreamWriter("debug.txt");
 
+
+        //  -------------------------------- отрисовка фигур -----------------------------------------
+
         private void clear()
         {
             pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
             g = Graphics.FromImage(pictureBox1.Image);
-            //if (!(bmp is null))
-            //    bmp.Dispose();
         }
 
         private void drawLine(Point p1, Point p2)
         {
-            //g.DrawLine(new Pen(Color.Black), new Point((int)p1.X, (int)p1.Y), new Point((int)p2.X, (int)p2.Y));
             g.DrawLine(new Pen(Color.Black, brushWidth), p1, p2);
         }
 
@@ -171,7 +171,7 @@ namespace neural_network
             int x1 = w / 2 + rand.Next(-dist_to_center_to, dist_to_center_to) - r;
             int x2 = w / 2 + rand.Next(-dist_to_center_to, dist_to_center_to) + r;
             int x3 = rand.Next(x1, x2);
-           // int x3 = (x2 + x1) / 2;
+       
             int y1 = h / 2 + rand.Next(-dist_to_center_to, dist_to_center_to) + r + 10;
             int y2 = y1;
             int y3 = h / 2 + rand.Next(-dist_to_center_to, dist_to_center_to) - r;
@@ -205,128 +205,10 @@ namespace neural_network
             last_picture = 2;
         }
 
-        //---------------------------------------------------------------------------------------------
-        //Возвращает список из 400 параметров
-        private List<double> getSensors()
-        {
-            //bmp.Dispose();
-
-            //bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-            pictureBox1.DrawToBitmap(bmp, pictureBox1.ClientRectangle);
-
-            //bmp.Save("img.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
-
-         
-            int dist_to_borders = 0;
-
-            List<double> l = new List<double>(Width + Height - dist_to_borders * 4);
-
-            int sum = 0;
-
-            //Добавление сенсоров по оси X
-            for (int x = dist_to_borders; x < Width - dist_to_borders; ++x)
-            {
-                sum = 0;
-                for (int y = dist_to_borders; y < Height - dist_to_borders; ++y)
-                {
-                    Color c = bmp.GetPixel(x, y);
-                    if ((c.R + c.G + c.B) < 127*3)
-                    {
-                        ++sum;
-                    }
-                }
-                l.Add(sum / (double)Width);
-            }
-
-            //Добавление сенсоров по оси Y
-            for (int y = dist_to_borders; y < Height - dist_to_borders; ++y)
-            {
-                sum = 0;
-                for (int x = dist_to_borders; x < Width - dist_to_borders; ++x)
-                {
-                    Color c = bmp.GetPixel(x, y);
-                    if ((c.R + c.G + c.B) < 127 * 3)
-                    {
-                        ++sum;
-                    }
-                }
-                l.Add(sum / (double)Width);
-            }
-
-            return l;
-        }
-
-        //Выводит на форму вероятность принадлежности нарисованной фигуры к каждому классу
-        private void predictVisible( List<double> l)
-        {
-            double sum = l.Sum();
-
-             itIsRectangle(l[0] / sum);
-             itIsTriangle(l[1] / sum);
-             itIsCircle(l[2] / sum);
-             itIsSinHor(l[3] / sum);
-            /*
-            itIsCircle(l[0] / sum);
-            itIsSinHor(l[1] / sum);
-           // itIsTriangle(l[2] / sum);*/
-        }
-
-
-
-        //Выводит на форму вероятность того, что фигура принадлежит к классу Прямоугольник
-        private void itIsRectangle(double probability)
-        {
-            if (probability <= 1)
-            {
-                progressBarRectangle.Value = (int)Math.Round(probability * 100);
-                labelRectangle.Text = progressBarRectangle.Value.ToString() + "%";
-            }
-        }
-
-        //Выводит на форму вероятность того, что фигура принадлежит к классу Треугольник
-        private void itIsTriangle(double probability)
-        {
-            if (probability <= 1)
-            {
-                progressBarTriangle.Value = (int)Math.Round(probability * 100);
-                labelTriangle.Text = progressBarTriangle.Value.ToString() + "%";
-            }
-        }
-
-        //Выводит на форму вероятность того, что фигура принадлежит к классу Круг
-        private void itIsCircle(double probability)
-        {
-            if (probability <= 1)
-            {
-                progressBarCircle.Value = (int)Math.Round(probability * 100);
-                labelCircle.Text = progressBarCircle.Value.ToString() + "%";
-            }
-        }
-
-        //Выводит на форму вероятность того, что фигура принадлежит к классу Синусоида Горизонтальная
-        private void itIsSinHor(double probability)
-        {
-            if (probability <= 1)
-            {
-                progressBarSinHor.Value = (int)Math.Round(probability * 100);
-                labelSinHor.Text = progressBarSinHor.Value.ToString() + "%";
-            }
-        }
-
-        //Выводит на форму вероятность того, что фигура принадлежит к классу Синусоида Вертикальная
-       /* private void itIsSinVert(double probability)
-        {
-            if (probability <= 1)
-            {
-                progressBarSinVert.Value = (int)Math.Round(probability * 100);
-                labelSinVert.Text = progressBarSinVert.Value.ToString() + "%";
-            }
-        }
-        */
         private void drawPoints()
         {
             Point[] lp = new Point[drawed_points.Count()];
-            
+
             for (int i = 0; i < drawed_points.Count(); ++i)
             {
                 lp[i] = drawed_points[i];
@@ -382,10 +264,124 @@ namespace neural_network
             
         }
 
-        public List<double> createD(List<double> inL, int c)
+        private void buttonSinVert_Click(object sender, EventArgs e)
         {
-            double realize_max = inL[c];
-            double max = 0;
+            drawSinVert();
+        }
+
+        private void buttonSinHor_Click(object sender, EventArgs e)
+        {
+            drawSinHor();
+        }
+
+        //---------------------------------------------------------------------------------------------
+        //Возвращает список из 400 параметров
+        private List<double> getSensors()
+        {
+            //bmp.Dispose();
+
+            //bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            pictureBox1.DrawToBitmap(bmp, pictureBox1.ClientRectangle);
+
+            //bmp.Save("img.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+
+
+            int dist_to_borders = 0;
+
+            List<double> l = new List<double>(Width + Height - dist_to_borders * 4);
+
+            int sum = 0;
+
+            //Добавление сенсоров по оси X
+            for (int x = dist_to_borders; x < Width - dist_to_borders; ++x)
+            {
+                sum = 0;
+                for (int y = dist_to_borders; y < Height - dist_to_borders; ++y)
+                {
+                    Color c = bmp.GetPixel(x, y);
+                    if ((c.R + c.G + c.B) < 127 * 3)
+                    {
+                        ++sum;
+                    }
+                }
+                l.Add(sum);// / (double)Width);
+            }
+
+            //Добавление сенсоров по оси Y
+            for (int y = dist_to_borders; y < Height - dist_to_borders; ++y)
+            {
+                sum = 0;
+                for (int x = dist_to_borders; x < Width - dist_to_borders; ++x)
+                {
+                    Color c = bmp.GetPixel(x, y);
+                    if ((c.R + c.G + c.B) < 127 * 3)
+                    {
+                        ++sum;
+                    }
+                }
+                l.Add(sum);// / (double)Width);
+            }
+
+            return l;
+        }
+
+        //Выводит на форму вероятность принадлежности нарисованной фигуры к каждому классу
+        private void predictVisible(List<double> l)
+        {
+            double sum = l.Sum();
+
+            itIsRectangle(l[0] / sum);
+            itIsTriangle(l[1] / sum);
+            itIsCircle(l[2] / sum);
+            itIsSinHor(l[3] / sum);
+        }
+
+        //Выводит на форму вероятность того, что фигура принадлежит к классу Прямоугольник
+        private void itIsRectangle(double probability)
+        {
+            if (probability <= 1)
+            {
+                progressBarRectangle.Value = (int)Math.Round(probability * 100);
+                labelRectangle.Text = progressBarRectangle.Value.ToString() + "%";
+            }
+        }
+
+        //Выводит на форму вероятность того, что фигура принадлежит к классу Треугольник
+        private void itIsTriangle(double probability)
+        {
+            if (probability <= 1)
+            {
+                progressBarTriangle.Value = (int)Math.Round(probability * 100);
+                labelTriangle.Text = progressBarTriangle.Value.ToString() + "%";
+            }
+        }
+
+        //Выводит на форму вероятность того, что фигура принадлежит к классу Круг
+        private void itIsCircle(double probability)
+        {
+            if (probability <= 1)
+            {
+                progressBarCircle.Value = (int)Math.Round(probability * 100);
+                labelCircle.Text = progressBarCircle.Value.ToString() + "%";
+            }
+        }
+
+        //Выводит на форму вероятность того, что фигура принадлежит к классу Синусоида Горизонтальная
+        private void itIsSinHor(double probability)
+        {
+            if (probability <= 1)
+            {
+                progressBarSinHor.Value = (int)Math.Round(probability * 100);
+                labelSinHor.Text = progressBarSinHor.Value.ToString() + "%";
+            }
+        }
+
+
+        //возвращает ошбку для выходного слоя сети
+        public List<double> createErrorValue(List<double> inL, int c)
+        {
+            double realize_max = inL[c]; //значение выхода правильного класса
+            double max = 0; // максимальная разница между нашим классом и классами, имеющими больший выход
 
             List<double> res = new List<double>();
 
@@ -393,12 +389,12 @@ namespace neural_network
                 if (inL[i] > realize_max)
                 {
                     res.Add(realize_max - inL[i]);
-                    if (inL[i] > max)
+                    if (inL[i] - realize_max > max)
                         max = inL[i] - realize_max;
                 }
                 else
                     res.Add(0);
-            res[c] = inL[c] + max; // + 0.000001;
+            res[c] = inL[c] + max;
 
             return res;
         }
@@ -406,9 +402,6 @@ namespace neural_network
         private void progress(int n)
         {
             progressBar1.Value = n;
-            //label1.Text = n.ToString();
-           // progressBar1.Invalidate();
-           // label1.Invalidate();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -419,7 +412,6 @@ namespace neural_network
             progressBar1.Maximum = cnt_images;
             for (int i = 0; i < cnt_images; ++i)
             {
-               // if (i % 1 == 0)
                 progress(i);
 
                 int c = i % 4;
@@ -438,18 +430,8 @@ namespace neural_network
                          drawSinHor();
                          break;
 
-                    /*case 0:
-                        drawCircle();
-                        break;
-                    case 1:
-                        drawSinHor();
-                        break;
-                 //   case 2:
-                   //     drawTriangle();
-                     //   break;*/
                 }
 
-                int cnt = 0;
                 List<double> sensors = getSensors();
                 List<double> p = predict(sensors);
 
@@ -457,21 +439,17 @@ namespace neural_network
                 if (sensors_class.Count() > 100)
                     sensors_class.RemoveFirst();
 
-                //if (i % 16 == 0)
-                  //n -= 0.0001;
-                if (Math.Abs(p[c] - p.Max()) > 0.01)// && cnt < 1000)
-               {
-                    List<double> d = createD(p, c);
+                if (Math.Abs(p[c] - p.Max()) > 0.01) //если разница больше, то запускаем обратное распространение ошибки
+                { 
+                    List<double> d = createErrorValue(p, c);
                     net.backpropagation(d, n);
-                  //  p = predict();
-                    // cnt++;
                 }
                 else
                 {
                     ++cnt_right;
                 }
 
-                if (i > 8 && cnt_right / i > 0.75)
+                if (i > 8 && cnt_right / i > 0.75) //досрочное завершение
                     break;
               
             }
@@ -482,24 +460,9 @@ namespace neural_network
             textBox1.Text = n.ToString();
         }
 
-        /*public List<double> predict(bool f = false)
-        {
-            List<double> sensors = getSensors();
-
-
-            //textBoxOutput.Text += sensors.Count() + System.Environment.NewLine;
-            //foreach (var item in sensors)
-              //  textBoxOutput.Text += item.ToString() + "  ";
-                
-            return net.predict(sensors, f);
-        }*/
 
         public List<double> predict(List<double> sensors, bool f = false)
         {
-            /* textBoxOutput.Text += sensors.Count() + System.Environment.NewLine;
-             foreach (var item in sensors)
-                 textBoxOutput.Text += item.ToString() + "  ";
-                 */
             return net.predict(sensors, f);
         }
 
@@ -510,7 +473,7 @@ namespace neural_network
             List<double> p = predict(sensors, true);
 
             show_res(net.s);
-            predictVisible(p);
+            predictVisible(p); //выводит отладочную информацию по предсказанию на форму
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -556,7 +519,7 @@ namespace neural_network
 
                 if (p.Max() - p[last_picture] > 0.001)
                 {
-                    List<double> d = createD(p, last_picture);
+                    List<double> d = createErrorValue(p, last_picture);
                     n = Double.Parse(textBox1.Text);
                     net.backpropagation(d, n);
                 }
@@ -567,6 +530,7 @@ namespace neural_network
             }
         }
 
+        //находит индекс максимального выхода
         private int indexOfMax(List<double> p)
         {
             int imax = 0;
@@ -602,7 +566,8 @@ namespace neural_network
 
         private void button4_Click(object sender, EventArgs e)
         {
-            net = new NeuralNet(400, 100, 16, 4);//, 0.3);
+            //создаем сеть с 4 слоями: 1 входной - 400 нейронов, 1ый скрытый - 100, 2ой скрытый - 16, выходной - 4
+            net = new NeuralNet(400, 100, 16, 4);
 
             button4.Visible = false;
 
@@ -613,51 +578,44 @@ namespace neural_network
             }
         }
 
-        private void buttonSinVert_Click(object sender, EventArgs e)
-        {
-            drawSinVert();
-        }
 
-        private void buttonSinHor_Click(object sender, EventArgs e)
-        {
-            drawSinHor();
-        }
     }
 
     //======================== Работа с нейронной сетью ============================
     public class NeuralNet
     {
-        int start_cnt, firstLayer, secondLayer, outCnt;
+        int input_cnt, layer1_cnt, layer2_cnt, out_cnt;
+     
 
         public string s;
 
-        List<double> input = new List<double>();
-        List<double> layer1 = new List<double>();
-        List<double> layer2 = new List<double>();
-        List<double> output = new List<double>();
+        List<double> inputLayer = new List<double>(); //входной слой
+        List<double> layer1 = new List<double>(); //первый скрытый слой
+        List<double> layer2 = new List<double>(); // второй скрытый слой
+        List<double> outputLayer = new List<double>(); // выходной слой
 
-        List<List<double>> inputlink = new List<List<double>>();
-        List<List<double>> matr1 = new List<List<double>>();
-        List<List<double>> matr2 = new List<List<double>>();
+        List<List<double>> inputlink = new List<List<double>>(); // матрица весов между входным и 1ым скрытым
+        List<List<double>> matr1 = new List<List<double>>(); //матрица весов между скрытыми слоями
+        List<List<double>> matr2 = new List<List<double>>(); // матрица весов между вторым скрытым и выходным слоями
 
         delegate double func_activation (double x);
         func_activation f;
 
         public NeuralNet(int cnt, int first, int second, int o, double alpha = 1)
         {
-            start_cnt = cnt;
-            firstLayer = first;
-            secondLayer = second;
-            outCnt = o;
+            input_cnt = cnt;
+            layer1_cnt = first;
+            layer2_cnt = second;
+            out_cnt = o;
 
             for (int i = 0; i < cnt; ++i)
-                input.Add(0); 
+                inputLayer.Add(0); 
             for (int i = 0; i < first; ++i) 
                 layer1.Add(0);
             for (int i = 0; i < second; ++i)
                 layer2.Add(0);
             for (int i = 0; i < o; ++i)
-                output.Add(0);
+                outputLayer.Add(0);
 
             createConnections();
 
@@ -674,9 +632,9 @@ namespace neural_network
         {
             Random rnd = new Random(0);
 
-            for (int i = 0; i < start_cnt; ++i)
+            for (int i = 0; i < input_cnt; ++i)
             {
-                int cntLinks = firstLayer; // rnd.Next(100, (int)Math.Floor(0.7 * firstLayer)); //кол-во связей для данного сенсора
+                int cntLinks = layer1_cnt; // rnd.Next(100, (int)Math.Floor(0.7 * firstLayer)); //кол-во связей для данного сенсора
 
                 double oldc = 0;
                 List<double> l = new List<double>();
@@ -702,18 +660,18 @@ namespace neural_network
             randomFLink();
             Random rnd = new Random();
 
-            for (int i = 0; i < firstLayer; ++i)
+            for (int i = 0; i < layer1_cnt; ++i)
             {
                 List<double> l = new List<double>();
-                for (int j = 0; j < secondLayer; ++j)
+                for (int j = 0; j < layer2_cnt; ++j)
                     l.Add(0);// rnd.NextDouble());
                 matr1.Add(l);
             }
 
-            for (int i = 0; i < secondLayer; ++i)
+            for (int i = 0; i < layer2_cnt; ++i)
             {
                 List<double> l = new List<double>();
-                for (int j = 0; j < outCnt; ++j)
+                for (int j = 0; j < out_cnt; ++j)
                     l.Add(rnd.NextDouble());
                 matr2.Add(l);
             }
@@ -721,33 +679,33 @@ namespace neural_network
 
         private void clearLayer1()
         {
-            for (int i = 0; i < firstLayer; ++i)
+            for (int i = 0; i < layer1_cnt; ++i)
                 layer1[i] = 0;
         }
 
         //предсказываем ответ по заданным значениям
         public List<double> predict(List<double> sensors, bool fl = false)
         {
-            for (int i = 0; i < start_cnt; ++i)
-                input[i] = sensors[i];
+            for (int i = 0; i < input_cnt; ++i)
+                inputLayer[i] = sensors[i];
 
             clearLayer1();
 
-            for (int i = 0; i < start_cnt; ++i) //принимаем веса от входного слоя layer1[j] = sum_i(sensors(i))
-                for (int j = 0; j < firstLayer; ++j)
-                    layer1[j] += input[i] * inputlink[i][j];
+            for (int i = 0; i < input_cnt; ++i) //принимаем веса от входного слоя layer1[j] = sum_i(sensors(i))
+                for (int j = 0; j < layer1_cnt; ++j)
+                    layer1[j] += inputLayer[i] * inputlink[i][j];
 
             double max = layer1.Max();
             double min = layer1.Min();
 
-            for (int i = 0; i < firstLayer; ++i) //применяем сигмоид ко всем (?)
+            for (int i = 0; i < layer1_cnt; ++i) //применяем сигмоид ко всем нейронам данного слоя
                 layer1[i] = f((max - min) == 0 ? 0 : (layer1[i]-min)/(max-min));
 
             //вычисляем второй скрытый слой
-            for (int j = 0; j < secondLayer; ++j)
+            for (int j = 0; j < layer2_cnt; ++j)
             {
                 double sum = 0;
-                for (int i = 0; i < firstLayer; ++i)
+                for (int i = 0; i < layer1_cnt; ++i)
                     sum += layer1[i] * matr1[i][j];
                 layer2[j] = sum;
             }
@@ -755,48 +713,48 @@ namespace neural_network
             max = layer2.Max();
             min = layer2.Min();
 
-            for (int j = 0; j < secondLayer; ++j)
+            for (int j = 0; j < layer2_cnt; ++j)
                 layer2[j] = f((max - min) == 0 ? 0 :(layer2[j] - min) / (max - min));
 
             //значение выходного слоя просчитываем
-            for (int j = 0; j < outCnt; ++j)
+            for (int j = 0; j < out_cnt; ++j)
             {
                 double sum = 0;
-                for (int i = 0; i < secondLayer; ++i)
+                for (int i = 0; i < layer2_cnt; ++i)
                     sum += layer1[i] * matr2[i][j];
-                output[j] = sum; //f(sum)
+                outputLayer[j] = sum; //f(sum)
             }
 
-            max = output.Max();
-            min = output.Min();
-            for (int j = 0; j < outCnt; ++j)
-                output[j] = (max - min) == 0 ? 0 : f((output[j] - min) / (max - min));
+            max = outputLayer.Max();
+            min = outputLayer.Min();
+            for (int j = 0; j < out_cnt; ++j)
+                outputLayer[j] = (max - min) == 0 ? 0 : f((outputLayer[j] - min) / (max - min));
                 
             if (fl)
                 show();
 
-            return output;
+            return outputLayer;
         }
 
-        
+        //отладочная информация
         private string show()
         {
 
             s = "";
             double cnt = 0;
-            for(int i = 0; i < start_cnt; ++i)
-                for (int j = 0; j < firstLayer; ++j)
+            for(int i = 0; i < input_cnt; ++i)
+                for (int j = 0; j < layer1_cnt; ++j)
                    cnt += inputlink[i][j];
 
-            s += (cnt / (start_cnt * firstLayer)).ToString() + " ";
+            s += (cnt / (input_cnt * layer1_cnt)).ToString() + " ";
 
             s += Environment.NewLine + Environment.NewLine;
 
             cnt = 0;
-            for (int i = 0; i < firstLayer; ++i)
-                for (int j = 0; j < secondLayer; ++j)
+            for (int i = 0; i < layer1_cnt; ++i)
+                for (int j = 0; j < layer2_cnt; ++j)
                     cnt += matr1[i][j];
-            s += (cnt / (start_cnt * firstLayer)).ToString() + " ";
+            s += (cnt / (input_cnt * layer1_cnt)).ToString() + " ";
 
             s += Environment.NewLine + Environment.NewLine;
             /*
@@ -805,8 +763,8 @@ namespace neural_network
 
             s += Environment.NewLine + Environment.NewLine;*/
 
-            for (int i = 0; i < outCnt; ++i)
-                s += output[i].ToString() + "  ";
+            for (int i = 0; i < out_cnt; ++i)
+                s += outputLayer[i].ToString() + "  ";
 /*
             s += Environment.NewLine + Environment.NewLine;
             s += Environment.NewLine + Environment.NewLine;
@@ -828,40 +786,44 @@ namespace neural_network
 
         public void backpropagation(List<double> eps0, double n = 1)
         {
-            for (int i = 0; i < secondLayer; ++i)
-                for (int j = 0; j < outCnt; ++j)
-                    matr2[i][j] += n * eps0[j] * layer2[i] * output[j] * (1 - output[j]); //изменяем веса
+            for (int i = 0; i < layer2_cnt; ++i)
+                for (int j = 0; j < out_cnt; ++j)
+                    matr2[i][j] += n * eps0[j] * layer2[i] * outputLayer[j] * (1 - outputLayer[j]); //изменяем веса связей 
+            //между выходным и вторым скрытым слоем
 
             List<double> eps1 = new List<double>();
 
-            for (int i = 0; i < secondLayer; ++i)
+            //просчитываем ошибку второго скрытого слоя
+            for (int i = 0; i < layer2_cnt; ++i)
             {
                 double ed = 0;
 
-                for (int j = 0; j < outCnt; ++j)
+                for (int j = 0; j < out_cnt; ++j)
                     ed += eps0[j] * matr2[i][j];
                 eps1.Add(ed);
             }
 
-            for(int i = 0; i < firstLayer; ++i)
-                for (int j = 0; j < secondLayer; ++j)
-                matr1[i][j] += n * eps1[j] * layer1[i] * layer2[j] * (1 - layer2[j]); //изменяем веса
+            for(int i = 0; i < layer1_cnt; ++i)
+                for (int j = 0; j < layer2_cnt; ++j)
+                matr1[i][j] += n * eps1[j] * layer1[i] * layer2[j] * (1 - layer2[j]); //изменяем веса связей между скрытыми слоями
 
 
+            //просчитываем ошибку первого скрытого слоя
             List<double> eps2 = new List<double>();
 
-            for (int i = 0; i < firstLayer; ++i)
+            for (int i = 0; i < layer1_cnt; ++i)
             {
                 double ed = 0;
 
-                for (int j = 0; j < secondLayer; ++j)
+                for (int j = 0; j < layer2_cnt; ++j)
                     ed += eps1[j] * matr1[i][j];
-                eps2.Add(ed);
+                eps2.Add(ed); 
             }
 
-            for (int i = 0; i < start_cnt; ++i)
-                for (int j = 0; j < firstLayer; ++j)
-                    inputlink[i][j] = n * eps2[j] * input[i] * layer1[j] * (1 - layer1[j]);
+            //изменяем веса связей между входным и первым скрытым слоями
+            for (int i = 0; i < input_cnt; ++i)
+                for (int j = 0; j < layer1_cnt; ++j)
+                    inputlink[i][j] = n * eps2[j] * inputLayer[i] * layer1[j] * (1 - layer1[j]);
              
         }
     }
