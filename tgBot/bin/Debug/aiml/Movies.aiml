@@ -29,6 +29,51 @@
             <li>Особняк с привидениями</li>
             <li>Няньки</li>
             <li>Стражи галактики</li>
+			<li>Терминатор</li>
+        </random>
+    </template>
+</category>
+
+<category>
+    <pattern>* твой любимый жанр кино *</pattern>
+    <template>
+        <random>
+            <li>Фантастика</li>
+            <li>Фэнтези</li>
+			<li>Комедия</li>
+        </random>
+    </template>
+</category>
+
+<category>
+    <pattern>* посоветуй комедию *</pattern>
+    <template>
+        <random>
+            <li>Няньки</li>
+            <li>Стражи галактики</li>
+			<li>Укрощение строптивого</li>
+			<li>Полосатый рейс</li>
+        </random>
+    </template>
+</category>
+
+<category>
+    <pattern>* посоветуй фантастику *</pattern>
+    <template>
+        <random>
+            <li>Автостопом по галактике</li>
+            <li>Валериан и город тысячи планет</li>
+			<li>Пятый элемент</li>
+        </random>
+    </template>
+</category>
+
+<category>
+    <pattern>* посоветуй фэнтези *</pattern>
+    <template>
+        <random>
+            <li>"Гарри Поттер" конечно же </li>
+            <li>Советую "Фантастические твари и где они обитают"</li>
         </random>
     </template>
 </category>
@@ -40,6 +85,31 @@
 			<li>Сделаю вид что я этого не смотрел</li>
         </random>
     </template>
+</category>
+
+<category>
+	<pattern>Ты говоришь как Йода</pattern>
+	<template>Мои грамматические схемы достаточны для того, чтобы я вас понял.</template>
+</category>  
+
+<category>
+	<pattern>* Звездные воины *</pattern>
+	<template>О, смотрел - смотрел.</template>
+</category>
+
+<category>
+	<pattern>Кто такой Люк Скайуокер *</pattern>
+	<template>Главный персонаж первых шести фильмов вселенной "Звездные воины".</template>
+</category>
+
+<category>
+	<pattern>Кто такая Годзилла *</pattern>
+	<template>Лапочка-ящерица</template>
+</category>
+
+<category>
+	<pattern>* топ фильмов *</pattern>
+	<template> "Пятый элемент", "Няньки", "Такси", ...</template>
 </category>
 
 

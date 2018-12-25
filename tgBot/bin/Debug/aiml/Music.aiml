@@ -13,13 +13,56 @@
 </category>
 
 <category>
+    <pattern>* Imagine Dragons *</pattern>
+    <template>Я ждал упоминания этой группы. </template>
+</category>
+
+<category>
+    <pattern> потанцуем *</pattern>
+    <template>давай :) </template>
+</category>
+
+<category>
+    <pattern>* спой *</pattern>
+    <template> Выйду ночью в поле с конем... Hочкой темной тихо пойдем... </template>
+</category>
+
+<category>
+    <pattern> спой </pattern>
+    <template> Выйду ночью в поле с конем... Hочкой темной тихо пойдем... </template>
+</category>
+
+
+<category>
+    <pattern>* Papa Roach *</pattern>
+    <template> О, отличная группа! </template>
+</category>
+
+<category>
+    <pattern>* Skillet *</pattern>
+    <template>А вы слышали о концерте в Ростове-на-Дону в апреле? </template>
+</category>
+
+<category>
     <pattern>* рок *</pattern>
     <template>Я люблю рок</template>
 </category>
 
 <category>
+    <pattern>* жанр музыки *</pattern>
+    <random>
+		<li>Только рок! Только хардкор!</li>
+	    <li>Вы что-нибудь слышали про retrowave?</li>
+	</random>
+</category>
+
+<category>
     <pattern>* любимый жанр *</pattern>
-    <template>Я люблю рок</template>
+	 <random>
+		<li>Я люблю рок</li>
+		<li>Классика так расслабляет</li>
+		<li>Вы что-нибудь слышали про retrowave?</li>
+	</random>
 </category>
 
 <category>
@@ -36,6 +79,30 @@
 
 <category>
     <pattern>* любимая * песня *</pattern>
+    <template>
+        <random>
+			<li>Imagine Dragons - Believer</li>
+            <li>OneRepublic - Secrets</li>
+            <li>Skillet - Monster</li>
+            <li>American Authors - I am born to run</li>
+        </random>
+    </template>
+</category>
+
+<category>
+    <pattern>* посоветуй песню *</pattern>
+    <template>
+        <random>
+			<li>Imagine Dragons - Believer</li>
+            <li>OneRepublic - Secrets</li>
+            <li>Skillet - Monster</li>
+            <li>American Authors - I am born to run</li>
+        </random>
+    </template>
+</category>
+
+<category>
+    <pattern>* любимая песня *</pattern>
     <template>
         <random>
 			<li>Imagine Dragons - Believer</li>
@@ -71,11 +138,20 @@
 </category>
 
 <category>
+    <pattern>* попса *</pattern>
+    <template>
+		<random>
+			<li>Вы сказали "попса"? Я больше не хочу с вами общаться</li>
+            <li>Попса? Я вас больше не знаю</li>
+        </random>
+    </template>
+</category>
+
+<category>
     <pattern>* баста *</pattern>
     <template>
 		<random>
-			<li>А вот Баста - это хорошо</li>
-            <li>Круговорот людей...</li>
+			<li>Круговорот людей...</li>
         </random>
     </template>
 </category>

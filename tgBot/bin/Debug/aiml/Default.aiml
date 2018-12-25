@@ -33,6 +33,17 @@
 </category>
 
 <category>
+	<pattern>* твое имя *</pattern>
+	<template>
+		<random>
+			<li>Меня зовут LuckyBot</li>
+            <li>LuckyBot мое имя</li>
+		</random>
+	</template>
+</category>
+
+
+<category>
 	<pattern>*</pattern>
 	<template>
 		<random>
@@ -40,6 +51,7 @@
             <li>Что вы сказали?</li>
             <li>Я не понимаю</li>
             <li>Я в конфузии</li>
+			<li>Ага</li>
 		</random>
 	</template>
 </category>
