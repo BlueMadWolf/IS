@@ -24,6 +24,7 @@ namespace tgBot
         private static TelegramBotClient Bot;
         private AIMLbot.Bot aiml;
         AIMLbot.User me;
+        DateTime date1;
 
         async void InitBot()
         {
@@ -44,6 +45,8 @@ namespace tgBot
             Bot.StartReceiving();
 
             label1.Text = "Run";
+
+            date1 = DateTime.Now;
         }       
 
         private void InitAIML()
@@ -68,6 +71,8 @@ namespace tgBot
             InitAIML();
         }
 
+        bool silence = false;
+
         private void Bot_OnMessage(object sender, Telegram.Bot.Args.MessageEventArgs e)
         {
            
@@ -87,16 +92,41 @@ namespace tgBot
                        Good morning!
                         ");
                 }*/
+                DateTime date2 = DateTime.Now;
+                if (date2.Subtract(date1).TotalSeconds <= 3)
+                    return;
+                date1 = date2;
 
-                //if (e.Message.Text.Contains("LuckyBot") || e.Message.Text.Contains("Lucky_7_Bot"))
+                string text = e.Message.Text.Replace('?', ' ').Replace('!', ' ').Replace('.', ' ');
+
+                if (text.Contains("SILENCE @Lucky_7_Bot") || text.Contains("SILENCE_ALL"))
                 {
-                    AIMLbot.Request r = new AIMLbot.Request("я " + e.Message.Text + " я", me, aiml);
-                    AIMLbot.Result res = aiml.Chat(r);
-                    Bot.SendTextMessageAsync(e.Message.Chat.Id, res.Output);
+                    silence = true;
+                    return;
                 }
 
+                if (text.Contains("UNSILENCE @Lucky_7_Bot") || text.Contains("UNSILENCE_ALL"))
+                {
+                    silence = false;
+                    return;
+                }
+
+                if (text.Contains("REPORT @Lucky_7_Bot") || text.Contains("REPORT_ALL"))
+                {
+                    Bot.SendTextMessageAsync(e.Message.Chat.Id, "Дайте поспать", replyToMessageId: e.Message.MessageId);
+                }
+                else
+                {
+                    if (!silence)
+                    {
+                        AIMLbot.Request r = new AIMLbot.Request(text, me, aiml);
+                        AIMLbot.Result res = aiml.Chat(r);
+                        Bot.SendTextMessageAsync(e.Message.Chat.Id, res.Output, replyToMessageId: e.Message.MessageId);
+                    }
+                }
                 //label1.Text += "Received: " + e.Message.Text;
             }
         }
     }
 }
+

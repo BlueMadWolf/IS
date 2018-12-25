@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<aiml>
+<aiml version="2.0">
 <!-- Free software &copy; 2001-2003 ALICE A.I. Foundation. -->
 <!-- This program is open source code released under -->
 <!-- the terms of the GNU General Public License     -->
@@ -11,6 +11,75 @@
     <pattern>* ABBA *</pattern>
     <template>Мне нравится ABBA</template>
 </category>
+
+<category>
+    <pattern>* рок *</pattern>
+    <template>Я люблю рок</template>
+</category>
+
+<category>
+    <pattern>* любимый жанр *</pattern>
+    <template>Я люблю рок</template>
+</category>
+
+<category>
+    <pattern>* посоветуй * песню *</pattern>
+    <template>
+        <random>
+			<li>Imagine Dragons - Believer</li>
+            <li>OneRepublic - Secrets</li>
+            <li>Skillet - Monster</li>
+            <li>American Authors - I am born to run</li>
+        </random>
+    </template>
+</category>
+
+<category>
+    <pattern>* любимая * песня *</pattern>
+    <template>
+        <random>
+			<li>Imagine Dragons - Believer</li>
+            <li>OneRepublic - Secrets</li>
+            <li>Skillet - Monster</li>
+            <li>American Authors - I am born to run</li>
+        </random>
+    </template>
+</category>
+
+<category>
+    <pattern>* любимая группа *</pattern>
+    <template>
+		<random>
+			<li>Я часто слушаю Imagine Dragons</li>
+            <li>Я бы сейчас послушал AC/DC</li>
+            <li>Мне нравится Skillet</li>
+            <li>Я кайфую от Green Day</li>
+        </random>
+    </template>
+</category>
+
+<category>
+    <pattern>* рэп *</pattern>
+    <template>
+		<random>
+			<li>Вы сказали слово "рэп"? Я больше не хочу с вами общаться</li>
+            <li>рэп? Я вас больше не знаю</li>
+            <li>Почему сразу рэп? Я не хочу такое слушать</li>
+            <li>Какое ужасное слово</li>
+        </random>
+    </template>
+</category>
+
+<category>
+    <pattern>* баста *</pattern>
+    <template>
+		<random>
+			<li>А вот Баста - это хорошо</li>
+            <li>Круговорот людей...</li>
+        </random>
+    </template>
+</category>
+
 
 </aiml>
 

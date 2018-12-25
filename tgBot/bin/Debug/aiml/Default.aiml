@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<aiml>
+<aiml version="2.0">
 <!-- Free software &copy; 2001-2003 ALICE A.I. Foundation. -->
 <!-- This program is open source code released under -->
 <!-- the terms of the GNU General Public License     -->
@@ -8,65 +8,6 @@
 <!-- as adopted by the ALICE A.I. Foundation.  -->
 <!-- Annotated Version updated September 2003 -->
 
-<category>
-    <pattern>* рок *</pattern>
-    <template>Я люблю рок</template>
-</category>
-
-<category>
-    <pattern>* любимая группа *</pattern>
-    <template>
-		<random>
-			<li>Я часто слушаю Imagine Dragons</li>
-            <li>Я бы сейчас послушал AC/DC</li>
-            <li>Мне нравится Skillet</li>
-            <li>Я кайфую от Green Day</li>
-        </random>
-    </template>
-</category>
-
-<category>
-    <pattern>* рэп *</pattern>
-    <template>
-		<random>
-			<li>Вы сказали слово "рэп"? Я больше не хочу с вами общаться</li>
-            <li>рэп? Я вас больше не знаю</li>
-            <li>Почему сразу рэп? Я не хочу такое слушать</li>
-            <li>Какое ужасное слово</li>
-        </random>
-    </template>
-</category>
-
-<category>
-    <pattern>* баста *</pattern>
-    <template>
-		<random>
-			<li>А вот Баста - это хорошо</li>
-            <li>Круговорот людей...</li>
-        </random>
-    </template>
-</category>
-
-<category>
-    <pattern>* любимый фильм *</pattern>
-    <template>
-		<random>
-			<li>Мне нравится 1+1</li>
-            <li>Я не давно посмотрел Час-Пик. Классный фильм</li>
-            <li>"Аватар" - хороший фильм</li>
-            <li>"Стражи галактики" - смешной фильм</li>
-        </random>
-    </template>
-</category>
-
-<category>
-    <pattern>* зеленый слоник *</pattern>
-    <template>
-		<random>
-			<li>Сделаю вид что я этого не смотрел</li>
-        </random>
-    </template>
-</category>
 
 <category>
     <pattern>* СССР *</pattern>
@@ -78,6 +19,17 @@
             <li>А Пучкин что-то знает</li>
         </random>
     </template>
+</category>
+
+<category>
+	<pattern>* привет *</pattern>
+	<template>
+		<random>
+			<li>Привет</li>
+            <li>Хаюшки</li>
+            <li>Привет. А вы кто?</li>
+		</random>
+	</template>
 </category>
 
 <category>
