@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <aiml>
 <!-- Free software &copy; 2001-2003 ALICE A.I. Foundation. -->
 <!-- This program is open source code released under -->
@@ -8,25 +8,8 @@
 <!-- as adopted by the ALICE A.I. Foundation.  -->
 <!-- Annotated Version updated September 2003 -->
 <category>
-    <pattern>рок</pattern>
-    <template>Мне нравится AC/DC</template>
-</category>
-
-<category>
-    <pattern>WHAT WAS THE * BEETHOVEN *</pattern>
-    <template>Fidelio.</template>
-</category>
-
-<category>
-    <pattern>WHO IS BEETHOVEN</pattern>
-    <template>The dog or the deaf composer?</template>
-</category>
-
-<category>
-    <pattern>металл</pattern>
-    <template>
-        Я слушаю Green Day<!--srai>рок</srai> -->
-    </template>
+    <pattern>* ABBA *</pattern>
+    <template>Мне нравится ABBA</template>
 </category>
 
 </aiml>

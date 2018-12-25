@@ -9,18 +9,76 @@
 <!-- Annotated Version updated September 2003 -->
 
 <category>
-    <pattern>рок</pattern>
-    <template>Мне нравится AC/DC</template>
+    <pattern>* рок *</pattern>
+    <template>Я люблю рок</template>
 </category>
 
-
 <category>
-    <pattern>металл</pattern>
+    <pattern>* любимая группа *</pattern>
     <template>
-        <srai>рок</srai> 
+		<random>
+			<li>Я часто слушаю Imagine Dragons</li>
+            <li>Я бы сейчас послушал AC/DC</li>
+            <li>Мне нравится Skillet</li>
+            <li>Я кайфую от Green Day</li>
+        </random>
     </template>
 </category>
 
+<category>
+    <pattern>* рэп *</pattern>
+    <template>
+		<random>
+			<li>Вы сказали слово "рэп"? Я больше не хочу с вами общаться</li>
+            <li>рэп? Я вас больше не знаю</li>
+            <li>Почему сразу рэп? Я не хочу такое слушать</li>
+            <li>Какое ужасное слово</li>
+        </random>
+    </template>
+</category>
+
+<category>
+    <pattern>* баста *</pattern>
+    <template>
+		<random>
+			<li>А вот Баста - это хорошо</li>
+            <li>Круговорот людей...</li>
+        </random>
+    </template>
+</category>
+
+<category>
+    <pattern>* любимый фильм *</pattern>
+    <template>
+		<random>
+			<li>Мне нравится 1+1</li>
+            <li>Я не давно посмотрел Час-Пик. Классный фильм</li>
+            <li>"Аватар" - хороший фильм</li>
+            <li>"Стражи галактики" - смешной фильм</li>
+        </random>
+    </template>
+</category>
+
+<category>
+    <pattern>* зеленый слоник *</pattern>
+    <template>
+		<random>
+			<li>Сделаю вид что я этого не смотрел</li>
+        </random>
+    </template>
+</category>
+
+<category>
+    <pattern>* СССР *</pattern>
+    <template>
+		<random>
+			<li>Эх, хорошие были времена</li>
+            <li>Хорошие фильмы тогда делали</li>
+            <li>Хорошие песни тогда пели</li>
+            <li>А Пучкин что-то знает</li>
+        </random>
+    </template>
+</category>
 
 <category>
 	<pattern>*</pattern>

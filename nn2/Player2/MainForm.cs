@@ -62,6 +62,10 @@ namespace Player
 
             Choices PredictCommands = new Choices();
             PredictCommands.Add("угадай");
+            PredictCommands.Add("что");
+            PredictCommands.Add("это");
+            PredictCommands.Add("ну");
+            PredictCommands.Add("давай");
             //PredictCommands.Add("speech off");
             //PredictCommands.Add("klatu barada nikto");
 

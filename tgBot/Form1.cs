@@ -49,9 +49,9 @@ namespace tgBot
         private void InitAIML()
         {
             aiml = new AIMLbot.Bot();
-            string p1 = Environment.CurrentDirectory;
-            string p2 = Path.Combine("config", "Settings.xml");
-            string p = Path.Combine(p1, p2);
+            //string p1 = Environment.CurrentDirectory;
+            //string p2 = Path.Combine("config", "Settings.xml");
+            //string p = Path.Combine(p1, p2);
             aiml.loadSettings();
             
             me = new AIMLbot.User("Lucky", aiml);
@@ -87,10 +87,13 @@ namespace tgBot
                        Good morning!
                         ");
                 }*/
-                AIMLbot.Request r = new AIMLbot.Request(e.Message.Text, me, aiml);
-                AIMLbot.Result res = aiml.Chat(r);
-                Bot.SendTextMessageAsync(e.Message.Chat.Id, res.Output);         
-                
+
+                //if (e.Message.Text.Contains("LuckyBot") || e.Message.Text.Contains("Lucky_7_Bot"))
+                {
+                    AIMLbot.Request r = new AIMLbot.Request("я " + e.Message.Text + " я", me, aiml);
+                    AIMLbot.Result res = aiml.Chat(r);
+                    Bot.SendTextMessageAsync(e.Message.Chat.Id, res.Output);
+                }
 
                 //label1.Text += "Received: " + e.Message.Text;
             }
