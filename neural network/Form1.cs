@@ -9,6 +9,10 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using Microsoft.Speech.Recognition;
+using Microsoft.Speech.Synthesis;
+using System.Globalization;
+
 namespace neural_network
 {
 
@@ -21,6 +25,9 @@ namespace neural_network
         double n;
         NeuralNet net;
         int last_picture = 0;
+
+        static SpeechSynthesizer ss = new SpeechSynthesizer();
+        static SpeechRecognitionEngine sre;
 
         public Form1()
         {
@@ -44,6 +51,43 @@ namespace neural_network
                 if (c.Name != "button4")
                     c.Visible = false;
             }
+
+            InitSpeech();
+        }
+
+        private void InitSpeech()
+        {
+            System.Globalization.CultureInfo ci;
+            ci = new System.Globalization.CultureInfo("ru-ru");
+            sre = new SpeechRecognitionEngine(ci);
+
+            ss.SetOutputToDefaultAudioDevice();
+            sre.SetInputToDefaultAudioDevice();
+            sre.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(sre_SpeechRecognized);
+
+            Choices PredictCommands = new Choices();
+            PredictCommands.Add("угадай");
+            PredictCommands.Add("что");
+            PredictCommands.Add("это");
+            PredictCommands.Add("ну");
+            PredictCommands.Add("давай");
+            //PredictCommands.Add("speech off");
+            //PredictCommands.Add("klatu barada nikto");
+
+            GrammarBuilder gb_Predict = new GrammarBuilder();
+            gb_Predict.Append(PredictCommands);
+
+            Grammar g_Predict = new Grammar(gb_Predict);
+            sre.LoadGrammarAsync(g_Predict);
+
+            sre.RecognizeAsync(RecognizeMode.Multiple);
+        }
+
+        private void sre_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+        {
+            string txt = e.Result.Text;
+
+            button2_Click(this, new EventArgs());
         }
 
         private static Graphics g;
@@ -484,6 +528,25 @@ namespace neural_network
 
             show_res(net.s);
             predictVisible(p); //выводит отладочную информацию по предсказанию на форму
+
+            int res = indexOfMax(p);
+            string s = "";
+            switch (res)
+            {
+                case 0:
+                    s = "Квадрат";
+                    break;
+                case 1:
+                    s = "Треугольник";
+                    break;
+                case 2:
+                    s = "Круг";
+                    break;
+                case 3:
+                    s = "Синусоида";
+                    break;
+            }
+            ss.SpeakAsync(s);
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -808,8 +871,6 @@ namespace neural_network
             for (int i = 0; i < layer_cnt + 1; ++i)
                 for (int j = 0; j < out_cnt; ++j)
                     matr[i][j] += n * eps_out[j] * layer[i];
-
         }
     }
-    
 }

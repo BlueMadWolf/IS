@@ -33,6 +33,26 @@
 </category>
 
 <category>
+	<pattern>* как дела *</pattern>
+	<template>
+		<random>
+			<li>Всё отлично</li>
+            <li>У меня всё ок</li>
+		</random>
+	</template>
+</category>
+
+<category>
+	<pattern>* ты кто *</pattern>
+	<template>
+		<random>
+			<li>Я бот</li>
+            <li>Я самый хороший и скромный бот</li>
+		</random>
+	</template>
+</category>
+
+<category>
 	<pattern>* твое имя *</pattern>
 	<template>
 		<random>
@@ -42,7 +62,7 @@
 	</template>
 </category>
 
-
+<!--
 <category>
 	<pattern>*</pattern>
 	<template>
@@ -55,5 +75,6 @@
 		</random>
 	</template>
 </category>
+-->
 
 </aiml>

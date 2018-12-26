@@ -76,21 +76,20 @@ namespace tgBot
         private void Add(ref List<string> additions, List<string> words, int num)
         {
             List<string> new_words = new List<string>();
-            string word = "бот";
+            string word = "Х";
             for (int i = 0; i < words.Count; ++i)
             {
-                if ((num & (1 << i)) != 0)
+                if (num % (1 << i) == 1)
                 {
                     new_words.Add(word);
                 }
                 new_words.Add(words[i]);
             }
-            if ((num & (1 << words.Count)) != 0)
+            if (num % (1 << words.Count) == 1)
             {
                 new_words.Add(word);
             }
-            string res = new_words.Aggregate((sres, s) => string.Concat(sres, " ", s));
-            additions.Add(res);
+            new_words.Aggregate((sres, s) => sres.co)
         }
 
         private List<string> PhraseAdditions(string phrase)
@@ -101,42 +100,10 @@ namespace tgBot
 
             int max_2 = 1 << max_cnt_additions;
 
-            List<string> additions = new List<string>();
-
             for (int i = 0; i < max_2; ++i)
             {
-                Add(ref additions, words, i);
+
             }
-
-            return additions;
-        }
-
-        Random rand = new Random();
-
-        private string GetAnswer(string text)
-        {
-            List<string> def = new List<string>()
-                {"А?", "Что вы сказали?", "Я не понимаю", "Я в конфузии", "Ага" };
-
-            List<string> additions = PhraseAdditions(text);
-
-            string answ = "";
-            foreach (var item in additions)
-            {
-                AIMLbot.Request r = new AIMLbot.Request(item, me, aiml);
-                AIMLbot.Result res = aiml.Chat(r);
-                if (res.Output != "")
-                {
-                    answ = res.Output;
-                }
-            }
-
-            if (answ == "")
-            {
-                answ = def[rand.Next(0, def.Count)];
-            }
-
-            return answ;
         }
 
         private void Bot_OnMessage(object sender, Telegram.Bot.Args.MessageEventArgs e)
@@ -185,8 +152,9 @@ namespace tgBot
                 {
                     if (!silence)
                     {
-                        string answ = GetAnswer(text);  
-                        Bot.SendTextMessageAsync(e.Message.Chat.Id, answ, replyToMessageId: e.Message.MessageId);
+                        AIMLbot.Request r = new AIMLbot.Request(text, me, aiml);
+                        AIMLbot.Result res = aiml.Chat(r);
+                        Bot.SendTextMessageAsync(e.Message.Chat.Id, res.Output, replyToMessageId: e.Message.MessageId);
                     }
                 }
                 //label1.Text += "Received: " + e.Message.Text;

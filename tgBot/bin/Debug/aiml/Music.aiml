@@ -18,7 +18,7 @@
 </category>
 
 <category>
-    <pattern> потанцуем *</pattern>
+    <pattern> * потанцуем *</pattern>
     <template>давай :) </template>
 </category>
 
@@ -50,19 +50,23 @@
 
 <category>
     <pattern>* жанр музыки *</pattern>
+    <template>
     <random>
 		<li>Только рок! Только хардкор!</li>
 	    <li>Вы что-нибудь слышали про retrowave?</li>
 	</random>
+    </template>
 </category>
 
 <category>
     <pattern>* любимый жанр *</pattern>
+    <template>
 	 <random>
 		<li>Я люблю рок</li>
 		<li>Классика так расслабляет</li>
 		<li>Вы что-нибудь слышали про retrowave?</li>
 	</random>
+    </template>
 </category>
 
 <category>
