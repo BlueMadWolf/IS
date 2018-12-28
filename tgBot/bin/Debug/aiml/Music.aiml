@@ -18,20 +18,38 @@
 </category>
 
 <category>
-    <pattern> * потанцуем *</pattern>
-    <template>давай :) </template>
+    <pattern>* потанцуем *</pattern>
+    <template>
+	 <random>
+		<li> Давай! </li>
+		<li> Боюсь оттоптать Вам все ноги...</li>
+		<li> Быстрее танцевать! Под рок-н-ролл, конечно?</li>
+	</random>
+    </template>
+</category>
+
+<category>
+    <pattern>* советские песни *</pattern>
+    <template>
+	 <random>
+		<li> "Вдоль по Питерской" в исполнении Магомаева. </li>
+		<li> "Я оглянулся посмотреть, не оглянулась ли она..." Эх, были же времена!</li>
+		<li> Кто тебе сказал, ну кто тебе сказал...</li>
+		<li> Включаем "Черного кота" в исполнянии Миансаровой Тамары.</li>
+	</random>
+    </template>
 </category>
 
 <category>
     <pattern>* спой *</pattern>
-    <template> Выйду ночью в поле с конем... Hочкой темной тихо пойдем... </template>
+    <template>
+	 <random>
+		<li> Выйду ночью в поле с конем... Hочкой темной тихо пойдем... </li>
+		<li> Говорят, не повезет, если черный кот дорогу перейдет. </li>
+		<li> Если я чешу в затылке - не беда,в голове моей опилки, да, да, да. </li>
+	</random>
+    </template>
 </category>
-
-<category>
-    <pattern> спой </pattern>
-    <template> Выйду ночью в поле с конем... Hочкой темной тихо пойдем... </template>
-</category>
-
 
 <category>
     <pattern>* Papa Roach *</pattern>
@@ -45,7 +63,67 @@
 
 <category>
     <pattern>* рок *</pattern>
-    <template>Я люблю рок</template>
+    <template>
+	 <random>
+		<li>Я люблю рок</li>
+		<li>Что может быть лучше, чем песня любмой рок-группы?</li>
+	</random>
+    </template>
+</category>
+
+<category>
+    <pattern>* классическая музыка *</pattern>
+    <template>
+	 <random>
+		<li>Куда же без нее?</li>
+		<li>Кому она может не понравиться?</li>
+		<li>Классическая музыка подходит в любой ситуации.</li>
+		<li>Может сходим на концерт? А то в телеграмм так скучно Т.т </li>
+	</random>
+    </template>
+</category>
+
+<category>
+    <pattern>* любимый исполнитель *</pattern>
+    <template>
+	 <random>
+		<li> Магомаев </li>
+		<li> Луи Армстронг. Инфа 100%</li>
+		<li> Хм... Тяжело так сразу сказать...</li>
+	</random>
+    </template>
+</category>
+
+<category>
+    <pattern>* джаз *</pattern>
+    <template>
+	 <random>
+		<li>Джаз - отличительный признак хорошего музыкального вкуса :)</li>
+		<li>Послушаем Луи Армстронга? </li>
+	</random>
+    </template>
+</category>
+
+
+<category>
+    <pattern>* советские песни *</pattern>
+    <template>
+	 <random>
+		<li>Даже не знаю с чего начать?</li>
+		<li>Послушаем Луи Армстронга? </li>
+	</random>
+    </template>
+</category>
+
+
+<category>
+    <pattern>* рок-н-ролл *</pattern>
+    <template>
+	 <random>
+		<li>Еееее. Включаем Чака Берри!</li>
+		<li>Быстро танцевать!</li>
+	</random>
+    </template>
 </category>
 
 <category>

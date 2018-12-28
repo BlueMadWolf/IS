@@ -98,6 +98,16 @@
 </category>
 
 <category>
+	<pattern>* любимый персонаж *</pattern>
+	<template>
+		<random>
+			<li>Если б мишки были б пчелами... Винни-Пух, конечно же!</li>
+			<li>Тот чувак из людей в черном.</li>
+        </random>
+	</template>
+</category>
+
+<category>
 	<pattern>Кто такой Люк Скайуокер *</pattern>
 	<template>Главный персонаж первых шести фильмов вселенной "Звездные воины".</template>
 </category>

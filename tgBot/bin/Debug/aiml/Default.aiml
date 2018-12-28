@@ -27,7 +27,7 @@
 		<random>
 			<li>Привет</li>
             <li>Хаюшки</li>
-            <li>Привет. А вы кто?</li>
+            <li>Здравствуйте, меня зовут LuckyBot. Чем я могу Вам помочь?</li>
 		</random>
 	</template>
 </category>
@@ -38,6 +38,7 @@
 		<random>
 			<li>Всё отлично</li>
             <li>У меня всё ок</li>
+			<li>Чувствуется запах ели, мандаринов и сессии. В общем, все как всегда.</li>
 		</random>
 	</template>
 </category>
@@ -46,18 +47,32 @@
 	<pattern>* ты кто *</pattern>
 	<template>
 		<random>
-			<li>Я бот</li>
+			<li>Я - LuckyBot. Самый хороший и скромный бот.</li>
             <li>Я самый хороший и скромный бот</li>
 		</random>
 	</template>
 </category>
 
 <category>
-	<pattern>* твое имя *</pattern>
+	<pattern>* как твое имя *</pattern>
 	<template>
 		<random>
+			<li>Я - LuckyBot.</li>
+            <li>Bot. LuckyBot. </li>
 			<li>Меня зовут LuckyBot</li>
             <li>LuckyBot мое имя</li>
+		</random>
+	</template>
+</category>
+
+
+<category>
+	<pattern>* что ты умеешь *</pattern>
+	<template>
+		<random>
+			<li>Я могу посоветовать музыку или фильм. И это не все, что я умею! </li>
+            <li>Да много чего, например, петь. </li>
+			<li>Поддержу разговор о музыке. Вот ты какую предпочитаешь? </li>
 		</random>
 	</template>
 </category>
